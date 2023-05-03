@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@t3-oss/env-nextjs':
+    specifier: ^0.2.2
+    version: 0.2.2(zod@3.21.4)
   next:
     specifier: ^13.3.4
     version: 13.3.4(react-dom@18.2.0)(react@18.2.0)
@@ -10,6 +13,9 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
 
 devDependencies:
   '@types/eslint':
@@ -295,6 +301,23 @@ packages:
     resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
     dependencies:
       tslib: 2.5.0
+    dev: false
+
+  /@t3-oss/env-core@0.2.2(zod@3.21.4):
+    resolution: {integrity: sha512-Jiuph14/L3L9EDaU0O0YiLeaKUcWA9c3mWYuKem8+L64i3Iwz+IbKdl5Jp4cx+JbOsS/aptwGZplnxSHhm2gMQ==}
+    peerDependencies:
+      zod: ^3.0.0
+    dependencies:
+      zod: 3.21.4
+    dev: false
+
+  /@t3-oss/env-nextjs@0.2.2(zod@3.21.4):
+    resolution: {integrity: sha512-9LnVpTkf/8WkggyVN6Liz9Ma9a7fLzV00b5BngWj3HI3iWDfddsWaqCf/H0f46Bgu29NubP3Bwajf1JieVrxFA==}
+    peerDependencies:
+      zod: ^3.0.0
+    dependencies:
+      '@t3-oss/env-core': 0.2.2(zod@3.21.4)
+      zod: 3.21.4
     dev: false
 
   /@types/eslint@8.37.0:
@@ -2905,3 +2928,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod@3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    dev: false

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/Button";
 import { db } from "@/server/db";
 import { links } from "@/server/db/schema";
 import Link from "next/link";
@@ -14,6 +15,7 @@ export default async function Home() {
           </Link>
         ))}
       </ul>
+      <Button>Cut it</Button>
     </main>
   );
 }

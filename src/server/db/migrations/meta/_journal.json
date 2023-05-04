@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1683190180332,
+      "tag": "0000_early_major_mapleleaf",
+      "breakpoints": false
+    }
+  ]
+}

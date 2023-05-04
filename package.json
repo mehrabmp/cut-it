@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.1",
     "@t3-oss/env-nextjs": "^0.2.2",
     "@vercel/postgres": "^0.1.3",
+    "class-variance-authority": "^0.6.0",
+    "clsx": "^1.2.1",
     "drizzle-orm": "^0.25.4",
+    "lucide-react": "^0.206.0",
     "next": "^13.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "tailwind-merge": "^1.12.0",
+    "tailwindcss-animate": "^1.0.5",
     "zod": "^3.21.4"
   },
   "devDependencies": {

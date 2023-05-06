@@ -5,8 +5,8 @@ dependencies:
     specifier: ^1.0.1
     version: 1.0.1(react@18.2.0)
   '@t3-oss/env-nextjs':
-    specifier: ^0.2.2
-    version: 0.2.2(zod@3.21.4)
+    specifier: ^0.3.0
+    version: 0.3.0(typescript@5.0.4)(zod@3.21.4)
   '@vercel/postgres':
     specifier: ^0.1.3
     version: 0.1.3
@@ -362,20 +362,24 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@t3-oss/env-core@0.2.2(zod@3.21.4):
-    resolution: {integrity: sha512-Jiuph14/L3L9EDaU0O0YiLeaKUcWA9c3mWYuKem8+L64i3Iwz+IbKdl5Jp4cx+JbOsS/aptwGZplnxSHhm2gMQ==}
+  /@t3-oss/env-core@0.3.0(typescript@5.0.4)(zod@3.21.4):
+    resolution: {integrity: sha512-d2D/CSvPPPooysZFO4OZH/aneYVppwjnYJSyBMcZtvtDQH++QgmHlOui8aUriPf4+Ul/DmhQjQEh0eGorINihw==}
     peerDependencies:
+      typescript: '>=4.7.2'
       zod: ^3.0.0
     dependencies:
+      typescript: 5.0.4
       zod: 3.21.4
     dev: false
 
-  /@t3-oss/env-nextjs@0.2.2(zod@3.21.4):
-    resolution: {integrity: sha512-9LnVpTkf/8WkggyVN6Liz9Ma9a7fLzV00b5BngWj3HI3iWDfddsWaqCf/H0f46Bgu29NubP3Bwajf1JieVrxFA==}
+  /@t3-oss/env-nextjs@0.3.0(typescript@5.0.4)(zod@3.21.4):
+    resolution: {integrity: sha512-TP/yTxH46oP3aJOBwOrcQwVHGA8X3b0/gT9kK9KotZVdsIUSg/T69PhijZG4KLLBeR71uhoFedSipXg5KdsHLQ==}
     peerDependencies:
+      typescript: '>=4.7.2'
       zod: ^3.0.0
     dependencies:
-      '@t3-oss/env-core': 0.2.2(zod@3.21.4)
+      '@t3-oss/env-core': 0.3.0(typescript@5.0.4)(zod@3.21.4)
+      typescript: 5.0.4
       zod: 3.21.4
     dev: false
 

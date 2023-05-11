@@ -15,7 +15,7 @@
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "drizzle-orm": "^0.25.4",
-    "lucide-react": "^0.215.0",
+    "lucide-react": "^0.216.0",
     "next": "^13.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

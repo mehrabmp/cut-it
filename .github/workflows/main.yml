@@ -22,6 +22,7 @@ jobs:
 
     env:
       SKIP_ENV_VALIDATION: true
+      POSTGRES_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
       POSTGRES_DATABASE: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -72,5 +73,3 @@ jobs:
 
       - name: Build and test
         run: pnpm build
-        env:
-          SKIP_ENV_VALIDATION: true

@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/button";
+import { Input } from "@/components/input";
 
 export default function Home() {
   return (

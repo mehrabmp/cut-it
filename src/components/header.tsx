@@ -1,5 +1,5 @@
 import { Paytone_One } from "next/font/google";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/button";
 
 const paytoneOne = Paytone_One({ subsets: ["latin"], weight: ["400"] });
 

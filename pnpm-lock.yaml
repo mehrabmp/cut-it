@@ -20,8 +20,8 @@ dependencies:
     specifier: ^0.25.4
     version: 0.25.4(@vercel/postgres@0.3.0)
   lucide-react:
-    specifier: ^0.216.0
-    version: 0.216.0(react@18.2.0)
+    specifier: ^0.220.0
+    version: 0.220.0(react@18.2.0)
   next:
     specifier: ^13.4.1
     version: 13.4.1(react-dom@18.2.0)(react@18.2.0)
@@ -2460,8 +2460,8 @@ packages:
       es5-ext: 0.10.62
     dev: true
 
-  /lucide-react@0.216.0(react@18.2.0):
-    resolution: {integrity: sha512-PGWXs6JXI/08rhfkmj/joji0MAKDCcms44j0LYILO4J36AWqKhgjjaZ6WECRSyZ9TQe5gOrAR0g38O8cKrQngw==}
+  /lucide-react@0.220.0(react@18.2.0):
+    resolution: {integrity: sha512-bYtGUsLAWBvZu+BzAU/ziP1gzE4LwMEXLnlgSr1yUKEPPalLG77JLd5GdYebOVkpm+GtqRqnp6tEKDX7Bm8ZlQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:

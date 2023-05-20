@@ -14,7 +14,7 @@
     "@vercel/postgres": "^0.3.0",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
-    "drizzle-orm": "^0.25.4",
+    "drizzle-orm": "^0.26.0",
     "lucide-react": "^0.220.0",
     "next": "^13.4.1",
     "react": "^18.2.0",

@@ -17,8 +17,8 @@ dependencies:
     specifier: ^1.2.1
     version: 1.2.1
   drizzle-orm:
-    specifier: ^0.25.4
-    version: 0.25.4(@vercel/postgres@0.3.0)
+    specifier: ^0.26.0
+    version: 0.26.0(@vercel/postgres@0.3.0)
   lucide-react:
     specifier: ^0.220.0
     version: 0.220.0(react@18.2.0)
@@ -65,7 +65,7 @@ devDependencies:
     version: 10.4.14(postcss@8.4.23)
   drizzle-kit:
     specifier: db-push
-    version: 0.17.6-76e73f3
+    version: 0.18.0-27440c3
   eslint:
     specifier: ^8.40.0
     version: 8.40.0
@@ -1052,8 +1052,8 @@ packages:
       wordwrap: 1.0.0
     dev: true
 
-  /drizzle-kit@0.17.6-76e73f3:
-    resolution: {integrity: sha512-HmsTYbm4Y3gfv2jlzRQ04mbepnP9eKHWWFPnzEInrVEJJ85k0hxldGpbql03flZPII4W0z5FwuGUC9ROOLhVNw==}
+  /drizzle-kit@0.18.0-27440c3:
+    resolution: {integrity: sha512-8pk3cSZsKGvymRm7z00jswiSV5rSs4s3QUNjKXjcPTMti2m8A7nH/CNejCLtd7ChSNmVQ07Oka1WyNkyizX0Og==}
     hasBin: true
     dependencies:
       camelcase: 7.0.1
@@ -1070,8 +1070,8 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.25.4(@vercel/postgres@0.3.0):
-    resolution: {integrity: sha512-vURs2SqDh5pk81WWE4hR8gFKDTRmCK4FbaUGsZoljKnjKvMrjlA5xFPGiCih4/1XKqnOgSuh+I6T9KGBjYcPAA==}
+  /drizzle-orm@0.26.0(@vercel/postgres@0.3.0):
+    resolution: {integrity: sha512-ztjhHehcuG5+lpGYxfT/L5I+yd/Z0dOf0fV3cS2ywBU01wkpxjwl4EJZVT7kVzjYfM8kwMGDghAPRPBCK0vULA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'

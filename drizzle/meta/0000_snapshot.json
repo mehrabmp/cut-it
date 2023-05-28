@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "52f4f6be-2eef-4dcf-ae50-c000f096b33b",
+  "id": "02995090-266a-4921-948c-2781612436b9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "links": {
@@ -16,9 +16,9 @@
         },
         "title": {
           "name": "title",
-          "type": "varchar(255)",
+          "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "description": {
           "name": "description",
@@ -28,13 +28,19 @@
         },
         "key": {
           "name": "key",
-          "type": "varchar(255)",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         },
         "url": {
           "name": "url",
           "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
@@ -51,6 +57,29 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        }
+      },
+      "indexes": {
+        "key_idx": {
+          "name": "key_idx",
+          "columns": [
+            "key"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    },
+    "users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
         }
       },
       "indexes": {},

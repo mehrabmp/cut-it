@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@radix-ui/react-slot':
@@ -20,8 +24,8 @@ dependencies:
     specifier: ^0.26.1
     version: 0.26.1(@vercel/postgres@0.3.0)
   lucide-react:
-    specifier: ^0.223.0
-    version: 0.223.0(react@18.2.0)
+    specifier: ^0.224.0
+    version: 0.224.0(react@18.2.0)
   next:
     specifier: ^13.4.4
     version: 13.4.4(react-dom@18.2.0)(react@18.2.0)
@@ -2466,8 +2470,8 @@ packages:
       es5-ext: 0.10.62
     dev: true
 
-  /lucide-react@0.223.0(react@18.2.0):
-    resolution: {integrity: sha512-4ST5mVxlVxsXKh5dEXa0rgXOtCYmbe5iz7uKN9+ugOLYXrbX/BhyD82Js5rAzLyBxTIhgejEsg+kICw8neC+rQ==}
+  /lucide-react@0.224.0(react@18.2.0):
+    resolution: {integrity: sha512-2QuPhbEAicN1Ak9DSeViYhZLYogW54e802IFDasoy/AXKGrnzTcBLQM8gidXbOd2DSWbrLHDgN6n4340QzyujQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:

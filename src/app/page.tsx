@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { LinkList } from "@/components/home/link-list";
+import { PublicLinkForm } from "@/components/home/public-link-form";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -11,14 +12,10 @@ export default function Home() {
           links
         </h2>
       </div>
-      <div className="flex w-80 items-center justify-center gap-2">
-        <div className="flex-1">
-          <Input placeholder="Enter the link here" />
-        </div>
-        <div className="">
-          <Button>Cut it</Button>
-        </div>
-      </div>
+      <PublicLinkForm />
+      <Suspense fallback={<p>Loading...</p>}>
+        <LinkList />
+      </Suspense>
     </div>
   );
 }

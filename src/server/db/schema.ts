@@ -8,6 +8,7 @@ import {
   uniqueIndex,
   integer,
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 
 export const links = pgTable(
   "links",
@@ -19,7 +20,7 @@ export const links = pgTable(
     url: text("url").notNull(),
     userId: integer("userId").notNull(),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
-    updateAt: timestamp("updatedAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().notNull(),
   },
   (links) => {
     return {
@@ -33,6 +34,13 @@ export const linksRelations = relations(links, ({ one }) => ({
 }));
 
 export type Link = InferModel<typeof links>;
+
+export const insertLinkSchema = createInsertSchema(links).omit({
+  id: true,
+  userId: true,
+  createdAt: true,
+  updatedAt: true,
+});
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),

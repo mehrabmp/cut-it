@@ -20,7 +20,7 @@
     "@vercel/postgres": "^0.3.0",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
-    "drizzle-orm": "^0.26.5",
+    "drizzle-orm": "^0.27.0",
     "lucide-react": "^0.244.0",
     "drizzle-zod": "^0.4.3",
     "nanoid": "^4.0.2",

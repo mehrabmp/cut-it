@@ -21,7 +21,7 @@
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "drizzle-orm": "^0.26.5",
-    "lucide-react": "^0.242.0",
+    "lucide-react": "^0.244.0",
     "drizzle-zod": "^0.4.3",
     "nanoid": "^4.0.2",
     "next": "^13.4.4",

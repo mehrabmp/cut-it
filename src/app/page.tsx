@@ -7,7 +7,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center gap-20 p-2">
       <div className="mt-20 space-y-2 text-center">
         <h1 className="text-4xl font-bold">Free URL Shortener</h1>
-        <h2 className="font-normal text-neutral-800">
+        <h2 className="font-normal text-neutral-400">
           Cut It is a free open source tool to shorten URLs and generate short
           links
         </h2>

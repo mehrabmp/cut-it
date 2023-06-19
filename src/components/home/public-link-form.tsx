@@ -48,7 +48,11 @@ export const PublicLinkForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Enter the link here" {...field} />
+                  <Input
+                    placeholder="Enter the link here"
+                    autoComplete="off"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

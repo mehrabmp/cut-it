@@ -21,8 +21,8 @@ dependencies:
     specifier: ^0.2.1
     version: 0.2.1
   '@vercel/postgres':
-    specifier: ^0.3.1
-    version: 0.3.1
+    specifier: ^0.4.0
+    version: 0.4.0
   class-variance-authority:
     specifier: ^0.6.0
     version: 0.6.0(typescript@5.1.3)
@@ -31,7 +31,7 @@ dependencies:
     version: 1.2.1
   drizzle-orm:
     specifier: ^0.27.0
-    version: 0.27.0(@vercel/postgres@0.3.1)
+    version: 0.27.0(@vercel/postgres@0.4.0)
   drizzle-zod:
     specifier: ^0.4.4
     version: 0.4.4(drizzle-orm@0.27.0)(zod@3.21.4)
@@ -433,8 +433,8 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
-  /@neondatabase/serverless@0.4.11:
-    resolution: {integrity: sha512-giqda7y/PZz0htUzt2jhDuAj1zeECf2CvAY6Nv1AvnYPqSzXCLQczeQ0Zqw/fPRPt7MPgD8qkNLQJ123bYh+eg==}
+  /@neondatabase/serverless@0.4.19:
+    resolution: {integrity: sha512-atzpP9uBLrWPokXZdVy2iNPmmxVx51HXhrEObDb4KXmsyGEkGhCcb6cs51LA/oyXwjJUeB4AreOoVgMcPAIv5g==}
     dependencies:
       '@types/pg': 8.6.6
     dev: false
@@ -861,11 +861,11 @@ packages:
       - encoding
     dev: false
 
-  /@vercel/postgres@0.3.1:
-    resolution: {integrity: sha512-1rc17XiYKzcPd+E43nn5BRRBQbt///Fvd1Vb48WeozZ5XD4K6c2tk4u43fGVRftJoc3+UHdGuBOE+sVo+wd6qw==}
+  /@vercel/postgres@0.4.0:
+    resolution: {integrity: sha512-GemRRKvLi90BC511WQzt5tfVLPNOQ9eNbbbaPquSgasm5ogfWLtjJSbNUD4jYEbs9IxbNovKqr0H0CAjJzOAyw==}
     engines: {node: '>=14.6'}
     dependencies:
-      '@neondatabase/serverless': 0.4.11
+      '@neondatabase/serverless': 0.4.19
       bufferutil: 4.0.7
       utf-8-validate: 6.0.3
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@6.0.3)
@@ -1344,7 +1344,7 @@ packages:
       zod: 3.21.4
     dev: true
 
-  /drizzle-orm@0.27.0(@vercel/postgres@0.3.1):
+  /drizzle-orm@0.27.0(@vercel/postgres@0.4.0):
     resolution: {integrity: sha512-LGiJ0icB+wQwgbSCOvAjONY8Ec6G/EDzQQP5PmUaQYeI9OqgpVKHC2T1fFIbvk5dabWsbokJ5NOciVAxriStig==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -1406,7 +1406,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@vercel/postgres': 0.3.1
+      '@vercel/postgres': 0.4.0
     dev: false
 
   /drizzle-zod@0.4.4(drizzle-orm@0.27.0)(zod@3.21.4):
@@ -1415,7 +1415,7 @@ packages:
       drizzle-orm: '>=0.23.13'
       zod: '*'
     dependencies:
-      drizzle-orm: 0.27.0(@vercel/postgres@0.3.1)
+      drizzle-orm: 0.27.0(@vercel/postgres@0.4.0)
       zod: 3.21.4
     dev: false
 

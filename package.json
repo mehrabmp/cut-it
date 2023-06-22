@@ -17,7 +17,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.4.1",
     "@vercel/kv": "^0.2.1",
-    "@vercel/postgres": "^0.3.1",
+    "@vercel/postgres": "^0.4.0",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "drizzle-orm": "^0.27.0",

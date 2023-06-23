@@ -36,8 +36,8 @@ dependencies:
     specifier: ^0.4.4
     version: 0.4.4(drizzle-orm@0.27.0)(zod@3.21.4)
   lucide-react:
-    specifier: ^0.246.0
-    version: 0.246.0(react@18.2.0)
+    specifier: ^0.252.0
+    version: 0.252.0(react@18.2.0)
   nanoid:
     specifier: ^4.0.2
     version: 4.0.2
@@ -2525,8 +2525,8 @@ packages:
       es5-ext: 0.10.62
     dev: true
 
-  /lucide-react@0.246.0(react@18.2.0):
-    resolution: {integrity: sha512-0OkIG28coMDnQfy9+vYr/+8BY42KpBO05WkslfIEJuDxi/qwcJfUXsG+nhONGMAUs/ADR5fE8upHBw76O/yMPg==}
+  /lucide-react@0.252.0(react@18.2.0):
+    resolution: {integrity: sha512-98hUdm23F3YlC3UN4mzv1FAsWr81YYdxF31cYhm19c51FwOph4dn5B4NjKp45UXBiR1Xx+cKrdmSIZX0ldS8zw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:

@@ -1,6 +1,9 @@
 import { LinkList } from "@/components/home/link-list";
 import { PublicLinkForm } from "@/components/home/public-link-form";
+import { Loader } from "@/components/ui/loader";
 import { Suspense } from "react";
+
+export const runtime = "edge";
 
 export default function Home() {
   return (
@@ -13,7 +16,7 @@ export default function Home() {
         </h2>
       </div>
       <PublicLinkForm />
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<Loader />}>
         <LinkList />
       </Suspense>
     </div>

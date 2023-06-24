@@ -1,5 +1,7 @@
 import { db } from "@/server/db";
 
+export const dynamic = true;
+
 export const LinkList = async () => {
   const links = await db.query.links.findMany({
     with: {

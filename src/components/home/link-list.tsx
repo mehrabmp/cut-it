@@ -1,6 +1,6 @@
 import { db } from "@/server/db";
 
-export const dynamic = true;
+export const dynamic = "force-dynamic";
 
 export const LinkList = async () => {
   const links = await db.query.links.findMany({

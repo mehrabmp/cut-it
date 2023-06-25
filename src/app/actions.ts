@@ -9,8 +9,12 @@ import { revalidatePath } from "next/cache";
 export const createShortLink = zact(insertLinkSchema)(async (input) => {
   try {
     const key = nanoid();
-    // eslint-disable-next-line @typescript-eslint/await-thenable
-    await db.insert(links).values({ ...input, key, userId: 1 });
+    await db
+      .insert(links)
+      .values({ ...input, key, userId: 1 })
+      .run();
     revalidatePath("/");
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 });

@@ -14,7 +14,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { Loader } from "../ui/loader";
 
 const formSchema = z.object({
   url: z.string().url(),
@@ -60,8 +60,8 @@ export const PublicLinkForm = () => {
             )}
           />
         </div>
-        <Button type="submit" disabled={isLoading}>
-          {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+        <Button type="submit" variant="outline" disabled={isLoading}>
+          {isLoading && <Loader size="sm" className="mr-2" />}
           Cut it
         </Button>
       </form>

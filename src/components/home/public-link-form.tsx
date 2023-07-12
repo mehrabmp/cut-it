@@ -23,7 +23,7 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>;
 
 export const PublicLinkForm = () => {
-  const { mutate, error, isLoading } = useZact(createShortLink);
+  const { mutate, isLoading } = useZact(createShortLink);
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),

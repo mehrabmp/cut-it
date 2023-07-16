@@ -1,10 +1,11 @@
 "use client";
 
 import { z } from "zod";
-import { useZact } from "zact/client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createShortLink } from "@/app/actions";
+import { useAction } from "next-safe-action/hook";
+import { toast } from "sonner";
+import type { createShortLink } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,7 +15,11 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Loader } from "../ui/loader";
+import { Loader } from "@/components/ui/loader";
+
+interface Props {
+  createShortLink: typeof createShortLink;
+}
 
 const formSchema = z.object({
   url: z.string().url(),
@@ -22,9 +27,7 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export const PublicLinkForm = () => {
-  const { mutate, isLoading } = useZact(createShortLink);
-
+export const PublicLinkForm = ({ createShortLink }: Props) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,9 +35,21 @@ export const PublicLinkForm = () => {
     },
   });
 
-  const onSubmit = (values: FormSchema) => {
-    void mutate({ url: values.url, key: "" });
-  };
+  const { execute, isExecuting } = useAction(createShortLink, {
+    onError(error) {
+      const errorMessage = error.serverError
+        ? "Internal Server Error"
+        : error.validationError
+        ? "Bad Request"
+        : error.fetchError
+        ? "Fetch Error"
+        : "Error";
+      toast.error(errorMessage);
+    },
+  });
+
+  const onSubmit = (values: FormSchema) =>
+    execute({ url: values.url, slug: "" });
 
   return (
     <Form {...form}>
@@ -60,8 +75,8 @@ export const PublicLinkForm = () => {
             )}
           />
         </div>
-        <Button type="submit" variant="outline" disabled={isLoading}>
-          {isLoading && <Loader size="sm" className="mr-2" />}
+        <Button type="submit" variant="outline" disabled={isExecuting}>
+          {isExecuting && <Loader size="sm" className="mr-2" />}
           Cut it
         </Button>
       </form>

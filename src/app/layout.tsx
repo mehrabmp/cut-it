@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <main className="mx-auto max-w-5xl flex-1 px-4">{children}</main>
         <Footer />
       </body>
+      <Toaster theme="dark" position="bottom-center" richColors closeButton />
     </html>
   );
 }

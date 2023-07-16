@@ -2,12 +2,12 @@ import type { Link } from "@/server/db/schema";
 import {
   Card,
   CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  // CardFooter,
+  // CardHeader,
+  // CardTitle,
 } from "@/components/ui/card";
 
-export const LinkCard = ({ title, description, slug, url }: Link) => {
+export const LinkCard = ({ slug, url }: Link) => {
   return (
     <Card className="w-full">
       <CardContent>

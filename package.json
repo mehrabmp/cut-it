@@ -21,7 +21,7 @@
     "@vercel/kv": "^0.2.2",
     "@vercel/postgres": "^0.4.0",
     "class-variance-authority": "^0.6.1",
-    "clsx": "^1.2.1",
+    "clsx": "^2.0.0",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.27.2",
     "drizzle-zod": "^0.4.4",

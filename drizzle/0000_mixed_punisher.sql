@@ -1,5 +1,5 @@
 CREATE TABLE `links` (
-	`id` integer AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text(256),
 	`description` text,
 	`key` text(256) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `links` (
 );
 --> statement-breakpoint
 CREATE TABLE `users` (
-	`id` integer AUTO_INCREMENT PRIMARY KEY NOT NULL
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `key_idx` ON `links` (`key`);

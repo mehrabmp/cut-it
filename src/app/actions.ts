@@ -2,19 +2,16 @@
 
 import { db } from "@/server/db";
 import { links, insertLinkSchema } from "@/server/db/schema";
-import { zact } from "zact/server";
+import { action } from "@/lib/utils";
 import { nanoid } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const createShortLink = zact(insertLinkSchema)(async (input) => {
-  try {
-    const key = nanoid();
-    await db
-      .insert(links)
-      .values({ ...input, key, userId: 1 })
-      .run();
-    revalidatePath("/");
-  } catch (error) {
-    console.error(error);
-  }
+export const createShortLink = action(insertLinkSchema, async (input) => {
+  const slug = nanoid();
+  await db
+    .insert(links)
+    .values({ ...input, slug, userId: 1 })
+    .run();
+
+  revalidatePath("/");
 });

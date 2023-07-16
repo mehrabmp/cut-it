@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "6412f48a-1669-41e9-90cf-81cc69e35ef0",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "97b8e02b-111c-4635-93e1-798cce27d331",
+  "prevId": "6412f48a-1669-41e9-90cf-81cc69e35ef0",
   "tables": {
     "links": {
       "name": "links",
@@ -28,8 +28,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "key": {
-          "name": "key",
+        "slug": {
+          "name": "slug",
           "type": "text(256)",
           "primaryKey": false,
           "notNull": true,
@@ -42,23 +42,23 @@
           "notNull": true,
           "autoincrement": false
         },
-        "userId": {
-          "name": "userId",
+        "user_id": {
+          "name": "user_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
           "default": "(strftime('%s', 'now'))"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -67,10 +67,10 @@
         }
       },
       "indexes": {
-        "key_idx": {
-          "name": "key_idx",
+        "slug_idx": {
+          "name": "slug_idx",
           "columns": [
-            "key"
+            "slug"
           ],
           "isUnique": true
         }

@@ -13,21 +13,21 @@ export const links = sqliteTable(
     id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
     title: text("title", { length: 256 }),
     description: text("description"),
-    key: text("key", { length: 256 }).notNull(),
+    slug: text("slug", { length: 256 }).notNull(),
     url: text("url").notNull(),
-    userId: integer("userId").notNull(),
-    createdAt: integer("createdAt", { mode: "timestamp" }).default(
-      sql`(strftime('%s', 'now'))`
+    userId: integer("user_id"),
+    createdAt: integer("created_at", { mode: "timestamp" }).default(
+      sql`(strftime('%s', 'now'))`,
     ),
-    updateAt: integer("updatedAt", { mode: "timestamp" }).default(
-      sql`(strftime('%s', 'now'))`
+    updateAt: integer("updated_at", { mode: "timestamp" }).default(
+      sql`(strftime('%s', 'now'))`,
     ),
   },
   (links) => {
     return {
-      keyIndex: uniqueIndex("key_idx").on(links.key),
+      keyIndex: uniqueIndex("slug_idx").on(links.slug),
     };
-  }
+  },
 );
 
 export const linksRelations = relations(links, ({ one }) => ({

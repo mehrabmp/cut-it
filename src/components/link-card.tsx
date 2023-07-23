@@ -1,36 +1,45 @@
+"use client";
+
 import type { Link } from "@/server/db/schema";
-import {
-  Card,
-  CardContent,
-  // CardFooter,
-  // CardHeader,
-  // CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { CopyIcon, EyeOpenIcon, DotsVerticalIcon } from "@radix-ui/react-icons";
+import { toast } from "sonner";
 
 export const LinkCard = ({ slug, url }: Link) => {
+  const shortLink = `https://cutit.vercel.app/${slug}`;
+
+  const handleOnCopy = async () => {
+    await navigator.clipboard.writeText(shortLink);
+    toast("Copied to clipboard");
+  };
+
   return (
-    <Card className="w-full">
-      <CardContent>
-        <h3 className="text-sm">
-          <a
-            href={`https://cutit.vercel.app/${slug}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            cutit.vercel.app/{slug}
-          </a>
-        </h3>
+    <Card className="relative w-full">
+      <CardContent className="space-y-1 p-3">
+        <div className="flex items-center space-x-2">
+          <h3 className="text-sm">
+            <a href={shortLink} target="_blank" rel="noopener noreferrer">
+              {shortLink.split("https://")[1]}
+            </a>
+          </h3>
+          <div className="flex items-center space-x-2 text-neutral-500">
+            <CopyIcon
+              className="cursor-pointer transition-colors hover:text-foreground"
+              onClick={handleOnCopy}
+            />
+            <div className="flex cursor-pointer items-center space-x-1 transition-colors hover:text-foreground">
+              <EyeOpenIcon />
+              <span className="text-xs">500</span>
+            </div>
+          </div>
+        </div>
         <h4 className="text-xs text-neutral-500">
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-clip"
-          >
+          <a href={url} target="_blank" rel="noopener noreferrer">
             {url}
           </a>
         </h4>
       </CardContent>
+      <DotsVerticalIcon className="absolute right-2 top-[50%] translate-y-[-50%] cursor-pointer text-neutral-500 transition-colors hover:text-foreground" />
     </Card>
   );
 };

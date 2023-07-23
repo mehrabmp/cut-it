@@ -36,6 +36,9 @@ export const PublicLinkForm = ({ createShortLink }: Props) => {
   });
 
   const { execute, isExecuting } = useAction(createShortLink, {
+    onSuccess() {
+      toast.success("Link created successfully");
+    },
     onError(error) {
       const errorMessage = error.serverError
         ? "Internal Server Error"
@@ -55,7 +58,7 @@ export const PublicLinkForm = ({ createShortLink }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex justify-center gap-2"
+        className="flex w-full justify-center gap-2"
       >
         <div className="flex-1">
           <FormField

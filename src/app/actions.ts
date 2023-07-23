@@ -14,4 +14,8 @@ export const createShortLink = action(insertLinkSchema, async (input) => {
     .run();
 
   revalidatePath("/");
+
+  return {
+    message: "success",
+  };
 });

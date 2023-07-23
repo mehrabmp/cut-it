@@ -7,7 +7,7 @@ export const LinkList = async () => {
   const links = await db.query.links.findMany({});
 
   return (
-    <ul className="flex w-72 flex-col gap-2">
+    <ul className="flex w-full flex-col gap-2">
       {links.map((link) => (
         <li key={link.id} className="w-full">
           <LinkCard {...link} />

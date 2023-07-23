@@ -16,12 +16,12 @@ export default function Home() {
           links
         </h2>
       </div>
-      <div className="mb-6">
+      <div className="flex w-full max-w-sm flex-col items-center space-y-6">
         <PublicLinkForm createShortLink={createShortLink} />
+        <Suspense fallback={<Loader />}>
+          <LinkList />
+        </Suspense>
       </div>
-      <Suspense fallback={<Loader />}>
-        <LinkList />
-      </Suspense>
     </div>
   );
 }

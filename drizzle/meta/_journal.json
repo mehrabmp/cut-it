@@ -15,6 +15,13 @@
       "when": 1689435823288,
       "tag": "0001_thick_tiger_shark",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1690130354242,
+      "tag": "0002_serious_korg",
+      "breakpoints": true
     }
   ]
 }

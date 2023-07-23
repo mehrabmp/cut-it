@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CopyIcon, EyeOpenIcon, DotsVerticalIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 
-export const LinkCard = ({ slug, url }: Link) => {
+export const LinkCard = ({ slug, url, viewCount }: Link) => {
   const shortLink = `https://cutit.vercel.app/${slug}`;
 
   const handleOnCopy = async () => {
@@ -22,14 +22,14 @@ export const LinkCard = ({ slug, url }: Link) => {
               {shortLink.split("https://")[1]}
             </a>
           </h3>
-          <div className="flex items-center space-x-2 text-neutral-500">
+          <div className="flex items-center space-x-2.5 text-neutral-500">
             <CopyIcon
               className="cursor-pointer transition-colors hover:text-foreground"
               onClick={handleOnCopy}
             />
             <div className="flex cursor-pointer items-center space-x-1 transition-colors hover:text-foreground">
               <EyeOpenIcon />
-              <span className="text-xs">500</span>
+              <span className="text-xs">{viewCount}</span>
             </div>
           </div>
         </div>

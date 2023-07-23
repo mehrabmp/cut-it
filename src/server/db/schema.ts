@@ -15,6 +15,7 @@ export const links = sqliteTable(
     description: text("description"),
     slug: text("slug", { length: 256 }).notNull(),
     url: text("url").notNull(),
+    viewCount: integer("view_count").default(0),
     userId: integer("user_id"),
     createdAt: integer("created_at", { mode: "timestamp" }).default(
       sql`(strftime('%s', 'now'))`,

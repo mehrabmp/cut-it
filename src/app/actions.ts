@@ -9,13 +9,14 @@ import { redis } from "@/server/redis";
 
 export const createShortLink = action(insertLinkSchema, async (input) => {
   const slug = nanoid();
+  const encodedURL = encodeURIComponent(input.url);
 
   await Promise.all([
     db
       .insert(links)
-      .values({ ...input, slug, userId: 1 })
+      .values({ ...input, slug, userId: 1, url: encodedURL })
       .run(),
-    redis.set(slug, input.url),
+    redis.set(slug, encodedURL),
   ]);
 
   revalidatePath("/");

@@ -38,6 +38,7 @@ export const PublicLinkForm = ({ createShortLink }: Props) => {
   const { execute, isExecuting } = useAction(createShortLink, {
     onSuccess() {
       toast.success("Link created successfully");
+      form.reset();
     },
     onError(error) {
       const errorMessage = error.serverError

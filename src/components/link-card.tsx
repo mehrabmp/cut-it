@@ -6,7 +6,12 @@ import { CopyIcon, EyeOpenIcon, DotsVerticalIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 
 export const LinkCard = ({ slug, url, viewCount }: Link) => {
-  const shortLink = `https://cutit.vercel.app/${slug}`;
+  const decodedURL = decodeURIComponent(url);
+  const shortLink = `${
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/"
+      : "https://cutit.vercel.app/"
+  }${slug}`;
 
   const handleOnCopy = async () => {
     await navigator.clipboard.writeText(shortLink);
@@ -19,7 +24,7 @@ export const LinkCard = ({ slug, url, viewCount }: Link) => {
         <div className="flex items-center space-x-2">
           <h3 className="text-sm">
             <a href={shortLink} target="_blank" rel="noopener noreferrer">
-              {shortLink.split("https://")[1]}
+              {shortLink.split("://")[1]}
             </a>
           </h3>
           <div className="flex items-center space-x-2.5 text-neutral-500">
@@ -33,9 +38,9 @@ export const LinkCard = ({ slug, url, viewCount }: Link) => {
             </div>
           </div>
         </div>
-        <h4 className="text-xs text-neutral-500">
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            {url}
+        <h4 className="truncate pr-4 text-xs text-neutral-500">
+          <a href={decodedURL} target="_blank" rel="noopener noreferrer">
+            {decodedURL}
           </a>
         </h4>
       </CardContent>

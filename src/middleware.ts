@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import linkMiddleware from "@/server/middlewares/linkMiddleware";
+import { linkMiddleware } from "@/server/middlewares";
 
 export function middleware(request: NextRequest) {
   return linkMiddleware(request);

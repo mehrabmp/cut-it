@@ -5,9 +5,11 @@ import { db } from "@/server/db";
 import { links } from "../db/schema";
 import { eq, sql } from "drizzle-orm";
 
-export default async function linkMiddleware(req: NextRequest) {
+export const linkMiddleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
   const slug = decodeURIComponent(pathname.substring(1));
+
+  if (!slug) return NextResponse.next();
 
   const [url] = await Promise.all([
     redis.get<string>(slug),
@@ -21,4 +23,4 @@ export default async function linkMiddleware(req: NextRequest) {
   if (!url) return NextResponse.next();
 
   return NextResponse.redirect(new URL(decodeURIComponent(url)));
-}
+};

@@ -39,8 +39,8 @@ dependencies:
     specifier: ^0.27.2
     version: 0.27.2(@libsql/client@0.3.1)
   drizzle-zod:
-    specifier: ^0.4.4
-    version: 0.4.4(drizzle-orm@0.27.2)(zod@3.21.4)
+    specifier: ^0.5.0
+    version: 0.5.0(drizzle-orm@0.27.2)(zod@3.21.4)
   nanoid:
     specifier: ^4.0.2
     version: 4.0.2
@@ -1809,8 +1809,8 @@ packages:
       '@libsql/client': 0.3.1
     dev: false
 
-  /drizzle-zod@0.4.4(drizzle-orm@0.27.2)(zod@3.21.4):
-    resolution: {integrity: sha512-XNn0mjQ306Hvg+CuyKV98wnsWBWeTqv+kgE/N79Zj0EdCvjD2kaoN5sFDGFkMVqPQuP7IB1IPs0lEcOij1RvBA==}
+  /drizzle-zod@0.5.0(drizzle-orm@0.27.2)(zod@3.21.4):
+    resolution: {integrity: sha512-gIOXclphhaleYFEGZFxSyJBoiPRyksGyIPgmgWz6a+j5JeaOrOf1QOPjf1p5AHYA+1O3Q01ondGOZfgObxBTsg==}
     peerDependencies:
       drizzle-orm: '>=0.23.13'
       zod: '*'

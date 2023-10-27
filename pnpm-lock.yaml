@@ -54,8 +54,8 @@ dependencies:
     specifier: ^4.23.1
     version: 4.23.1(next@13.4.19)(react-dom@18.2.0)(react@18.2.0)
   next-safe-action:
-    specifier: ^3.0.1
-    version: 3.0.1(next@13.4.19)(react@18.2.0)(zod@3.22.2)
+    specifier: ^5.0.0
+    version: 5.0.0(next@13.4.19)(react@18.2.0)(zod@3.22.2)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -3029,11 +3029,11 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /next-safe-action@3.0.1(next@13.4.19)(react@18.2.0)(zod@3.22.2):
-    resolution: {integrity: sha512-qQOHz4Z1vnW9fKAl3+nmSoONtX8kvqJBJJ4PkRlkSF8AfFJnYp7PZ5qvtdIBTzxNoQLtM/CyVqlAM/6dCHJ62w==}
+  /next-safe-action@5.0.0(next@13.4.19)(react@18.2.0)(zod@3.22.2):
+    resolution: {integrity: sha512-ukFhQDEc/gEDA2sTlTD3j9vJ/ME+0jpE5glnzI1pKOUU9Zl1teR0IDeWVj2YYfVv83U/jzzs+nsGiF6k5YSkCA==}
     engines: {node: '>=16'}
     peerDependencies:
-      next: '>= 13.4.2'
+      next: '>= 14.0.0'
       react: '>= 18.2.0'
       zod: '>= 3.0.0'
     dependencies:

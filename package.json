@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:generate": "drizzle-kit generate:sqlite",
-    "db:push": "drizzle-kit push:sqlite",
-    "db:pull": "drizzle-kit introspect:sqlite",
-    "db:studio": "drizzle-kit studio"
+    "db:generate": "dotenv drizzle-kit generate:sqlite",
+    "db:push": "dotenv drizzle-kit push:sqlite",
+    "db:pull": "dotenv drizzle-kit introspect:sqlite",
+    "db:studio": "dotenv drizzle-kit studio"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^0.3.11",
@@ -33,6 +33,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "7.49.2",
+    "server-only": "^0.0.1",
     "sonner": "^1.2.4",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
@@ -49,6 +50,7 @@
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "autoprefixer": "^10.4.16",
+    "dotenv-cli": "^7.3.0",
     "drizzle-kit": "^0.20.7",
     "eslint": "^8.56.0",
     "postcss": "^8.4.32",

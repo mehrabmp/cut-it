@@ -1,13 +1,14 @@
-import { type InferModel, relations, sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
+  index,
+  integer,
+  primaryKey,
   sqliteTable,
   text,
   uniqueIndex,
-  integer,
-  primaryKey,
 } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
-import type { AdapterAccount } from "next-auth/adapters";
+import { type AdapterAccount } from "next-auth/adapters";
 
 export const links = sqliteTable(
   "links",
@@ -33,8 +34,6 @@ export const links = sqliteTable(
   },
 );
 
-export type Link = InferModel<typeof links>; 
-
 export const linksRelations = relations(links, ({ one }) => ({
   user: one(users, { fields: [links.userId], references: [users.id] }),
 }));
@@ -54,10 +53,9 @@ export const users = sqliteTable("user", {
   image: text("image"),
 });
 
-export type User = InferModel<typeof users>;
-
 export const usersRelations = relations(users, ({ many }) => ({
-  links: many(links),
+  accounts: many(accounts),
+  sessions: many(sessions),
 }));
 
 export const accounts = sqliteTable(
@@ -79,16 +77,31 @@ export const accounts = sqliteTable(
   },
   (account) => ({
     compoundKey: primaryKey(account.provider, account.providerAccountId),
-  })
+    userIdIdx: index("userId_idx").on(account.userId),
+  }),
 );
 
-export const sessions = sqliteTable("session", {
-  sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
-});
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, { fields: [accounts.userId], references: [users.id] }),
+}));
+
+export const sessions = sqliteTable(
+  "session",
+  {
+    sessionToken: text("sessionToken").notNull().primaryKey(),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
+  },
+  (session) => ({
+    userIdIdx: index("userId_idx").on(session.userId),
+  }),
+);
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, { fields: [sessions.userId], references: [users.id] }),
+}));
 
 export const verificationTokens = sqliteTable(
   "verificationToken",
@@ -99,5 +112,5 @@ export const verificationTokens = sqliteTable(
   },
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),
-  })
+  }),
 );

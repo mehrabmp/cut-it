@@ -1,12 +1,14 @@
 "use client";
 
-import type { Link } from "@/server/db/schema";
-import { Card, CardContent } from "@/components/ui/card";
-import { CopyIcon, EyeOpenIcon, DotsVerticalIcon } from "@radix-ui/react-icons";
+import { CopyIcon, DotsVerticalIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+// import type { Link } from "~/server/db/schema";
 import { toast } from "sonner";
+
+import { Card, CardContent } from "~/components/ui/card";
 
 export const LinkCard = ({ slug, url, viewCount }: Link) => {
   const decodedURL = decodeURIComponent(url);
+
   const shortLink = `${
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/"

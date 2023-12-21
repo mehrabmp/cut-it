@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+
+import { cn } from "~/lib/utils";
 
 const loaderVariants = cva(
   "animate-spin rounded-full border-solid border-white/10 border-l-white",
@@ -14,7 +15,7 @@ const loaderVariants = cva(
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 export interface LoaderProps

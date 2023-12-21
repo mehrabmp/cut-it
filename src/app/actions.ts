@@ -1,11 +1,11 @@
 "use server";
 
-import { db } from "@/server/db";
-import { links, insertLinkSchema } from "@/server/db/schema";
-import { action } from "@/lib/utils";
-import { nanoid } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
-import { redis } from "@/server/redis";
+import { db } from "~/server/db";
+import { insertLinkSchema, links } from "~/server/db/schema";
+import { redis } from "~/server/redis";
+
+import { action, nanoid } from "~/lib/utils";
 
 export const createShortLink = action(insertLinkSchema, async (input) => {
   const slug = nanoid();

@@ -1,21 +1,22 @@
 "use client";
 
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hook";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import type { createShortLink } from "@/app/actions";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { z } from "zod";
+
+import { Button } from "~/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { Loader } from "@/components/ui/loader";
+} from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { Loader } from "~/components/ui/loader";
+import type { createShortLink } from "~/app/actions";
 
 interface Props {
   createShortLink: typeof createShortLink;
@@ -44,10 +45,10 @@ export const PublicLinkForm = ({ createShortLink }: Props) => {
       const errorMessage = error.serverError
         ? "Internal Server Error"
         : error.validationError
-        ? "Bad Request"
-        : error.fetchError
-        ? "Fetch Error"
-        : "Error";
+          ? "Bad Request"
+          : error.fetchError
+            ? "Fetch Error"
+            : "Error";
       toast.error(errorMessage);
     },
   });

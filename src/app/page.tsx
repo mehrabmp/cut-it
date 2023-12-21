@@ -1,7 +1,9 @@
-import { LinkList } from "@/components/link-list";
-import { PublicLinkForm } from "@/components/public-link-form";
-import { Loader } from "@/components/ui/loader";
 import { Suspense } from "react";
+
+import { Loader } from "~/components/ui/loader";
+import { LinkList } from "~/components/link-list";
+import { PublicLinkForm } from "~/components/public-link-form";
+
 import { createShortLink } from "./actions";
 
 export const runtime = "edge";

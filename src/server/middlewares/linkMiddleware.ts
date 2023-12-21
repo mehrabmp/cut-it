@@ -1,8 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { redis } from "@/server/redis";
-import { db } from "@/server/db";
-import { links } from "../db/schema";
+import { db } from "~/server/db";
+import { links } from "~/server/db/schema";
+import { redis } from "~/server/redis";
 import { eq, sql } from "drizzle-orm";
 
 export const linkMiddleware = async (req: NextRequest) => {

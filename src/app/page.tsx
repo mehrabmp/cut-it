@@ -6,8 +6,6 @@ import { PublicLinkForm } from "~/components/public-link-form";
 
 import { createShortLink } from "./actions";
 
-export const runtime = "edge";
-
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center p-2">

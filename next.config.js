@@ -11,6 +11,9 @@ const config = {
       fullUrl: true,
     },
   },
+  experimental: {
+    ppr: true,
+  },
 };
 
 export default config;

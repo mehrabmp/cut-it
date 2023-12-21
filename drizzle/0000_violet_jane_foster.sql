@@ -14,6 +14,18 @@ CREATE TABLE `account` (
 	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
+CREATE TABLE `links` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`title` text(256),
+	`description` text,
+	`slug` text(256) NOT NULL,
+	`url` text NOT NULL,
+	`view_count` integer DEFAULT 0,
+	`user_id` integer,
+	`created_at` integer DEFAULT (strftime('%s', 'now')),
+	`updated_at` integer DEFAULT (strftime('%s', 'now'))
+);
+--> statement-breakpoint
 CREATE TABLE `session` (
 	`sessionToken` text PRIMARY KEY NOT NULL,
 	`userId` text NOT NULL,
@@ -36,4 +48,6 @@ CREATE TABLE `verificationToken` (
 	PRIMARY KEY(`identifier`, `token`)
 );
 --> statement-breakpoint
-DROP TABLE `users`;
+CREATE INDEX `accounts_userId_idx` ON `account` (`userId`);--> statement-breakpoint
+CREATE UNIQUE INDEX `slug_idx` ON `links` (`slug`);--> statement-breakpoint
+CREATE INDEX `sessions_userId_idx` ON `session` (`userId`);

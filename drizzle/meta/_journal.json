@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1689181794456,
-      "tag": "0000_mixed_punisher",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1689435823288,
-      "tag": "0001_thick_tiger_shark",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1690130354242,
-      "tag": "0002_serious_korg",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1692643609283,
-      "tag": "0003_condemned_genesis",
+      "when": 1703142259165,
+      "tag": "0000_violet_jane_foster",
       "breakpoints": true
     }
   ]

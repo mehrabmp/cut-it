@@ -9,7 +9,6 @@ const config = {
     "plugin:@next/next/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
-    "plugin:@tanstack/eslint-plugin-query/recommended",
   ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.

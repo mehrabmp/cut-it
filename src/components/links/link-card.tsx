@@ -5,16 +5,14 @@ import { Card, CardContent } from "~/components/ui/card";
 import { Icons, iconVariants } from "~/components/ui/icons";
 
 import { CopyToClipboard } from "./copy-to-clipboard";
+import { LinkViewCount } from "./link-view-count";
 
 export const LinkCard = ({ slug, url, viewCount }: Link) => {
   const decodedURL = decodeURIComponent(url);
   const shortenedURL = `${getBaseUrl()}/${slug}`;
-  const numberFormatter = new Intl.NumberFormat("en-US", {
-    notation: "compact",
-  });
 
   return (
-    <Card className="relative font-mono hover:bg-neutral-900 transition-colors">
+    <Card className="relative font-mono hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors">
       <CardContent className="flex flex-col gap-1 p-3">
         <div className="flex items-center gap-2">
           <Link
@@ -27,12 +25,7 @@ export const LinkCard = ({ slug, url, viewCount }: Link) => {
           </Link>
           <div className="flex items-center gap-2 text-neutral-500">
             <CopyToClipboard textToCopy={shortenedURL} />
-            <div className="flex cursor-pointer items-center gap-1 transition-colors hover:text-foreground">
-              <Icons.Eye className={iconVariants({ size: "sm" })} />
-              <span className="text-xs">
-                {numberFormatter.format(viewCount)}
-              </span>
-            </div>
+            <LinkViewCount viewCount={viewCount} />
           </div>
         </div>
         <div className="truncate pr-4 text-xs text-neutral-500">

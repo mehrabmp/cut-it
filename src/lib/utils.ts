@@ -19,3 +19,10 @@ export const nanoid = customAlphabet(
 );
 
 export const action = createSafeActionClient();
+
+export const compactNumberFormatter = new Intl.NumberFormat("en-US", {
+  notation: "compact",
+});
+export const standardNumberFormatter = new Intl.NumberFormat("en-US", {
+  notation: "standard",
+});

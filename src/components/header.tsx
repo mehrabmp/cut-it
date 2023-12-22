@@ -25,7 +25,7 @@ export const Header = () => {
           </Link>
         </Button>
         <ThemeToggle />
-        <Button>Sign in</Button>
+        <Button size="sm">Sign In</Button>
       </div>
     </header>
   );

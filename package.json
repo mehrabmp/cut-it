@@ -27,6 +27,7 @@
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.29.1",
     "drizzle-zod": "^0.5.1",
+    "geist": "^1.2.0",
     "lucide-react": "^0.299.0",
     "nanoid": "^5.0.4",
     "next": "14.0.5-canary.22",

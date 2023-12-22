@@ -1,16 +1,12 @@
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 import { Toaster } from "sonner";
 
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { Provider } from "~/components/provider";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
 
 export const metadata = {
   title: "Create T3 App",
@@ -26,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`font-sans ${inter.variable} flex min-h-screen flex-col`}
+        className={`font-sans ${GeistSans.variable} ${GeistMono.variable} flex min-h-screen flex-col`}
       >
         <Provider>
           <Header />

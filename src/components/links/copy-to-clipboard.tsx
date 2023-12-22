@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 
-import { Icons, iconVariants } from "~/components/ui/icon";
+import { Icons, iconVariants } from "~/components/ui/icons";
 
 type CopyToClipboardProps = {
   textToCopy: string;

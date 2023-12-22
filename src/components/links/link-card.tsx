@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { getBaseUrl } from "~/lib/utils";
 import { Card, CardContent } from "~/components/ui/card";
-import { Icons, iconVariants } from "~/components/ui/icon";
+import { Icons, iconVariants } from "~/components/ui/icons";
 
 import { CopyToClipboard } from "./copy-to-clipboard";
 

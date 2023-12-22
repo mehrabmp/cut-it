@@ -6,7 +6,7 @@ import { Toaster } from "sonner";
 
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
-import { Provider } from "~/components/provider";
+import { Providers } from "~/components/providers";
 
 export const metadata = {
   title: "Create T3 App",
@@ -24,11 +24,11 @@ export default function RootLayout({
       <body
         className={`font-sans ${GeistSans.variable} ${GeistMono.variable} flex min-h-screen flex-col`}
       >
-        <Provider>
+        <Providers>
           <Header />
           <main className="mx-auto max-w-5xl flex-1 px-4">{children}</main>
           <Footer />
-        </Provider>
+        </Providers>
       </body>
       <Toaster theme="dark" position="bottom-center" richColors closeButton />
     </html>

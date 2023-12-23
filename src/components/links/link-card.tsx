@@ -12,7 +12,7 @@ export const LinkCard = ({ slug, url, viewCount }: Link) => {
   const shortenedURL = `${getBaseUrl()}/${slug}`;
 
   return (
-    <Card className="relative font-mono hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors">
+    <Card className="relative font-mono hover:border-foreground dark:hover:border-neutral-500 transition-colors">
       <CardContent className="flex flex-col gap-2 p-3">
         <div className="flex items-center gap-2 flex-wrap">
           <Link

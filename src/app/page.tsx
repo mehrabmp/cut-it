@@ -9,7 +9,7 @@ import { createShortLink } from "./actions";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center p-4">
+    <div className="flex flex-col items-center">
       <div className="my-10 space-y-2 text-center">
         <Heading variant="h1" isFirstBlock>
           Free URL Shortener

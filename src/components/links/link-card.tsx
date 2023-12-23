@@ -13,8 +13,8 @@ export const LinkCard = ({ slug, url, viewCount }: Link) => {
 
   return (
     <Card className="relative font-mono hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors">
-      <CardContent className="flex flex-col gap-1 p-3">
-        <div className="flex items-center gap-2">
+      <CardContent className="flex flex-col gap-2 p-3">
+        <div className="flex items-center gap-2 flex-wrap">
           <Link
             href={shortenedURL}
             className="font-medium"
@@ -28,7 +28,7 @@ export const LinkCard = ({ slug, url, viewCount }: Link) => {
             <LinkViewCount viewCount={viewCount} />
           </div>
         </div>
-        <div className="truncate pr-4 text-xs text-neutral-500">
+        <div className="line-clamp-1 max-w-[320px] text-xs text-neutral-500">
           <Link href={decodedURL} target="_blank" rel="noopener noreferrer">
             {decodedURL}
           </Link>

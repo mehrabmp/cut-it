@@ -14,6 +14,7 @@ import {
   FormItem,
   FormMessage,
 } from "~/components/ui/form";
+import { Icons, iconVariants } from "~/components/ui/icons";
 import { Input } from "~/components/ui/input";
 import { Loader } from "~/components/ui/loader";
 import type { createShortLink } from "~/app/actions";
@@ -69,20 +70,19 @@ export const PublicLinkForm = ({ createShortLink }: Props) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input
-                    placeholder="Enter the link here"
-                    autoComplete="off"
-                    {...field}
-                  />
+                  <Input placeholder="Enter the link here" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <Button type="submit" variant="outline" disabled={isExecuting}>
-          {isExecuting && <Loader size="sm" className="mr-2" />}
-          Cut it
+        <Button type="submit" size="icon" disabled={isExecuting}>
+          {isExecuting ? (
+            <Loader size="sm" className="mr-2" />
+          ) : (
+            <Icons.Scissors className={iconVariants({ size: "lg" })} />
+          )}
         </Button>
       </form>
     </Form>

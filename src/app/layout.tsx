@@ -2,8 +2,8 @@ import "~/styles/globals.css";
 
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
-import { Toaster } from "sonner";
 
+import { Toaster } from "~/components/ui/sonner";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { Providers } from "~/components/providers";
@@ -28,9 +28,9 @@ export default function RootLayout({
           <Header />
           <main className="mx-auto max-w-5xl flex-1 px-4">{children}</main>
           <Footer />
+          <Toaster />
         </Providers>
       </body>
-      <Toaster theme="dark" position="bottom-center" richColors closeButton />
     </html>
   );
 }

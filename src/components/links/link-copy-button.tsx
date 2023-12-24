@@ -9,11 +9,11 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 
-type CopyToClipboardProps = {
+type LinkCopyButtonProps = {
   textToCopy: string;
 };
 
-export const CopyToClipboard = ({ textToCopy }: CopyToClipboardProps) => {
+export const LinkCopyButton = ({ textToCopy }: LinkCopyButtonProps) => {
   const handleOnCopy = async () => {
     await navigator.clipboard.writeText(textToCopy);
     toast("Copied to clipboard");

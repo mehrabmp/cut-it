@@ -5,7 +5,7 @@ import { getBaseUrl } from "~/lib/utils";
 import { Card, CardContent } from "~/components/ui/card";
 import { Icons, iconVariants } from "~/components/ui/icons";
 
-import { CopyToClipboard } from "./copy-to-clipboard";
+import { LinkCopyButton } from "./link-copy-button";
 import { LinkViews } from "./link-views";
 
 export const LinkCard = ({ slug, url, views }: ShortLink) => {
@@ -25,7 +25,7 @@ export const LinkCard = ({ slug, url, views }: ShortLink) => {
             {shortenedURL.split("://")[1]}
           </Link>
           <div className="flex items-center gap-2">
-            <CopyToClipboard textToCopy={shortenedURL} />
+            <LinkCopyButton textToCopy={shortenedURL} />
             <LinkViews views={views} />
           </div>
         </div>

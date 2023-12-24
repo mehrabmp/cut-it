@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { db } from "~/server/db";
 
-import { LinkCard } from "./links/link-card";
+import { LinkCard } from "./link-card";
 
 export const LinkList = async () => {
   headers();

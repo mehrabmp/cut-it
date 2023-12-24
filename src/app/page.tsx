@@ -2,8 +2,8 @@ import { Suspense } from "react";
 
 import { Heading } from "~/components/ui/heading";
 import { Loader } from "~/components/ui/loader";
-import { LinkList } from "~/components/link-list";
-import { PublicLinkForm } from "~/components/public-link-form";
+import { LinkForm } from "~/components/links/link-form";
+import { LinkList } from "~/components/links/link-list";
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
         </Heading>
       </div>
       <div className="flex items-center w-full max-w-md flex-col gap-4">
-        <PublicLinkForm />
+        <LinkForm />
         <Suspense fallback={<Loader size="4xl" className="my-20" />}>
           <LinkList />
         </Suspense>

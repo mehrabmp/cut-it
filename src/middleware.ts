@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { linkMiddleware } from "~/server/middlewares";
 
 export function middleware(request: NextRequest) {
-  // return linkMiddleware(request);
+  return linkMiddleware(request);
 }
 
 export const config = {

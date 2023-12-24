@@ -15,7 +15,7 @@ export const linkMiddleware = async (req: NextRequest) => {
     redis.get<string>(slug),
     db
       .update(links)
-      .set({ viewCount: sql`${links.viewCount} + 1` })
+      .set({ views: sql`${links.views} + 1` })
       .where(eq(links.slug, slug))
       .run(),
   ]);

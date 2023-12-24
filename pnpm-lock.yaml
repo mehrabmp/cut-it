@@ -136,6 +136,9 @@ devDependencies:
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
+  eslint-plugin-drizzle:
+    specifier: ^0.2.2
+    version: 0.2.2(eslint@8.56.0)
   postcss:
     specifier: ^8.4.32
     version: 8.4.32
@@ -2895,6 +2898,14 @@ packages:
   /escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+    dev: true
+
+  /eslint-plugin-drizzle@0.2.2(eslint@8.56.0):
+    resolution: {integrity: sha512-dyGlL9iOYjSK7jpgh87jL6zZP42mLZV0xrAYv+/hMbh/4ml3oR758wnk5G3frH60rHYscIS6GYL5juSir4yELg==}
+    peerDependencies:
+      eslint: '>=8.0.0'
+    dependencies:
+      eslint: 8.56.0
     dev: true
 
   /eslint-scope@7.2.2:

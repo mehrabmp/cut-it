@@ -18,7 +18,7 @@ export const links = sqliteTable(
     description: text("description"),
     slug: text("slug", { length: 256 }).notNull(),
     url: text("url").notNull(),
-    viewCount: integer("view_count").default(0),
+    views: integer("views").default(0).notNull(),
     userId: integer("user_id"),
     createdAt: integer("created_at", { mode: "timestamp" }).default(
       sql`(strftime('%s', 'now'))`,
@@ -33,6 +33,9 @@ export const links = sqliteTable(
     };
   },
 );
+
+export type ShortLink = typeof links.$inferSelect;
+export type NewShortLink = typeof links.$inferInsert;
 
 export const linksRelations = relations(links, ({ one }) => ({
   user: one(users, { fields: [links.userId], references: [users.id] }),

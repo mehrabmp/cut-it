@@ -6,24 +6,24 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 
-type LinkViewCountProps = {
-  viewCount: number;
+type LinkViewsProps = {
+  views: number;
 };
 
-export const LinkViewCount = ({ viewCount }: LinkViewCountProps) => {
+export const LinkViews = ({ views }: LinkViewsProps) => {
   return (
     <Tooltip>
       <TooltipTrigger>
         <div className="flex cursor-pointer items-center gap-1 transition-colors hover:text-foreground">
           <Icons.Eye className={iconVariants({ size: "sm" })} />
           <span className="text-xs">
-            {formatNumber(viewCount, { notation: "compact" })}
+            {formatNumber(views, { notation: "compact" })}
           </span>
         </div>
       </TooltipTrigger>
       <TooltipContent>
         <p className="font-sans">
-          {formatNumber(viewCount, { notation: "standard" })} Total views
+          {formatNumber(views, { notation: "standard" })} Total views
         </p>
       </TooltipContent>
     </Tooltip>

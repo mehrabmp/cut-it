@@ -1,13 +1,14 @@
 import Link from "next/link";
+import { type ShortLink } from "~/server/db/schema";
 
 import { getBaseUrl } from "~/lib/utils";
 import { Card, CardContent } from "~/components/ui/card";
 import { Icons, iconVariants } from "~/components/ui/icons";
 
 import { CopyToClipboard } from "./copy-to-clipboard";
-import { LinkViewCount } from "./link-view-count";
+import { LinkViews } from "./link-views";
 
-export const LinkCard = ({ slug, url, viewCount }: Link) => {
+export const LinkCard = ({ slug, url, views }: ShortLink) => {
   const decodedURL = decodeURIComponent(url);
   const shortenedURL = `${getBaseUrl()}/${slug}`;
 
@@ -25,7 +26,7 @@ export const LinkCard = ({ slug, url, viewCount }: Link) => {
           </Link>
           <div className="flex items-center gap-2 text-neutral-500">
             <CopyToClipboard textToCopy={shortenedURL} />
-            <LinkViewCount viewCount={viewCount} />
+            <LinkViews views={views} />
           </div>
         </div>
         <div className="line-clamp-1 max-w-[320px] text-xs text-neutral-500">

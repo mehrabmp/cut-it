@@ -4,6 +4,9 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "~/lib/utils";
 
+import { type IconVariants } from "./icons";
+import { Loader, type LoaderVariant } from "./loader";
+
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
@@ -26,6 +29,9 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
       },
+      loading: {
+        true: "flex gap-2 items-center",
+      },
     },
     defaultVariants: {
       variant: "default",
@@ -34,24 +40,38 @@ const buttonVariants = cva(
   },
 );
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+const Button = React.forwardRef<
+  React.ElementRef<"button">,
+  React.ComponentPropsWithRef<"button"> &
+    VariantProps<typeof buttonVariants> & {
+      asChild?: boolean;
+    }
+>(({ className, variant, size, loading, asChild, children, ...props }, ref) => {
+  const Comp = asChild ? Slot : "button";
+  const loaderVariant = variant === undefined ? "primary" : variant;
+  const loaderSize = size === "icon" ? "lg" : size;
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Comp
+      className={cn(buttonVariants({ variant, size, loading, className }))}
+      disabled={Boolean(loading)}
+      ref={ref}
+      {...props}
+    >
+      {loading ? (
+        <>
+          <Loader
+            variant={loaderVariant as LoaderVariant["variant"]}
+            size={loaderSize as IconVariants["size"]}
+          />
+          {size !== "icon" && children}
+        </>
+      ) : (
+        children
+      )}
+    </Comp>
+  );
+});
 Button.displayName = "Button";
 
 export { Button, buttonVariants };

@@ -1,6 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
 import { customAlphabet } from "nanoid";
-import { createSafeActionClient } from "next-safe-action";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -18,11 +17,20 @@ export const nanoid = customAlphabet(
   6,
 );
 
-export const action = createSafeActionClient();
+export function formatNumber(
+  number: number | string,
+  options: {
+    decimals?: number;
+    style?: Intl.NumberFormatOptions["style"];
+    notation?: Intl.NumberFormatOptions["notation"];
+  } = {},
+) {
+  const { decimals = 0, style = "decimal", notation = "standard" } = options;
 
-export const compactNumberFormatter = new Intl.NumberFormat("en-US", {
-  notation: "compact",
-});
-export const standardNumberFormatter = new Intl.NumberFormat("en-US", {
-  notation: "standard",
-});
+  return new Intl.NumberFormat("en-US", {
+    style,
+    notation,
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(Number(number));
+}

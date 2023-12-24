@@ -1,4 +1,4 @@
-import { compactNumberFormatter, standardNumberFormatter } from "~/lib/utils";
+import { formatNumber } from "~/lib/utils";
 import { Icons, iconVariants } from "~/components/ui/icons";
 import {
   Tooltip,
@@ -17,13 +17,13 @@ export const LinkViewCount = ({ viewCount }: LinkViewCountProps) => {
         <div className="flex cursor-pointer items-center gap-1 transition-colors hover:text-foreground">
           <Icons.Eye className={iconVariants({ size: "sm" })} />
           <span className="text-xs">
-            {compactNumberFormatter.format(viewCount)}
+            {formatNumber(viewCount, { notation: "compact" })}
           </span>
         </div>
       </TooltipTrigger>
       <TooltipContent>
         <p className="font-sans">
-          {standardNumberFormatter.format(viewCount)} Total views
+          {formatNumber(viewCount, { notation: "standard" })} Total views
         </p>
       </TooltipContent>
     </Tooltip>

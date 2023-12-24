@@ -14,8 +14,11 @@ export const LinkViews = ({ views }: LinkViewsProps) => {
   return (
     <Tooltip>
       <TooltipTrigger>
-        <div className="flex cursor-pointer items-center gap-1 transition-colors hover:text-foreground">
-          <Icons.Eye className={iconVariants({ size: "sm" })} />
+        <div className="flex cursor-pointer items-center gap-1 transition-opacity opacity-50 hover:opacity-100">
+          <Icons.Eye
+            className={iconVariants({ size: "sm" })}
+            aria-label="Total views"
+          />
           <span className="text-xs">
             {formatNumber(views, { notation: "compact" })}
           </span>

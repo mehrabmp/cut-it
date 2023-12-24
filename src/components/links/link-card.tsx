@@ -24,12 +24,12 @@ export const LinkCard = ({ slug, url, views }: ShortLink) => {
           >
             {shortenedURL.split("://")[1]}
           </Link>
-          <div className="flex items-center gap-2 text-neutral-500">
+          <div className="flex items-center gap-2">
             <CopyToClipboard textToCopy={shortenedURL} />
             <LinkViews views={views} />
           </div>
         </div>
-        <div className="line-clamp-1 max-w-[320px] text-xs text-neutral-500">
+        <div className="line-clamp-1 max-w-[320px] text-xs text-muted-foreground">
           <Link href={decodedURL} target="_blank" rel="noopener noreferrer">
             {decodedURL}
           </Link>
@@ -38,7 +38,7 @@ export const LinkCard = ({ slug, url, views }: ShortLink) => {
       <Icons.MoreVertical
         className={iconVariants({
           className:
-            "absolute right-2 top-[50%] translate-y-[-50%] cursor-pointer text-neutral-500 transition-colors hover:text-foreground",
+            "absolute right-2 top-[50%] translate-y-[-50%] cursor-pointer opacity-50 transition-opacity hover:opacity-100",
         })}
       />
     </Card>

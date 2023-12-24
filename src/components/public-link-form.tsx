@@ -72,7 +72,12 @@ export const PublicLinkForm = () => {
             )}
           />
         </div>
-        <Button type="submit" size="icon" loading={status === "executing"}>
+        <Button
+          type="submit"
+          size="icon"
+          loading={status === "executing"}
+          aria-label="Generate short link"
+        >
           <Icons.Scissors className={iconVariants({ size: "lg" })} />
         </Button>
       </form>

@@ -22,12 +22,16 @@ export const CopyToClipboard = ({ textToCopy }: CopyToClipboardProps) => {
   return (
     <Tooltip>
       <TooltipTrigger>
-        <div className="cursor-pointer transition-colors hover:text-foreground">
+        <button
+          className="cursor-pointer transition-opacity opacity-50 hover:opacity-100"
+          aria-label="Copy to clipboard"
+          type="button"
+        >
           <Icons.Copy
             className={iconVariants({ size: "sm" })}
             onClick={handleOnCopy}
           />
-        </div>
+        </button>
       </TooltipTrigger>
       <TooltipContent>
         <p className="font-sans">Copy link to clipboard</p>

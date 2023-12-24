@@ -2,10 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
-import { insertLinkSchema, links } from "~/server/db/schema";
+import { links } from "~/server/db/schema";
 import { redis } from "~/server/redis";
 
-import { action, nanoid } from "~/lib/utils";
+import { action } from "~/lib/safe-action";
+import { nanoid } from "~/lib/utils";
+import { insertLinkSchema } from "~/lib/validations/link-schemas";
 
 export const createShortLink = action(insertLinkSchema, async (input) => {
   const slug = nanoid();

@@ -1,15 +1,16 @@
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="flex items-center justify-center p-6">
-      <a
-        href="https://github.com/mehrabmp/cut-it"
+    <footer className="mx-auto w-full max-w-5xl text-white/80 p-6">
+      {/* <span>Built by </span>{" "}
+      <Link
+        href="https://github.com/mehrabmp"
         target="_blank"
-        className="text-white/50 transition-colors hover:text-neutral-200"
+        className="transition-colors underline underline-offset-4 hover:text-neutral-200"
       >
-        <GitHubLogoIcon className="h-5 w-5" />
-      </a>
+        Mehrab.
+      </Link> */}
     </footer>
   );
 };

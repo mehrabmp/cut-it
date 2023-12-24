@@ -7,7 +7,6 @@ import {
   text,
   uniqueIndex,
 } from "drizzle-orm/sqlite-core";
-import { createInsertSchema } from "drizzle-zod";
 import { type AdapterAccount } from "next-auth/adapters";
 
 export const links = sqliteTable(
@@ -40,13 +39,6 @@ export type NewShortLink = typeof links.$inferInsert;
 export const linksRelations = relations(links, ({ one }) => ({
   user: one(users, { fields: [links.userId], references: [users.id] }),
 }));
-
-export const insertLinkSchema = createInsertSchema(links).omit({
-  id: true,
-  userId: true,
-  createdAt: true,
-  updatedAt: true,
-});
 
 export const users = sqliteTable("user", {
   id: text("id").notNull().primaryKey(),

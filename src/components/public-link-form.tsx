@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createShortLink } from "~/server/actions/link-actions";
 import { useAction } from "next-safe-action/hook";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -16,12 +17,6 @@ import {
 } from "~/components/ui/form";
 import { Icons, iconVariants } from "~/components/ui/icons";
 import { Input } from "~/components/ui/input";
-import { Loader } from "~/components/ui/loader";
-import type { createShortLink } from "~/app/actions";
-
-interface Props {
-  createShortLink: typeof createShortLink;
-}
 
 const formSchema = z.object({
   url: z.string().url(),
@@ -29,7 +24,7 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export const PublicLinkForm = ({ createShortLink }: Props) => {
+export const PublicLinkForm = () => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,7 +32,7 @@ export const PublicLinkForm = ({ createShortLink }: Props) => {
     },
   });
 
-  const { execute, isExecuting } = useAction(createShortLink, {
+  const { execute, status } = useAction(createShortLink, {
     onSuccess() {
       toast.success("Link created successfully");
       form.reset();
@@ -77,12 +72,8 @@ export const PublicLinkForm = ({ createShortLink }: Props) => {
             )}
           />
         </div>
-        <Button type="submit" size="icon" disabled={isExecuting}>
-          {isExecuting ? (
-            <Loader size="sm" className="mr-2" />
-          ) : (
-            <Icons.Scissors className={iconVariants({ size: "lg" })} />
-          )}
+        <Button type="submit" size="icon" loading={status === "executing"}>
+          <Icons.Scissors className={iconVariants({ size: "lg" })} />
         </Button>
       </form>
     </Form>

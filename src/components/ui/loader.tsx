@@ -3,27 +3,46 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "~/lib/utils";
 
-const loaderVariants = cva(
-  "animate-spin rounded-full border-solid border-white/10 border-l-white",
-  {
-    variants: {
-      size: {
-        default: "w-7 h-7 border-4",
-        sm: "w-4 h-4 border-[3px]",
-      },
+import { iconVariants, type IconVariants } from "./icons";
+
+const loaderVariants = cva("animate-spin rounded-full border-solid", {
+  variants: {
+    variant: {
+      default: "border-muted border-l-foreground",
+      primary: "border-primary-foreground/20 border-l-primary-foreground",
     },
-    defaultVariants: {
-      size: "default",
+    border: {
+      xs: "border-[3px]",
+      sm: "border-[3px]",
+      base: "border-[3px]",
+      lg: "border-4",
+      xl: "border-4",
+      "2xl": "border-4",
+      "3xl": "border-[5px]",
+      "4xl": "border-[6px]",
+      "5xl": "border-[6px]",
     },
   },
-);
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
-export interface LoaderProps
-  extends React.ComponentProps<"div">,
-    VariantProps<typeof loaderVariants> {}
+export type LoaderVariant = VariantProps<typeof loaderVariants>;
 
-export const Loader = ({ className, size, ...props }: LoaderProps) => {
-  return (
-    <div className={cn(loaderVariants({ size, className }))} {...props}></div>
-  );
-};
+const Loader = React.forwardRef<
+  React.ElementRef<"div">,
+  React.ComponentPropsWithoutRef<"div"> & LoaderVariant & IconVariants
+>(({ variant, size = "base", className, ...props }, ref) => (
+  <div
+    className={cn(
+      loaderVariants({ variant, border: size, className }),
+      iconVariants({ size }),
+    )}
+    ref={ref}
+    {...props}
+  />
+));
+Loader.displayName = "Loader";
+
+export { Loader };

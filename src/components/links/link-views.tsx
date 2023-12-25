@@ -17,9 +17,11 @@ export const LinkViews = ({ views }: LinkViewsProps) => {
         <button
           className="flex cursor-pointer items-center gap-1 transition-opacity opacity-50 hover:opacity-100"
           type="button"
-          aria-label="Total views"
         >
-          <Icons.Eye className={iconVariants({ size: "sm" })} />
+          <Icons.Eye
+            className={iconVariants({ size: "sm" })}
+            aria-label="Total views"
+          />
           <span className="text-xs">
             {formatNumber(views, { notation: "compact" })}
           </span>

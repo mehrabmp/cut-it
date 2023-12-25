@@ -21,7 +21,7 @@ export const LinkCopyButton = ({ textToCopy }: LinkCopyButtonProps) => {
 
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <button
           className="cursor-pointer transition-opacity opacity-50 hover:opacity-100"
           aria-label="Copy to clipboard"

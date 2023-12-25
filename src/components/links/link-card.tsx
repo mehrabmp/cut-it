@@ -15,7 +15,7 @@ export const LinkCard = ({ slug, url, views }: ShortLink) => {
   return (
     <Card className="relative font-mono hover:border-foreground dark:hover:border-neutral-500 transition-colors">
       <CardContent className="flex flex-col gap-2 p-3">
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
           <Link
             href={shortenedURL}
             className="font-medium"

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { type ShortLink } from "~/server/db/schema";
 
 import { getBaseUrl } from "~/lib/utils";
@@ -16,23 +15,23 @@ export const LinkCard = ({ slug, url, views }: ShortLink) => {
     <Card className="relative font-mono hover:border-foreground dark:hover:border-neutral-500 transition-colors">
       <CardContent className="flex flex-col gap-2 p-3">
         <div className="flex items-center gap-3 flex-wrap">
-          <Link
+          <a
             href={shortenedURL}
             className="font-medium"
             target="_blank"
             rel="noopener noreferrer"
           >
             {shortenedURL.split("://")[1]}
-          </Link>
+          </a>
           <div className="flex items-center gap-2">
             <LinkCopyButton textToCopy={shortenedURL} />
             <LinkViews views={views} />
           </div>
         </div>
         <div className="line-clamp-1 max-w-[320px] text-xs text-muted-foreground">
-          <Link href={decodedURL} target="_blank" rel="noopener noreferrer">
+          <a href={decodedURL} target="_blank" rel="noopener noreferrer">
             {decodedURL}
-          </Link>
+          </a>
         </div>
       </CardContent>
       <Icons.MoreVertical

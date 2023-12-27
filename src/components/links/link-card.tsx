@@ -1,4 +1,4 @@
-import { type ShortLink } from "~/server/db/schema";
+import { type LinkItem } from "~/server/db/schema";
 
 import { getBaseUrl } from "~/lib/utils";
 import { Card, CardContent } from "~/components/ui/card";
@@ -7,7 +7,7 @@ import { Icons, iconVariants } from "~/components/ui/icons";
 import { LinkCopyButton } from "./link-copy-button";
 import { LinkViews } from "./link-views";
 
-export const LinkCard = ({ slug, url, views }: ShortLink) => {
+export const LinkCard = ({ slug, url, views }: LinkItem) => {
   const decodedURL = decodeURIComponent(url);
   const shortenedURL = `${getBaseUrl()}/${slug}`;
 

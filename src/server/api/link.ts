@@ -9,7 +9,7 @@ import {
   type NewLinkItem,
 } from "~/server/db/schema";
 import { redis } from "~/server/redis";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 import {
   GUEST_LINK_COOKIE_EXPIRATION_TIME,
@@ -90,6 +90,7 @@ export async function getShortLinksByLinkId(
 ): Promise<LinkItem[]> {
   const items = await db.query.linkItems.findMany({
     where: eq(linkItems.linkId, linkId),
+    orderBy: desc(linkItems.createdAt),
   });
   return items;
 }

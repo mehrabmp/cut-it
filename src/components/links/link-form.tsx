@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createShortLink } from "~/server/actions/link-actions";
+import { createGuestShortLink } from "~/server/actions/link";
 import { useAction } from "next-safe-action/hook";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -32,12 +32,13 @@ export const LinkForm = () => {
     },
   });
 
-  const { execute, status } = useAction(createShortLink, {
+  const { execute, status } = useAction(createGuestShortLink, {
     onSuccess() {
       toast.success("Link created successfully");
       form.reset();
     },
     onError(error) {
+      console.log(error);
       const errorMessage = error.serverError
         ? "Internal Server Error"
         : error.validationError
@@ -49,8 +50,9 @@ export const LinkForm = () => {
     },
   });
 
-  const onSubmit = (values: FormSchema) =>
-    execute({ url: values.url, slug: "" });
+  const onSubmit = (values: FormSchema) => {
+    execute({ url: values.url });
+  };
 
   return (
     <Form {...form}>

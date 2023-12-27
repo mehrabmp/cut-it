@@ -15,6 +15,20 @@
       "when": 1703404558283,
       "tag": "0001_handy_barracuda",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1703498216326,
+      "tag": "0002_ancient_roxanne_simpson",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1703671896626,
+      "tag": "0003_empty_ted_forrester",
+      "breakpoints": true
     }
   ]
 }

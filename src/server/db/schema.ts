@@ -1,3 +1,4 @@
+import { createId } from "@paralleldrive/cuid2";
 import { relations, sql } from "drizzle-orm";
 import {
   index,
@@ -9,37 +10,6 @@ import {
 } from "drizzle-orm/sqlite-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
-export const links = sqliteTable(
-  "links",
-  {
-    id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-    title: text("title", { length: 256 }),
-    description: text("description"),
-    slug: text("slug", { length: 256 }).notNull(),
-    url: text("url").notNull(),
-    views: integer("views").default(0).notNull(),
-    userId: integer("user_id"),
-    createdAt: integer("created_at", { mode: "timestamp" }).default(
-      sql`(strftime('%s', 'now'))`,
-    ),
-    updateAt: integer("updated_at", { mode: "timestamp" }).default(
-      sql`(strftime('%s', 'now'))`,
-    ),
-  },
-  (links) => {
-    return {
-      keyIndex: uniqueIndex("slug_idx").on(links.slug),
-    };
-  },
-);
-
-export type ShortLink = typeof links.$inferSelect;
-export type NewShortLink = typeof links.$inferInsert;
-
-export const linksRelations = relations(links, ({ one }) => ({
-  user: one(users, { fields: [links.userId], references: [users.id] }),
-}));
-
 export const users = sqliteTable("user", {
   id: text("id").notNull().primaryKey(),
   name: text("name"),
@@ -48,9 +18,10 @@ export const users = sqliteTable("user", {
   image: text("image"),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
+  link: one(links, { fields: [users.id], references: [links.userId] }),
 }));
 
 export const accounts = sqliteTable(
@@ -109,3 +80,55 @@ export const verificationTokens = sqliteTable(
     compoundKey: primaryKey(vt.identifier, vt.token),
   }),
 );
+
+export const links = sqliteTable(
+  "link",
+  {
+    id: text("id")
+      .$defaultFn(() => createId())
+      .primaryKey(),
+    userId: text("userId").references(() => users.id, {
+      onDelete: "cascade",
+    }),
+    createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+  },
+  (link) => ({
+    userIdIdx: uniqueIndex("links_userId_idx").on(link.userId),
+  }),
+);
+
+export type Link = typeof links.$inferSelect;
+export type NewLink = typeof links.$inferInsert;
+
+export const linksRelations = relations(links, ({ many }) => ({
+  linkItems: many(linkItems),
+}));
+
+export const linkItems = sqliteTable(
+  "linkItem",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    linkId: text("linkId")
+      .references(() => links.id, {
+        onDelete: "cascade",
+      })
+      .notNull(),
+    title: text("title", { length: 256 }),
+    description: text("description"),
+    slug: text("slug", { length: 256 }).notNull(),
+    url: text("url").notNull(),
+    views: integer("views").default(0).notNull(),
+    createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+  },
+  (links) => ({
+    linkIdIdx: index("linkId_idx").on(links.linkId),
+    slugIdx: uniqueIndex("slug_idx").on(links.slug),
+  }),
+);
+
+export type LinkItem = typeof linkItems.$inferSelect;
+export type NewLinkItem = typeof linkItems.$inferInsert;
+
+export const linkItemsRelations = relations(linkItems, ({ one }) => ({
+  link: one(links, { fields: [linkItems.linkId], references: [links.id] }),
+}));

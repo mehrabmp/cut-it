@@ -2,13 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { generateShortLink } from "~/server/api/link";
+import { deleteLink, generateShortLink } from "~/server/api/link";
 import {
   createNewUserLink,
   getOrCreateUserLinkById,
   setUserLinkIdCookie,
 } from "~/server/api/user-link";
 import { type UserLink } from "~/server/db/schema";
+import { z } from "zod";
 
 import { action } from "~/lib/safe-action";
 import { insertGuestLinkSchema } from "~/lib/validations/link";
@@ -44,5 +45,22 @@ export const createGuestShortLink = action(
     revalidatePath("/");
 
     return { message: "Link creation successful" };
+  },
+);
+
+export const deleteShortLink = action(
+  z.object({ slug: z.string() }),
+  async ({ slug }) => {
+    const cookieStore = cookies();
+    const userLinkId = cookieStore.get("user-link-id")?.value;
+    if (!userLinkId) {
+      throw new Error("No user link id found");
+    }
+
+    await deleteLink(slug, userLinkId);
+
+    revalidatePath("/");
+
+    return { message: "Link deletion successful" };
   },
 );

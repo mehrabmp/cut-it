@@ -65,3 +65,22 @@ export async function generateShortLink({
     redis.set(slug, encodedURL, redisOptions),
   ]);
 }
+
+export async function deleteLink(
+  slug: string,
+  userLinkId: string,
+): Promise<void> {
+  const link = await getLinkBySlug(slug);
+  if (!link) {
+    throw new Error("Link not found");
+  }
+
+  if (link.userLinkId !== userLinkId) {
+    throw new Error("Link not found");
+  }
+
+  await Promise.all([
+    db.delete(links).where(eq(links.slug, slug)).run(),
+    redis.del(slug),
+  ]);
+}

@@ -1,4 +1,4 @@
-import { type LinkItem } from "~/server/db/schema";
+import { type ShortLink } from "~/server/db/schema";
 
 import { getBaseUrl } from "~/lib/utils";
 import { Card, CardContent } from "~/components/ui/card";
@@ -7,7 +7,8 @@ import { LinkCopyButton } from "./link-copy-button";
 import { LinkOptionsDropdown } from "./link-options-dropdown";
 import { LinkViews } from "./link-views";
 
-export const LinkCard = ({ slug, url, views }: LinkItem) => {
+export const LinkCard = (link: ShortLink) => {
+  const { slug, url, views } = link;
   const decodedURL = decodeURIComponent(url);
   const shortenedURL = `${getBaseUrl()}/${slug}`;
 
@@ -34,7 +35,10 @@ export const LinkCard = ({ slug, url, views }: LinkItem) => {
           </a>
         </div>
       </CardContent>
-      <LinkOptionsDropdown className="absolute right-2 top-[50%] translate-y-[-50%]" />
+      <LinkOptionsDropdown
+        className="absolute right-2 top-[50%] translate-y-[-50%]"
+        link={link}
+      />
     </Card>
   );
 };

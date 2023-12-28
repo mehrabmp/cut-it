@@ -2,48 +2,44 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { generateShortLink } from "~/server/api/link";
 import {
-  createNewLink,
-  generateShortLink,
-  getOrCreateLinkById,
-  setLinkIdCookie,
-} from "~/server/api/link";
+  createNewUserLink,
+  getOrCreateUserLinkById,
+  setUserLinkIdCookie,
+} from "~/server/api/user-link";
+import { type UserLink } from "~/server/db/schema";
 
 import { action } from "~/lib/safe-action";
-import { insertPublicLinkSchema } from "~/lib/validations/link";
+import { insertGuestLinkSchema } from "~/lib/validations/link";
 
 export const createGuestShortLink = action(
-  insertPublicLinkSchema,
+  insertGuestLinkSchema,
   async ({ url }) => {
     const cookieStore = cookies();
-    const existingLinkId = cookieStore.get("link-id");
+    const userLinkId = cookieStore.get("user-link-id")?.value;
+    let userLink: UserLink | undefined;
 
-    if (!existingLinkId) {
-      const newLink = await createNewLink();
-      if (!newLink) {
-        return { message: "Error in creating new link" };
-      }
-
-      setLinkIdCookie(newLink.id);
-
-      await generateShortLink({
-        url,
-        linkId: newLink.id,
-        isGuestUser: true,
-        slug: "",
-      });
+    if (!userLinkId) {
+      userLink = await createNewUserLink();
     } else {
-      const link = await getOrCreateLinkById(existingLinkId.value);
-
-      setLinkIdCookie(link.id);
-
-      await generateShortLink({
-        url,
-        linkId: link.id,
-        isGuestUser: true,
-        slug: "",
-      });
+      userLink = await getOrCreateUserLinkById(userLinkId);
     }
+
+    if (!userLink) {
+      throw new Error("Error creating user link");
+    }
+
+    if (userLink.id !== userLinkId) {
+      setUserLinkIdCookie(userLink.id);
+    }
+
+    await generateShortLink({
+      url,
+      userLinkId: userLink.id,
+      isGuestUser: true,
+      slug: "",
+    });
 
     revalidatePath("/");
 

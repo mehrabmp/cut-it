@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
-import { linkItems } from "~/server/db/schema";
+import { links } from "~/server/db/schema";
 import { redis } from "~/server/redis";
 import { eq, sql } from "drizzle-orm";
 
@@ -14,9 +14,9 @@ export const linkMiddleware = async (req: NextRequest) => {
   const [url] = await Promise.all([
     redis.get<string>(slug),
     db
-      .update(linkItems)
-      .set({ views: sql`${linkItems.views} + 1` })
-      .where(eq(linkItems.slug, slug))
+      .update(links)
+      .set({ views: sql`${links.views} + 1` })
+      .where(eq(links.slug, slug))
       .run(),
   ]);
 

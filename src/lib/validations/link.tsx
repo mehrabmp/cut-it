@@ -1,11 +1,11 @@
-import { linkItems } from "~/server/db/schema";
+import { links } from "~/server/db/schema";
 import { createInsertSchema } from "drizzle-zod";
 
-export const insertPublicLinkSchema = createInsertSchema(linkItems).pick({
+export const insertGuestLinkSchema = createInsertSchema(links).pick({
   url: true,
 });
 
-export const insertAuthLinkSchema = createInsertSchema(linkItems).pick({
+export const insertUserLinkSchema = createInsertSchema(links).pick({
   slug: true,
   url: true,
   title: true,

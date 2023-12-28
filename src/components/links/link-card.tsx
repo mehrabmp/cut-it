@@ -2,9 +2,9 @@ import { type LinkItem } from "~/server/db/schema";
 
 import { getBaseUrl } from "~/lib/utils";
 import { Card, CardContent } from "~/components/ui/card";
-import { Icons, iconVariants } from "~/components/ui/icons";
 
 import { LinkCopyButton } from "./link-copy-button";
+import { LinkOptionsDropdown } from "./link-options-dropdown";
 import { LinkViews } from "./link-views";
 
 export const LinkCard = ({ slug, url, views }: LinkItem) => {
@@ -34,12 +34,7 @@ export const LinkCard = ({ slug, url, views }: LinkItem) => {
           </a>
         </div>
       </CardContent>
-      <Icons.MoreVertical
-        className={iconVariants({
-          className:
-            "absolute right-2 top-[50%] translate-y-[-50%] cursor-pointer opacity-50 transition-opacity hover:opacity-100",
-        })}
-      />
+      <LinkOptionsDropdown className="absolute right-2 top-[50%] translate-y-[-50%]" />
     </Card>
   );
 };

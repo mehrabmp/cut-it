@@ -1,5 +1,13 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { Copy, Eye, Moon, MoreVertical, Scissors, Sun } from "lucide-react";
+import {
+  Copy,
+  Eye,
+  Moon,
+  MoreVertical,
+  Scissors,
+  Sun,
+  Trash2,
+} from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -21,6 +29,7 @@ const Icons = {
   Sun,
   Moon,
   github,
+  Trash2,
 };
 
 const iconVariants = cva("", {

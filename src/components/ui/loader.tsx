@@ -10,6 +10,8 @@ const loaderVariants = cva("animate-spin rounded-full border-solid", {
     variant: {
       default: "border-muted border-l-foreground",
       primary: "border-primary-foreground/20 border-l-primary-foreground",
+      destructive:
+        "border-destructive-foreground/20 border-l-destructive-foreground",
     },
     border: {
       xs: "border-[3px]",

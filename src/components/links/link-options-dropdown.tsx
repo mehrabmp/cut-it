@@ -65,7 +65,7 @@ const LinkOptionsDropdown = React.forwardRef<
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem
-            className="text-red-400 focus:text-red-400 focus:bg-red-400/10"
+            className="text-red-500 focus:text-red-500 focus:bg-red-500/10"
             onClick={() => setIsDeleteDialogOpen(true)}
           >
             <Icons.Trash2 className={iconVariants({ className: "mr-2" })} />

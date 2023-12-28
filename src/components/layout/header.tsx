@@ -3,8 +3,8 @@ import Link from "next/link";
 
 import { Button } from "~/components/ui/button";
 import { Icons, iconVariants } from "~/components/ui/icons";
-
-import { ThemeToggle } from "../theme-toggle";
+import { SigninDialog } from "~/components/auth/signin-dialog";
+import { ThemeToggle } from "~/components/theme-toggle";
 
 const paytoneOne = Paytone_One({ subsets: ["latin"], weight: ["400"] });
 
@@ -27,7 +27,9 @@ export const Header = () => {
           </Link>
         </Button>
         <ThemeToggle />
-        <Button size="sm">Sign In</Button>
+        <SigninDialog>
+          <Button size="sm">Sign In</Button>
+        </SigninDialog>
       </div>
     </header>
   );

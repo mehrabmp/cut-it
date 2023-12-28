@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import Link from "next/link";
 import { getLinksByUserLinkId } from "~/server/api/link";
 
+import { SigninDialog } from "../auth/signin-dialog";
 import { LinkCard } from "./link-card";
 
 export const LinkList = async () => {
@@ -23,12 +23,11 @@ export const LinkList = async () => {
       {shortLinks.length > 0 && (
         <div className="text-xs text-muted-foreground px-4">
           Maximize your link's lifespan beyond 24 hours by{" "}
-          <Link
-            href="/signin"
-            className="underline underline-offset-4 text-foreground"
-          >
-            signing in
-          </Link>{" "}
+          <SigninDialog>
+            <span className="underline cursor-pointer underline-offset-4 text-foreground">
+              signing in
+            </span>
+          </SigninDialog>{" "}
           and accessing exclusive editing features!
         </div>
       )}

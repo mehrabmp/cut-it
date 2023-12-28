@@ -21,7 +21,10 @@ export const users = sqliteTable("user", {
 export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
-  link: one(links, { fields: [users.id], references: [links.userId] }),
+  userLink: one(userLinks, {
+    fields: [users.id],
+    references: [userLinks.userId],
+  }),
 }));
 
 export const accounts = sqliteTable(
@@ -81,8 +84,8 @@ export const verificationTokens = sqliteTable(
   }),
 );
 
-export const links = sqliteTable(
-  "link",
+export const userLinks = sqliteTable(
+  "userLink",
   {
     id: text("id")
       .$defaultFn(() => createId())
@@ -93,42 +96,43 @@ export const links = sqliteTable(
     createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
   },
   (link) => ({
-    userIdIdx: uniqueIndex("links_userId_idx").on(link.userId),
+    userIdIdx: uniqueIndex("userLinks_userId_idx").on(link.userId),
   }),
 );
 
-export type Link = typeof links.$inferSelect;
-export type NewLink = typeof links.$inferInsert;
+export type UserLink = typeof userLinks.$inferSelect;
+export type NewUserLink = typeof userLinks.$inferInsert;
 
-export const linksRelations = relations(links, ({ many }) => ({
-  linkItems: many(linkItems),
+export const userLinksRelations = relations(userLinks, ({ many }) => ({
+  links: many(links),
 }));
 
-export const linkItems = sqliteTable(
-  "linkItem",
+export const links = sqliteTable(
+  "link",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
-    linkId: text("linkId")
-      .references(() => links.id, {
+    slug: text("slug", { length: 256 }).primaryKey(),
+    userLinkId: text("userLinkId")
+      .references(() => userLinks.id, {
         onDelete: "cascade",
       })
       .notNull(),
     title: text("title", { length: 256 }),
     description: text("description"),
-    slug: text("slug", { length: 256 }).notNull(),
     url: text("url").notNull(),
     views: integer("views").default(0).notNull(),
     createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
   },
   (links) => ({
-    linkIdIdx: index("linkId_idx").on(links.linkId),
-    slugIdx: uniqueIndex("slug_idx").on(links.slug),
+    userLinkIdIdx: index("userLinkId_idx").on(links.userLinkId),
   }),
 );
 
-export type LinkItem = typeof linkItems.$inferSelect;
-export type NewLinkItem = typeof linkItems.$inferInsert;
+export type ShortLink = typeof links.$inferSelect;
+export type NewShortLink = typeof links.$inferInsert;
 
-export const linkItemsRelations = relations(linkItems, ({ one }) => ({
-  link: one(links, { fields: [linkItems.linkId], references: [links.id] }),
+export const linksRelations = relations(links, ({ one }) => ({
+  userLink: one(userLinks, {
+    fields: [links.userLinkId],
+    references: [userLinks.id],
+  }),
 }));

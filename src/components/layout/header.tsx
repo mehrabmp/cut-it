@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Icons, iconVariants } from "~/components/ui/icons";
 
-import { ThemeToggle } from "./theme-toggle";
+import { ThemeToggle } from "../theme-toggle";
 
 const paytoneOne = Paytone_One({ subsets: ["latin"], weight: ["400"] });
 

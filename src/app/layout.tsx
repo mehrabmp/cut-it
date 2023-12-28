@@ -5,8 +5,8 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
 import { Toaster } from "~/components/ui/sonner";
-import { Footer } from "~/components/footer";
-import { Header } from "~/components/header";
+import { Footer } from "~/components/layout/footer";
+import { Header } from "~/components/layout/header";
 import { Providers } from "~/components/providers";
 
 export const metadata = {

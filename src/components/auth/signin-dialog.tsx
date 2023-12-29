@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { signIn } from "next-auth/react";
+import { type BuiltInProviderType } from "next-auth/providers/index";
+import { signIn, type LiteralUnion } from "next-auth/react";
+import { useTheme } from "next-themes";
 
-import { Button } from "~/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,9 +13,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
-import { Icons, iconVariants } from "~/components/ui/icons";
+
+import { OAuthProviderButton } from "./oauth-provider-button";
 
 export const SigninDialog = ({ children }: { children: React.ReactNode }) => {
+  const { theme } = useTheme();
+
+  const [signinProvider, setSigninProvider] =
+    React.useState<LiteralUnion<BuiltInProviderType>>();
+
+  const handleSignin = async (provider: LiteralUnion<BuiltInProviderType>) => {
+    setSigninProvider(provider);
+    await signIn(provider);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -26,14 +38,20 @@ export const SigninDialog = ({ children }: { children: React.ReactNode }) => {
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-2 mt-4">
-          <Button onClick={() => signIn("google")}>
-            <Icons.google className={iconVariants({ className: "mr-2" })} />
-            Continue with Google
-          </Button>
-          <Button variant="secondary" onClick={() => signIn("github")}>
-            <Icons.github className={iconVariants({ className: "mr-2" })} />
-            Continue with Github
-          </Button>
+          <OAuthProviderButton
+            provider="google"
+            providerName="Google"
+            isLoading={signinProvider === "google"}
+            handleSignin={handleSignin}
+            variant={theme === "dark" ? "default" : "secondary"}
+          />
+          <OAuthProviderButton
+            provider="github"
+            providerName="GitHub"
+            isLoading={signinProvider === "github"}
+            handleSignin={handleSignin}
+            variant={theme === "dark" ? "secondary" : "default"}
+          />
         </div>
       </DialogContent>
     </Dialog>

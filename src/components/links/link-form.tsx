@@ -77,7 +77,7 @@ export const LinkForm = () => {
         <Button
           type="submit"
           size="icon"
-          loading={status === "executing"}
+          isLoading={status === "executing"}
           aria-label="Generate short link"
         >
           <Icons.Scissors className={iconVariants({ size: "lg" })} />

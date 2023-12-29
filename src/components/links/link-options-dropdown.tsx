@@ -90,7 +90,7 @@ const LinkOptionsDropdown = React.forwardRef<
             <Button
               variant="destructive"
               onClick={() => deleteLink({ slug: link.slug })}
-              loading={deleteLinkStatus === "executing"}
+              isLoading={deleteLinkStatus === "executing"}
             >
               {deleteLinkStatus === "executing" ? "Deleting..." : "Delete Link"}
             </Button>

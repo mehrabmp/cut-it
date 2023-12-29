@@ -6,10 +6,14 @@ import { redis } from "~/server/redis";
 import { eq, sql } from "drizzle-orm";
 
 export const linkMiddleware = async (req: NextRequest) => {
-  const pathname = req.nextUrl.pathname;
-  const slug = decodeURIComponent(pathname.substring(1));
+  const pathname = decodeURIComponent(req.nextUrl.pathname);
 
-  if (!slug) return NextResponse.next();
+  // Check if the request is for the home page or not a shortened URL
+  if (pathname === "/" || pathname.split("/").length > 2) {
+    return NextResponse.next();
+  }
+
+  const slug = pathname.split("/")[1] ?? "";
 
   const [url] = await Promise.all([
     redis.get<string>(slug),

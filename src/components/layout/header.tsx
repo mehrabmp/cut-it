@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import { Paytone_One } from "next/font/google";
 import Link from "next/link";
 
 import { Button } from "~/components/ui/button";
 import { Icons, iconVariants } from "~/components/ui/icons";
-import { SigninDialog } from "~/components/auth/signin-dialog";
+import { Loader } from "~/components/ui/loader";
+import { UserProfile } from "~/components/auth/user-profile";
 import { ThemeToggle } from "~/components/theme-toggle";
 
 const paytoneOne = Paytone_One({ subsets: ["latin"], weight: ["400"] });
@@ -27,9 +29,9 @@ export const Header = () => {
           </Link>
         </Button>
         <ThemeToggle />
-        <SigninDialog>
-          <Button size="sm">Sign In</Button>
-        </SigninDialog>
+        <Suspense fallback={<Loader size="xl" />}>
+          <UserProfile />
+        </Suspense>
       </div>
     </header>
   );

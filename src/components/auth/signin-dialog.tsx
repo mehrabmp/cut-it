@@ -30,7 +30,7 @@ export const SigninDialog = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-sm">
+      <DialogContent className="max-w-xs sm:max-w-sm">
         <DialogHeader className="space-y-4">
           <DialogTitle>Sign In</DialogTitle>
           <DialogDescription>

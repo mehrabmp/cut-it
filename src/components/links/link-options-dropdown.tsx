@@ -63,7 +63,7 @@ const LinkOptionsDropdown = React.forwardRef<
             <Icons.MoreVertical className={iconVariants()} />
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent align="end">
           <DropdownMenuItem
             className="text-red-500 focus:text-red-500 focus:bg-red-500/10"
             onClick={() => setIsDeleteDialogOpen(true)}
@@ -77,7 +77,7 @@ const LinkOptionsDropdown = React.forwardRef<
         open={isDeleteDialogOpen}
         onOpenChange={setIsDeleteDialogOpen}
       >
-        <AlertDialogContent className="max-w-xs sm:max-w-lg">
+        <AlertDialogContent className="max-w-[22rem] sm:max-w-lg">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>

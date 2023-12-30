@@ -1,21 +1,40 @@
 import { cookies } from "next/headers";
 import { getLinksByUserLinkId } from "~/server/api/link";
+import { getUserLinkByUserId } from "~/server/api/user-link";
 import { getServerAuthSession } from "~/server/auth";
+import { type ShortLink } from "~/server/db/schema";
+import { type Session } from "next-auth";
 
 import { SigninDialog } from "../auth/signin-dialog";
 import { LinkCard } from "./link-card";
 
-export const LinkList = async () => {
-  const session = await getServerAuthSession();
+const fetchLinksBySessionOrCookie = async (
+  session: Session | null,
+): Promise<ShortLink[]> => {
   const cookieStore = cookies();
 
-  const user = session?.user;
-  const userLinkId = cookieStore.get("user-link-id");
-  if (!userLinkId) {
-    return null;
-  }
+  if (session) {
+    const userLink = await getUserLinkByUserId(session.user.id);
+    return await getLinksByUserLinkId(userLink?.id ?? "");
+  } else {
+    const userLinkIdCookie = cookieStore.get("user-link-id")?.value;
+    if (!userLinkIdCookie) {
+      return [];
+    }
 
-  const shortLinks = await getLinksByUserLinkId(userLinkId.value);
+    return await getLinksByUserLinkId(userLinkIdCookie);
+  }
+};
+
+export const LinkList = async () => {
+  const session = await getServerAuthSession();
+  let shortLinks: ShortLink[] = [];
+
+  try {
+    shortLinks = await fetchLinksBySessionOrCookie(session);
+  } catch (err) {
+    throw new Error("Failed to fetch links");
+  }
 
   return (
     <>
@@ -24,7 +43,7 @@ export const LinkList = async () => {
           <LinkCard key={link.slug} {...link} />
         ))}
       </div>
-      {!user && shortLinks.length > 0 && (
+      {!session && shortLinks.length > 0 && (
         <div className="text-xs text-muted-foreground px-4">
           Maximize your link's lifespan beyond 24 hours by{" "}
           <SigninDialog>

@@ -60,6 +60,18 @@ export async function getOrCreateUserLinkById(id: string): Promise<UserLink> {
   return newUserLink;
 }
 
+export async function updateUserLink(
+  id: string,
+  data: Partial<UserLink>,
+): Promise<UserLink | undefined> {
+  const updatedUserLink = await db
+    .update(userLinks)
+    .set(data)
+    .where(eq(userLinks.id, id))
+    .returning();
+  return updatedUserLink[0];
+}
+
 export function setUserLinkIdCookie(id: string) {
   const cookieStore = cookies();
 

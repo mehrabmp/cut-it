@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { env } from "~/env";
 import { db } from "~/server/db";
@@ -8,6 +9,14 @@ import {
 } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+
+import { updateLinkByUserLinkId } from "./api/link";
+import {
+  createNewUserLink,
+  getUserLinkById,
+  getUserLinkByUserId,
+  updateUserLink,
+} from "./api/user-link";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -44,6 +53,30 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+  },
+  events: {
+    async signIn({ user }) {
+      const cookieStore = cookies();
+      const userLinkIdCookie = cookieStore.get("user-link-id")?.value;
+
+      if (!userLinkIdCookie) return;
+
+      const existingUserLink = await getUserLinkByUserId(user.id);
+      if (existingUserLink) {
+        await updateLinkByUserLinkId(userLinkIdCookie, {
+          userLinkId: existingUserLink.id,
+        });
+      } else {
+        const userLink = await getUserLinkById(userLinkIdCookie);
+        if (userLink) {
+          await updateUserLink(userLinkIdCookie, { userId: user.id });
+        } else {
+          await createNewUserLink(user.id);
+        }
+      }
+      // eslint-disable-next-line drizzle/enforce-delete-with-where
+      cookies().delete("user-link-id");
+    },
   },
   adapter: DrizzleAdapter(db),
   providers: [

@@ -84,3 +84,14 @@ export async function deleteLink(
     redis.del(slug),
   ]);
 }
+
+export async function updateLinkByUserLinkId(
+  userLinkId: string,
+  data: Partial<ShortLink>,
+): Promise<void> {
+  await db
+    .update(links)
+    .set(data)
+    .where(eq(links.userLinkId, userLinkId))
+    .run();
+}

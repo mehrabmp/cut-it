@@ -103,7 +103,8 @@ export const userLinks = sqliteTable(
 export type UserLink = typeof userLinks.$inferSelect;
 export type NewUserLink = typeof userLinks.$inferInsert;
 
-export const userLinksRelations = relations(userLinks, ({ many }) => ({
+export const userLinksRelations = relations(userLinks, ({ many, one }) => ({
+  user: one(users, { fields: [userLinks.userId], references: [users.id] }),
   links: many(links),
 }));
 

@@ -5,6 +5,7 @@ import {
   Moon,
   MoreVertical,
   Scissors,
+  Settings2,
   Sun,
   Trash2,
 } from "lucide-react";
@@ -59,6 +60,7 @@ const Icons = {
   github,
   Trash2,
   google,
+  Settings2,
 };
 
 const iconVariants = cva("", {

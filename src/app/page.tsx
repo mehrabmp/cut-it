@@ -2,6 +2,8 @@ import { Suspense } from "react";
 
 import { Heading } from "~/components/ui/heading";
 import { Loader } from "~/components/ui/loader";
+import { CustomLink } from "~/components/links/custom-link";
+import { CustomLinkButton } from "~/components/links/custom-link-button";
 import { LinkForm } from "~/components/links/link-form";
 import { LinkList } from "~/components/links/link-list";
 
@@ -17,7 +19,13 @@ export default function Home() {
         </Heading>
       </div>
       <div className="flex items-center w-full max-w-md flex-col gap-4">
-        <LinkForm />
+        <LinkForm
+          renderCustomLink={
+            <Suspense fallback={<CustomLinkButton disabled />}>
+              <CustomLink />
+            </Suspense>
+          }
+        />
         <Suspense fallback={<Loader size="4xl" className="my-20" />}>
           <LinkList />
         </Suspense>

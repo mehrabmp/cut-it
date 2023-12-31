@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createGuestShortLink } from "~/server/actions/link";
 import { useAction } from "next-safe-action/hook";
@@ -24,7 +25,11 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export const LinkForm = () => {
+type LinkFormProps = {
+  renderCustomLink: React.ReactNode;
+};
+
+export const LinkForm = ({ renderCustomLink }: LinkFormProps) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,33 +61,36 @@ export const LinkForm = () => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full justify-center gap-2"
-      >
-        <div className="flex-1">
-          <FormField
-            control={form.control}
-            name="url"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input placeholder="Enter the link here" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <Button
-          type="submit"
-          size="icon"
-          isLoading={status === "executing"}
-          aria-label="Generate short link"
+      <div className="flex gap-2 w-full">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex w-full justify-center gap-2"
         >
-          <Icons.Scissors className={iconVariants({ size: "lg" })} />
-        </Button>
-      </form>
+          <div className="flex-1">
+            <FormField
+              control={form.control}
+              name="url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="Enter the link here" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button
+            type="submit"
+            size="icon"
+            isLoading={status === "executing"}
+            aria-label="Generate short link"
+          >
+            <Icons.Scissors className={iconVariants({ size: "lg" })} />
+          </Button>
+        </form>
+        {renderCustomLink}
+      </div>
     </Form>
   );
 };

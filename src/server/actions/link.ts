@@ -6,13 +6,17 @@ import { deleteLink, generateShortLink } from "~/server/api/link";
 import {
   createNewUserLink,
   getOrCreateUserLinkById,
+  getOrCreateUserLinkByUserId,
   setUserLinkIdCookie,
 } from "~/server/api/user-link";
 import { type UserLink } from "~/server/db/schema";
 import { z } from "zod";
 
-import { action } from "~/lib/safe-action";
-import { insertGuestLinkSchema } from "~/lib/validations/link";
+import { action, authAction } from "~/lib/safe-action";
+import {
+  insertGuestLinkSchema,
+  insertUserLinkSchema,
+} from "~/lib/validations/link";
 
 export const createGuestShortLink = action(
   insertGuestLinkSchema,
@@ -40,6 +44,22 @@ export const createGuestShortLink = action(
       userLinkId: userLink.id,
       isGuestUser: true,
       slug: "",
+    });
+
+    revalidatePath("/");
+
+    return { message: "Link creation successful" };
+  },
+);
+
+export const createUserShortLink = authAction(
+  insertUserLinkSchema,
+  async (input, { user }) => {
+    const userLink = await getOrCreateUserLinkByUserId(user.id);
+
+    await generateShortLink({
+      userLinkId: userLink.id,
+      ...input,
     });
 
     revalidatePath("/");

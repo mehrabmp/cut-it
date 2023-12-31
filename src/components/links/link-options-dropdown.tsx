@@ -92,7 +92,9 @@ const LinkOptionsDropdown = React.forwardRef<
               onClick={() => deleteLink({ slug: link.slug })}
               isLoading={deleteLinkStatus === "executing"}
             >
-              {deleteLinkStatus === "executing" ? "Deleting..." : "Delete Link"}
+              {deleteLinkStatus === "executing"
+                ? "Deleting link..."
+                : "Delete link"}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

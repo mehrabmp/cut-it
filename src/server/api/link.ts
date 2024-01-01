@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { type SetCommandOptions } from "@upstash/redis";
 import { db } from "~/server/db";
 import { links, type NewShortLink, type ShortLink } from "~/server/db/schema";
@@ -84,6 +85,14 @@ export async function deleteLink(
     db.delete(links).where(eq(links.slug, slug)).run(),
     redis.del(slug),
   ]);
+}
+
+export async function deleteLinkAndRevalidate(slug: string, id: string) {
+  await deleteLink(slug, id);
+
+  revalidatePath("/");
+
+  return { message: "Link deletion successful" };
 }
 
 export async function updateLinkByUserLinkId(

@@ -2,11 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { deleteLink, generateShortLink } from "~/server/api/link";
+import { deleteLinkAndRevalidate, generateShortLink } from "~/server/api/link";
 import {
   createNewUserLink,
   getOrCreateUserLinkById,
   getOrCreateUserLinkByUserId,
+  getUserLinkByUserId,
   setUserLinkIdCookie,
 } from "~/server/api/user-link";
 import { type UserLink } from "~/server/db/schema";
@@ -17,6 +18,8 @@ import {
   insertGuestLinkSchema,
   insertUserLinkSchema,
 } from "~/lib/validations/link";
+
+import { getServerAuthSession } from "../auth";
 
 export const createGuestShortLink = action(
   insertGuestLinkSchema,
@@ -72,15 +75,22 @@ export const deleteShortLink = action(
   z.object({ slug: z.string() }),
   async ({ slug }) => {
     const cookieStore = cookies();
-    const userLinkId = cookieStore.get("user-link-id")?.value;
-    if (!userLinkId) {
-      throw new Error("No user link id found");
+    const userLinkIdCookie = cookieStore.get("user-link-id")?.value;
+
+    if (userLinkIdCookie) {
+      return await deleteLinkAndRevalidate(slug, userLinkIdCookie);
     }
 
-    await deleteLink(slug, userLinkId);
+    const session = await getServerAuthSession();
+    if (!session) {
+      throw new Error("Session not found!");
+    }
 
-    revalidatePath("/");
+    const userLink = await getUserLinkByUserId(session.user.id);
+    if (!userLink) {
+      throw new Error("No user link found");
+    }
 
-    return { message: "Link deletion successful" };
+    return await deleteLinkAndRevalidate(slug, userLink.id);
   },
 );

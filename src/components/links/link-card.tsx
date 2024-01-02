@@ -1,11 +1,16 @@
 import { type ShortLink } from "~/server/db/schema";
+import { formatDistanceToNowStrict } from "date-fns";
 
-import { getBaseUrl } from "~/lib/utils";
+import { formatNumber, getBaseUrl } from "~/lib/utils";
 import { Card, CardContent } from "~/components/ui/card";
-
-import { LinkCopyButton } from "./link-copy-button";
-import { LinkOptionsDropdown } from "./link-options-dropdown";
-import { LinkViews } from "./link-views";
+import { Icons, iconVariants } from "~/components/ui/icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
+import { LinkCopyButton } from "~/components/links/link-copy-button";
+import { LinkOptionsDropdown } from "~/components/links/link-options-dropdown";
 
 export const LinkCard = (link: ShortLink) => {
   const { slug, url, views } = link;
@@ -26,7 +31,27 @@ export const LinkCard = (link: ShortLink) => {
           </a>
           <div className="flex items-center gap-2">
             <LinkCopyButton textToCopy={shortenedURL} />
-            <LinkViews views={views} />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  className="flex cursor-pointer items-center gap-1 transition-opacity opacity-50 hover:opacity-100"
+                  type="button"
+                >
+                  <Icons.Eye
+                    className={iconVariants({ size: "sm" })}
+                    aria-label="Total views"
+                  />
+                  <span className="text-xs">
+                    {formatNumber(views, { notation: "compact" })}
+                  </span>
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="font-sans">
+                  {formatNumber(views, { notation: "standard" })} Total views
+                </p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
         <div className="line-clamp-1 max-w-[320px] text-xs text-muted-foreground">
@@ -35,10 +60,24 @@ export const LinkCard = (link: ShortLink) => {
           </a>
         </div>
       </CardContent>
-      <LinkOptionsDropdown
-        className="absolute right-2 top-[50%] translate-y-[-50%]"
-        link={link}
-      />
+      <LinkOptionsDropdown className="absolute right-2 top-3" link={link} />
+      <span className="absolute right-3 bottom-3 text-[10px] text-muted-foreground font-medium">
+        <Tooltip>
+          <TooltipTrigger>
+            {formatDistanceToNowStrict(new Date(link.createdAt), {
+              addSuffix: true,
+            })}
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="font-sans">
+              {new Intl.DateTimeFormat("en-US", {
+                dateStyle: "long",
+                timeStyle: "short",
+              }).format(new Date(link.createdAt))}
+            </p>
+          </TooltipContent>
+        </Tooltip>
+      </span>
     </Card>
   );
 };

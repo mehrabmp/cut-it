@@ -93,7 +93,9 @@ export const userLinks = sqliteTable(
     userId: text("userId").references(() => users.id, {
       onDelete: "cascade",
     }),
-    createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .default(sql`(strftime('%s', 'now'))`)
+      .notNull(),
   },
   (link) => ({
     userIdIdx: uniqueIndex("userLinks_userId_idx").on(link.userId),
@@ -121,7 +123,9 @@ export const links = sqliteTable(
     description: text("description"),
     url: text("url").notNull(),
     views: integer("views").default(0).notNull(),
-    createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .default(sql`(strftime('%s', 'now'))`)
+      .notNull(),
   },
   (links) => ({
     userLinkIdIdx: index("userLinkId_idx").on(links.userLinkId),

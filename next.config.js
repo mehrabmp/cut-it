@@ -14,6 +14,9 @@ const config = {
   experimental: {
     ppr: true,
   },
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "t3.gstatic.com" }],
+  },
 };
 
 export default config;

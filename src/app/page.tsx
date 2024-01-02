@@ -11,10 +11,13 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       <div className="my-10 space-y-2 text-center">
-        <Heading variant="h1" isFirstBlock>
+        <Heading variant="h1" className="text-3xl sm:text-4xl" isFirstBlock>
           Free URL Shortener
         </Heading>
-        <Heading variant="h2" className="text-muted-foreground">
+        <Heading
+          variant="h2"
+          className="text-xl sm:text-2xl text-muted-foreground"
+        >
           Cut It is a free open source tool to generate short links
         </Heading>
       </div>

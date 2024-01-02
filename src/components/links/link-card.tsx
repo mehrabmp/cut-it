@@ -21,7 +21,7 @@ export const LinkCard = (link: ShortLink) => {
   return (
     <Card className="relative font-mono hover:border-foreground dark:hover:border-neutral-500 transition-colors">
       <CardContent className="flex gap-2 p-3">
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col min-w-8 justify-center">
           <Image
             src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${
               new URL(decodedURL).origin
@@ -33,8 +33,8 @@ export const LinkCard = (link: ShortLink) => {
             quality={100}
           />
         </div>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-x-3 gap-y-2 pe-8 flex-wrap">
             <a
               href={shortenedURL}
               className="font-medium"

@@ -13,7 +13,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme={theme as ToasterProps["theme"]}
       position="bottom-center"
       richColors
-      closeButton
       {...props}
     />
   );

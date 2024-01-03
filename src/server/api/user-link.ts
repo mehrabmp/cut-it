@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { db } from "~/server/db";
-import { userLinks, type UserLink } from "~/server/db/schema";
+import { userLinks, type ShortLink, type UserLink } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
 
 import { GUEST_LINK_COOKIE_EXPIRATION_TIME } from "~/lib/config";
@@ -14,18 +14,24 @@ export async function createNewUserLink(
 
 export async function getUserLinkById(
   id: string,
-): Promise<UserLink | undefined> {
+): Promise<(UserLink & { links: ShortLink[] }) | undefined> {
   const userLink = await db.query.userLinks.findFirst({
     where: eq(userLinks.id, id),
+    with: {
+      links: true,
+    },
   });
   return userLink;
 }
 
 export async function getUserLinkByUserId(
   userId: string,
-): Promise<UserLink | undefined> {
+): Promise<(UserLink & { links: ShortLink[] }) | undefined> {
   const userLink = await db.query.userLinks.findFirst({
     where: eq(userLinks.userId, userId),
+    with: {
+      links: true,
+    },
   });
   return userLink;
 }

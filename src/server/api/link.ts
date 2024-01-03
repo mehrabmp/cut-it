@@ -94,7 +94,7 @@ export async function deleteLinkAndRevalidate(slug: string, id: string) {
   return { message: "Link deletion successful" };
 }
 
-export async function updateLinkByUserLinkId(
+export async function updateLinksByUserLinkId(
   userLinkId: string,
   data: Partial<ShortLink>,
 ): Promise<void> {

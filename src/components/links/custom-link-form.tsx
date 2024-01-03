@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createUserShortLink } from "~/server/actions/link";
+import { createShortLink } from "~/server/actions/link";
 import { useAction } from "next-safe-action/hook";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -39,19 +39,22 @@ export const CustomLinkForm = ({ onSetIsDialogOpen }: CustomLinkFormProps) => {
     },
   });
 
-  const { execute, status } = useAction(createUserShortLink, {
-    onSuccess() {
-      toast.success("Link created successfully");
-      onSetIsDialogOpen(false);
-      form.reset();
+  const { execute: createLink, status: createLinkStatus } = useAction(
+    createShortLink,
+    {
+      onSuccess() {
+        toast.success("Link created successfully");
+        onSetIsDialogOpen(false);
+        form.reset();
+      },
+      onError(error) {
+        toast.error(error.serverError);
+      },
     },
-    onError(error) {
-      toast.error(error.serverError);
-    },
-  });
+  );
 
   const onSubmit = (values: FormSchema) => {
-    execute({
+    createLink({
       url: values.url,
       slug: values.slug,
       description: values.description,
@@ -110,8 +113,10 @@ export const CustomLinkForm = ({ onSetIsDialogOpen }: CustomLinkFormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit" isLoading={status === "executing"}>
-          {status === "executing" ? "Creating link..." : "Create link"}
+        <Button type="submit" isLoading={createLinkStatus === "executing"}>
+          {createLinkStatus === "executing"
+            ? "Creating link..."
+            : "Create link"}
         </Button>
       </form>
     </Form>

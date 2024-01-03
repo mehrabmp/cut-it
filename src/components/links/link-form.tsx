@@ -2,7 +2,7 @@
 
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createGuestShortLink } from "~/server/actions/link";
+import { createShortLink } from "~/server/actions/link";
 import { useAction } from "next-safe-action/hook";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -37,26 +37,29 @@ export const LinkForm = ({ renderCustomLink }: LinkFormProps) => {
     },
   });
 
-  const { execute, status } = useAction(createGuestShortLink, {
-    onSuccess() {
-      toast.success("Link created successfully");
-      form.reset();
+  const { execute: createLink, status: createLinkStatus } = useAction(
+    createShortLink,
+    {
+      onSuccess() {
+        toast.success("Link created successfully");
+        form.reset();
+      },
+      onError(error) {
+        console.log(error);
+        const errorMessage = error.serverError
+          ? "Internal Server Error"
+          : error.validationError
+            ? "Bad Request"
+            : error.fetchError
+              ? "Fetch Error"
+              : "Error";
+        toast.error(errorMessage);
+      },
     },
-    onError(error) {
-      console.log(error);
-      const errorMessage = error.serverError
-        ? "Internal Server Error"
-        : error.validationError
-          ? "Bad Request"
-          : error.fetchError
-            ? "Fetch Error"
-            : "Error";
-      toast.error(errorMessage);
-    },
-  });
+  );
 
   const onSubmit = (values: FormSchema) => {
-    execute({ url: values.url });
+    createLink({ url: values.url, slug: "" });
   };
 
   return (
@@ -80,13 +83,9 @@ export const LinkForm = ({ renderCustomLink }: LinkFormProps) => {
               )}
             />
           </div>
-          <Button
-            type="submit"
-            size="icon"
-            isLoading={status === "executing"}
-            aria-label="Generate short link"
-          >
+          <Button size="icon" isLoading={createLinkStatus === "executing"}>
             <Icons.Scissors className={iconVariants({ size: "lg" })} />
+            <span className="sr-only">Create short link</span>
           </Button>
         </form>
         {renderCustomLink}

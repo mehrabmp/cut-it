@@ -13,60 +13,53 @@ import {
 import { type UserLink } from "~/server/db/schema";
 import { z } from "zod";
 
-import { action, authAction } from "~/lib/safe-action";
-import {
-  insertGuestLinkSchema,
-  insertUserLinkSchema,
-} from "~/lib/validations/link";
+import { action } from "~/lib/safe-action";
+import { insertLinkSchema } from "~/lib/validations/link";
 
 import { getServerAuthSession } from "../auth";
 
-export const createGuestShortLink = action(
-  insertGuestLinkSchema,
-  async ({ url }) => {
-    const cookieStore = cookies();
-    const userLinkId = cookieStore.get("user-link-id")?.value;
-    let userLink: UserLink | undefined;
+export const createShortLink = action(
+  insertLinkSchema,
+  async ({ url, slug, description }) => {
+    const session = await getServerAuthSession();
 
-    if (!userLinkId) {
-      userLink = await createNewUserLink();
+    if (session) {
+      const userLink = await getOrCreateUserLinkByUserId(session.user.id);
+
+      await generateShortLink({
+        userLinkId: userLink.id,
+        slug,
+        url,
+        description,
+      });
     } else {
-      userLink = await getOrCreateUserLinkById(userLinkId);
-    }
+      const cookieStore = cookies();
+      const userLinkId = cookieStore.get("user-link-id")?.value;
+      let userLink: UserLink | undefined;
 
-    if (!userLink) {
-      throw new Error("Error creating user link");
-    }
+      if (!userLinkId) {
+        userLink = await createNewUserLink();
+      } else {
+        userLink = await getOrCreateUserLinkById(userLinkId);
+      }
 
-    if (userLink.id !== userLinkId) {
-      setUserLinkIdCookie(userLink.id);
-    }
+      if (!userLink) {
+        throw new Error("Error creating user link");
+      }
 
-    await generateShortLink({
-      url,
-      userLinkId: userLink.id,
-      isGuestUser: true,
-      slug: "",
-    });
+      if (userLink.id !== userLinkId) {
+        setUserLinkIdCookie(userLink.id);
+      }
+
+      await generateShortLink({
+        url,
+        userLinkId: userLink.id,
+        isGuestUser: true,
+        slug: "",
+      });
+    }
 
     revalidatePath("/");
-
-    return { message: "Link creation successful" };
-  },
-);
-
-export const createUserShortLink = authAction(
-  insertUserLinkSchema,
-  async (input, { user }) => {
-    const userLink = await getOrCreateUserLinkByUserId(user.id);
-
-    await generateShortLink({
-      userLinkId: userLink.id,
-      ...input,
-    });
-
-    revalidatePath("/");
-
     return { message: "Link creation successful" };
   },
 );

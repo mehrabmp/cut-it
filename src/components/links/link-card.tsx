@@ -19,7 +19,7 @@ export const LinkCard = (link: ShortLink) => {
   const shortenedURL = `${getBaseUrl()}/${slug}`;
 
   return (
-    <Card className="relative font-mono hover:border-foreground dark:hover:border-neutral-500 transition-colors">
+    <Card className="relative hover:border-foreground dark:hover:border-neutral-500 transition-colors">
       <CardContent className="flex gap-2 p-3">
         <div className="flex flex-col min-w-8 justify-center">
           <Image
@@ -33,11 +33,11 @@ export const LinkCard = (link: ShortLink) => {
             quality={100}
           />
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <div className="flex items-center gap-x-3 gap-y-2 pe-8 flex-wrap">
             <a
               href={shortenedURL}
-              className="font-medium"
+              className="font-medium font-mono"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -61,17 +61,34 @@ export const LinkCard = (link: ShortLink) => {
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="font-sans">
+                  <p>
                     {formatNumber(views, { notation: "standard" })} Total views
                   </p>
                 </TooltipContent>
               </Tooltip>
             </div>
           </div>
-          <div className="truncate max-w-52 sm:max-w-64 w-full text-xs text-muted-foreground">
-            <a href={decodedURL} target="_blank" rel="noopener noreferrer">
+          <div className="max-w-52 flex flex-col gap-2 sm:max-w-72 w-full text-xs text-muted-foreground">
+            <a
+              href={decodedURL}
+              className="truncate"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {decodedURL}
             </a>
+            {link.description && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <p className="line-clamp-1 cursor-pointer">
+                    {link.description}
+                  </p>
+                </TooltipTrigger>
+                <TooltipContent className="max-w-[300px]">
+                  <p>{link.description}</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
           </div>
         </div>
       </CardContent>
@@ -84,7 +101,7 @@ export const LinkCard = (link: ShortLink) => {
             })}
           </TooltipTrigger>
           <TooltipContent>
-            <p className="font-sans">
+            <p>
               {new Intl.DateTimeFormat("en-US", {
                 dateStyle: "long",
                 timeStyle: "short",

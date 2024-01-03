@@ -20,7 +20,6 @@ import { Textarea } from "~/components/ui/textarea";
 const formSchema = z.object({
   url: z.string().url(),
   slug: z.string(),
-  title: z.string(),
   description: z.string(),
 });
 
@@ -36,7 +35,6 @@ export const CustomLinkForm = ({ onSetIsDialogOpen }: CustomLinkFormProps) => {
     defaultValues: {
       url: "",
       slug: "",
-      title: "",
       description: "",
     },
   });
@@ -56,7 +54,6 @@ export const CustomLinkForm = ({ onSetIsDialogOpen }: CustomLinkFormProps) => {
     execute({
       url: values.url,
       slug: values.slug,
-      title: values.title,
       description: values.description,
     });
   };
@@ -91,19 +88,6 @@ export const CustomLinkForm = ({ onSetIsDialogOpen }: CustomLinkFormProps) => {
               <FormLabel>Short Link (optional)</FormLabel>
               <FormControl>
                 <Input placeholder="github" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Title (optional)</FormLabel>
-              <FormControl>
-                <Input placeholder="Free URL Shortener" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

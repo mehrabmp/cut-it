@@ -41,7 +41,6 @@ export async function generateShortLink({
   url,
   userLinkId,
   isGuestUser,
-  title,
   description,
 }: NewShortLink & { isGuestUser?: boolean }): Promise<void> {
   const encodedURL = encodeURIComponent(url);
@@ -62,7 +61,7 @@ export async function generateShortLink({
   await Promise.all([
     db
       .insert(links)
-      .values({ slug, url: encodedURL, userLinkId, title, description })
+      .values({ slug, url: encodedURL, userLinkId, description })
       .run(),
     redis.set(slug, encodedURL, redisOptions),
   ]);

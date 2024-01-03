@@ -43,6 +43,13 @@
       "when": 1704191875576,
       "tag": "0005_late_lady_mastermind",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1704273344001,
+      "tag": "0006_melodic_electro",
+      "breakpoints": true
     }
   ]
 }

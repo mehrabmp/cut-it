@@ -8,6 +8,5 @@ export const insertGuestLinkSchema = createInsertSchema(links).pick({
 export const insertUserLinkSchema = createInsertSchema(links).pick({
   slug: true,
   url: true,
-  title: true,
   description: true,
 });

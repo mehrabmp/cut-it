@@ -119,7 +119,6 @@ export const links = sqliteTable(
         onDelete: "cascade",
       })
       .notNull(),
-    title: text("title", { length: 256 }),
     description: text("description"),
     url: text("url").notNull(),
     views: integer("views").default(0).notNull(),

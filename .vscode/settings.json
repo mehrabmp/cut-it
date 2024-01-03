@@ -1,7 +1,6 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.inlayHints.parameterNames.enabled": "all",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },

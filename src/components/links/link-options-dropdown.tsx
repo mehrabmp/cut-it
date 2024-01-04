@@ -30,7 +30,7 @@ const LinkOptionsDropdown = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuTrigger> & {
     link: ShortLink;
   }
->(({ link, className, ...props }, ref) => {
+>(({ link, className, disabled, ...props }, ref) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
 
   const { execute: deleteLink, status: deleteLinkStatus } = useAction(
@@ -67,6 +67,7 @@ const LinkOptionsDropdown = React.forwardRef<
           <DropdownMenuItem
             className="text-red-500 focus:text-red-500 focus:bg-red-500/10"
             onClick={() => setIsDeleteDialogOpen(true)}
+            disabled={disabled}
           >
             <Icons.Trash2 className={iconVariants({ className: "mr-2" })} />
             Delete

@@ -25,12 +25,11 @@ export function formatNumber(
     notation?: Intl.NumberFormatOptions["notation"];
   } = {},
 ) {
-  const { decimals = 0, style = "decimal", notation = "standard" } = options;
+  const { decimals = 1, style = "decimal", notation = "standard" } = options;
 
   return new Intl.NumberFormat("en-US", {
     style,
     notation,
-    minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   }).format(Number(number));
 }

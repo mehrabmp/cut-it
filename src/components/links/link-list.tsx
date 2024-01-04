@@ -1,12 +1,12 @@
 import { cookies } from "next/headers";
-import { getLinksByUserLinkId } from "~/server/api/link";
+import { getLinkBySlug, getLinksByUserLinkId } from "~/server/api/link";
 import { getUserLinkByUserId } from "~/server/api/user-link";
 import { getServerAuthSession } from "~/server/auth";
 import { type ShortLink } from "~/server/db/schema";
 import { type Session } from "next-auth";
 
-import { SigninDialog } from "../auth/signin-dialog";
-import { LinkCard } from "./link-card";
+import { SigninDialog } from "~/components/auth/signin-dialog";
+import { LinkCard } from "~/components/links/link-card";
 
 const fetchLinksBySessionOrCookie = async (
   session: Session | null,
@@ -15,7 +15,7 @@ const fetchLinksBySessionOrCookie = async (
 
   if (session) {
     const userLink = await getUserLinkByUserId(session.user.id);
-    return await getLinksByUserLinkId(userLink?.id ?? "");
+    return userLink?.links ?? [];
   } else {
     const userLinkIdCookie = cookieStore.get("user-link-id")?.value;
     if (!userLinkIdCookie) {
@@ -29,6 +29,11 @@ const fetchLinksBySessionOrCookie = async (
 export const LinkList = async () => {
   const session = await getServerAuthSession();
   let shortLinks: ShortLink[] = [];
+  let defaultAppLink: ShortLink | undefined;
+
+  if (!session) {
+    defaultAppLink = await getLinkBySlug("github");
+  }
 
   try {
     shortLinks = await fetchLinksBySessionOrCookie(session);
@@ -39,8 +44,11 @@ export const LinkList = async () => {
   return (
     <>
       <div className="flex w-full flex-col gap-2">
+        {defaultAppLink && (
+          <LinkCard link={defaultAppLink} disableOptions hideCreatedAtTime />
+        )}
         {shortLinks.map((link) => (
-          <LinkCard key={link.slug} {...link} />
+          <LinkCard key={link.slug} link={link} />
         ))}
       </div>
       {!session && shortLinks.length > 0 && (

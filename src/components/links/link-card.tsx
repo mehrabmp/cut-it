@@ -13,7 +13,17 @@ import {
 import { LinkCopyButton } from "~/components/links/link-copy-button";
 import { LinkOptionsDropdown } from "~/components/links/link-options-dropdown";
 
-export const LinkCard = (link: ShortLink) => {
+type LinkCardProps = {
+  link: ShortLink;
+  disableOptions?: boolean;
+  hideCreatedAtTime?: boolean;
+};
+
+export const LinkCard = ({
+  link,
+  disableOptions,
+  hideCreatedAtTime,
+}: LinkCardProps) => {
   const { slug, url, views } = link;
   const decodedURL = decodeURIComponent(url);
   const shortenedURL = `${getBaseUrl()}/${slug}`;
@@ -48,7 +58,7 @@ export const LinkCard = (link: ShortLink) => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button
-                    className="flex cursor-pointer items-center gap-1 transition-opacity opacity-50 hover:opacity-100"
+                    className="flex font-mono cursor-pointer items-center gap-1 transition-opacity opacity-50 hover:opacity-100"
                     type="button"
                   >
                     <Icons.Eye
@@ -92,24 +102,30 @@ export const LinkCard = (link: ShortLink) => {
           </div>
         </div>
       </CardContent>
-      <LinkOptionsDropdown className="absolute right-2 top-3" link={link} />
-      <span className="absolute right-3 bottom-3 text-[10px] text-muted-foreground font-medium">
-        <Tooltip>
-          <TooltipTrigger>
-            {formatDistanceToNowStrict(new Date(link.createdAt), {
-              addSuffix: true,
-            })}
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>
-              {new Intl.DateTimeFormat("en-US", {
-                dateStyle: "long",
-                timeStyle: "short",
-              }).format(new Date(link.createdAt))}
-            </p>
-          </TooltipContent>
-        </Tooltip>
-      </span>
+      <LinkOptionsDropdown
+        className="absolute right-2 top-3"
+        link={link}
+        disabled={disableOptions}
+      />
+      {!hideCreatedAtTime && (
+        <span className="absolute right-3 bottom-3 text-[10px] text-muted-foreground font-medium">
+          <Tooltip>
+            <TooltipTrigger>
+              {formatDistanceToNowStrict(new Date(link.createdAt), {
+                addSuffix: true,
+              })}
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>
+                {new Intl.DateTimeFormat("en-US", {
+                  dateStyle: "long",
+                  timeStyle: "short",
+                }).format(new Date(link.createdAt))}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </span>
+      )}
     </Card>
   );
 };

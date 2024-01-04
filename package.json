@@ -36,7 +36,7 @@
     "drizzle-orm": "^0.29.2",
     "drizzle-zod": "^0.5.1",
     "geist": "^1.2.0",
-    "lucide-react": "^0.303.0",
+    "lucide-react": "^0.304.0",
     "nanoid": "^5.0.4",
     "next": "14.0.5-canary.36",
     "next-auth": "^4.24.5",

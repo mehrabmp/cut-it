@@ -3,7 +3,7 @@ import { type SetCommandOptions } from "@upstash/redis";
 import { db } from "~/server/db";
 import { links, type NewShortLink, type ShortLink } from "~/server/db/schema";
 import { redis } from "~/server/redis";
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 import { GUEST_LINK_EXPIRE_TIME } from "~/lib/config";
 import { nanoid } from "~/lib/utils";
@@ -29,8 +29,15 @@ export async function getLinkBySlug(
 export async function getLinksByUserLinkId(
   userLinkId: string,
 ): Promise<ShortLink[]> {
+  const currentDate = new Date();
+  const oneDayAgo = new Date(currentDate.getTime() - 24 * 60 * 60 * 1000); // Calculate one day ago
+
   const shortLinks = await db.query.links.findMany({
-    where: eq(links.userLinkId, userLinkId),
+    where: and(
+      eq(links.userLinkId, userLinkId),
+      gte(links.createdAt, oneDayAgo),
+      lte(links.createdAt, currentDate),
+    ),
     orderBy: desc(links.createdAt),
   });
   return shortLinks;

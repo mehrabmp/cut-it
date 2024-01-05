@@ -1,7 +1,12 @@
 import { cookies } from "next/headers";
 import { db } from "~/server/db";
-import { userLinks, type ShortLink, type UserLink } from "~/server/db/schema";
-import { eq } from "drizzle-orm";
+import {
+  links,
+  userLinks,
+  type ShortLink,
+  type UserLink,
+} from "~/server/db/schema";
+import { desc, eq } from "drizzle-orm";
 
 import { GUEST_LINK_COOKIE_EXPIRATION_TIME } from "~/lib/config";
 
@@ -18,7 +23,9 @@ export async function getUserLinkById(
   const userLink = await db.query.userLinks.findFirst({
     where: eq(userLinks.id, id),
     with: {
-      links: true,
+      links: {
+        orderBy: desc(links.createdAt),
+      },
     },
   });
   return userLink;
@@ -30,7 +37,9 @@ export async function getUserLinkByUserId(
   const userLink = await db.query.userLinks.findFirst({
     where: eq(userLinks.userId, userId),
     with: {
-      links: true,
+      links: {
+        orderBy: desc(links.createdAt),
+      },
     },
   });
   return userLink;

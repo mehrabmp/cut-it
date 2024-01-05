@@ -6,6 +6,7 @@ import { redis } from "~/server/redis";
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 import { GUEST_LINK_EXPIRE_TIME } from "~/lib/config";
+import { MyCustomError } from "~/lib/safe-action";
 import { nanoid } from "~/lib/utils";
 
 export async function generateRandomSlug(): Promise<string> {
@@ -55,7 +56,7 @@ export async function generateShortLink({
   if (slug) {
     const link = await getLinkBySlug(slug);
     if (link) {
-      throw new Error("Slug already exists");
+      throw new MyCustomError("Slug already exists");
     }
   } else {
     slug = await generateRandomSlug();
@@ -80,11 +81,11 @@ export async function deleteLink(
 ): Promise<void> {
   const link = await getLinkBySlug(slug);
   if (!link) {
-    throw new Error("Link not found");
+    throw new MyCustomError("Link not found");
   }
 
   if (link.userLinkId !== userLinkId) {
-    throw new Error("Link not found");
+    throw new MyCustomError("Link not found");
   }
 
   await Promise.all([

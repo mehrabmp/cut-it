@@ -3,7 +3,7 @@
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createShortLink } from "~/server/actions/link";
-import { useAction } from "next-safe-action/hook";
+import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -45,15 +45,7 @@ export const LinkForm = ({ renderCustomLink }: LinkFormProps) => {
         form.reset();
       },
       onError(error) {
-        console.log(error);
-        const errorMessage = error.serverError
-          ? "Internal Server Error"
-          : error.validationError
-            ? "Bad Request"
-            : error.fetchError
-              ? "Fetch Error"
-              : "Error";
-        toast.error(errorMessage);
+        toast.error(error.serverError);
       },
     },
   );

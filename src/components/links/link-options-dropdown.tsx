@@ -3,7 +3,7 @@
 import * as React from "react";
 import { deleteShortLink } from "~/server/actions/link";
 import { type ShortLink } from "~/server/db/schema";
-import { useAction } from "next-safe-action/hook";
+import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
 import { cn } from "~/lib/utils";

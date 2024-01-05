@@ -1,7 +1,17 @@
 import { getServerAuthSession } from "~/server/auth";
 import { createSafeActionClient } from "next-safe-action";
 
-export const action = createSafeActionClient();
+export class MyCustomError extends Error {}
+
+export const action = createSafeActionClient({
+  handleReturnedServerError(e) {
+    if (e instanceof MyCustomError) {
+      return e.message;
+    }
+
+    return "Internal Server Error";
+  },
+});
 
 export const authAction = createSafeActionClient({
   async middleware() {
@@ -12,5 +22,12 @@ export const authAction = createSafeActionClient({
     }
 
     return { user: session.user };
+  },
+  handleReturnedServerError(e) {
+    if (e instanceof MyCustomError) {
+      return e.message;
+    }
+
+    return "Internal Server Error";
   },
 });

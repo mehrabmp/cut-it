@@ -9,6 +9,7 @@ import {
 import { desc, eq } from "drizzle-orm";
 
 import { GUEST_LINK_COOKIE_EXPIRATION_TIME } from "~/lib/config";
+import { MyCustomError } from "~/lib/safe-action";
 
 export async function createNewUserLink(
   userId?: string,
@@ -55,7 +56,7 @@ export async function getOrCreateUserLinkByUserId(
 
   const newUserLink = await createNewUserLink(userId);
   if (!newUserLink) {
-    throw new Error("Error creating user link");
+    throw new MyCustomError("Error in creating user link");
   }
 
   return newUserLink;
@@ -69,7 +70,7 @@ export async function getOrCreateUserLinkById(id: string): Promise<UserLink> {
 
   const newUserLink = await createNewUserLink();
   if (!newUserLink) {
-    throw new Error("Error creating user link");
+    throw new MyCustomError("Error in creating user link");
   }
 
   return newUserLink;

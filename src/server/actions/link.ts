@@ -13,7 +13,7 @@ import {
 import { type UserLink } from "~/server/db/schema";
 import { z } from "zod";
 
-import { action } from "~/lib/safe-action";
+import { action, MyCustomError } from "~/lib/safe-action";
 import { insertLinkSchema } from "~/lib/validations/link";
 
 import { getServerAuthSession } from "../auth";
@@ -44,7 +44,7 @@ export const createShortLink = action(
       }
 
       if (!userLink) {
-        throw new Error("Error creating user link");
+        throw new MyCustomError("Error in creating user link");
       }
 
       if (userLink.id !== userLinkId) {
@@ -76,12 +76,12 @@ export const deleteShortLink = action(
 
     const session = await getServerAuthSession();
     if (!session) {
-      throw new Error("Session not found!");
+      throw new MyCustomError("Session not found!");
     }
 
     const userLink = await getUserLinkByUserId(session.user.id);
     if (!userLink) {
-      throw new Error("No user link found");
+      throw new MyCustomError("No user link found");
     }
 
     return await deleteLinkAndRevalidate(slug, userLink.id);

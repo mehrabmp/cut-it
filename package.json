@@ -38,7 +38,7 @@
     "geist": "^1.2.0",
     "lucide-react": "^0.306.0",
     "nanoid": "^5.0.4",
-    "next": "14.0.5-canary.39",
+    "next": "14.0.5-canary.40",
     "next-auth": "^4.24.5",
     "next-safe-action": "^6.0.0",
     "next-themes": "^0.2.1",

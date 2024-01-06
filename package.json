@@ -14,7 +14,7 @@
     "db:studio": "dotenv drizzle-kit studio"
   },
   "dependencies": {
-    "@auth/drizzle-adapter": "^0.3.13",
+    "@auth/drizzle-adapter": "^0.3.11",
     "@hookform/resolvers": "^3.3.4",
     "@libsql/client": "0.4.0-pre.7",
     "@paralleldrive/cuid2": "^2.2.2",
@@ -40,7 +40,7 @@
     "nanoid": "^5.0.4",
     "next": "14.0.5-canary.40",
     "next-auth": "^4.24.5",
-    "next-safe-action": "^6.0.1",
+    "next-safe-action": "^6.0.0",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -57,10 +57,10 @@
     "@next/eslint-plugin-next": "^14.0.4",
     "@types/eslint": "^8.56.1",
     "@types/node": "^20.10.6",
-    "@types/react": "^18.2.47",
+    "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
-    "@typescript-eslint/eslint-plugin": "^6.18.0",
-    "@typescript-eslint/parser": "^6.18.0",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
     "autoprefixer": "^10.4.16",
     "dotenv-cli": "^7.3.0",
     "drizzle-kit": "^0.20.10",
@@ -68,8 +68,8 @@
     "eslint-plugin-drizzle": "^0.2.3",
     "postcss": "^8.4.33",
     "prettier": "^3.1.1",
-    "prettier-plugin-tailwindcss": "^0.5.11",
-    "tailwindcss": "^3.4.1",
+    "prettier-plugin-tailwindcss": "^0.5.10",
+    "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3"
   }
 }

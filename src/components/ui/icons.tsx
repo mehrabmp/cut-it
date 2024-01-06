@@ -4,6 +4,7 @@ import {
   Eye,
   Moon,
   MoreVertical,
+  Pencil,
   Scissors,
   Settings2,
   Sun,
@@ -61,6 +62,7 @@ const Icons = {
   Trash2,
   google,
   Settings2,
+  Pencil,
 };
 
 const iconVariants = cva("", {

@@ -102,6 +102,18 @@ export async function deleteLinkAndRevalidate(slug: string, id: string) {
   return { message: "Link deletion successful" };
 }
 
+export async function updateLinkBySlug(
+  slug: string,
+  newLink: Partial<NewShortLink>,
+): Promise<ShortLink | undefined> {
+  const updatedLink = await db
+    .update(links)
+    .set(newLink)
+    .where(eq(links.slug, slug))
+    .returning();
+  return updatedLink[0];
+}
+
 export async function updateLinksByUserLinkId(
   userLinkId: string,
   data: Partial<ShortLink>,

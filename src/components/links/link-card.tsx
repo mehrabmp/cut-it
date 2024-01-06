@@ -104,7 +104,7 @@ export const LinkCard = ({
       </CardContent>
       <LinkOptionsDropdown
         className="absolute right-2 top-3"
-        link={link}
+        link={{ ...link, url: decodedURL }}
         disabled={disableOptions}
       />
       {!hideCreatedAtTime && (

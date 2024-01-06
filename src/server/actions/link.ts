@@ -2,7 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { deleteLinkAndRevalidate, generateShortLink } from "~/server/api/link";
+import {
+  deleteLinkAndRevalidate,
+  generateShortLink,
+  getLinkBySlug,
+  updateLinkBySlug,
+} from "~/server/api/link";
 import {
   createNewUserLink,
   getOrCreateUserLinkById,
@@ -13,10 +18,11 @@ import {
 import { type UserLink } from "~/server/db/schema";
 import { z } from "zod";
 
-import { action, MyCustomError } from "~/lib/safe-action";
-import { insertLinkSchema } from "~/lib/validations/link";
+import { action, authAction, MyCustomError } from "~/lib/safe-action";
+import { editLinkSchema, insertLinkSchema } from "~/lib/validations/link";
 
 import { getServerAuthSession } from "../auth";
+import { redis } from "../redis";
 
 export const createShortLink = action(
   insertLinkSchema,
@@ -85,5 +91,55 @@ export const deleteShortLink = action(
     }
 
     return await deleteLinkAndRevalidate(slug, userLink.id);
+  },
+);
+
+export const editShortLink = authAction(
+  editLinkSchema,
+  async ({ slug, newLink }, { user }) => {
+    const newUrl = encodeURIComponent(newLink.url);
+    const newSlug = newLink.slug;
+
+    const userLink = await getUserLinkByUserId(user.id);
+    if (!userLink) {
+      throw new MyCustomError("No user link found");
+    }
+
+    const link = userLink.links.find((link) => link.slug === slug);
+    if (!link) {
+      throw new MyCustomError("Link not found");
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const updatePromises: Promise<any>[] = [];
+
+    if (newSlug !== slug) {
+      const slugExists = await getLinkBySlug(newSlug);
+      if (slugExists) {
+        throw new MyCustomError("Slug already exists");
+      }
+
+      updatePromises.push(
+        updateLinkBySlug(slug, newLink),
+        redis.del(slug),
+        redis.set(newSlug, newUrl),
+      );
+    } else {
+      updatePromises.push(
+        updateLinkBySlug(slug, {
+          ...newLink,
+          slug: slug,
+        }),
+      );
+
+      if (newUrl !== link.url) {
+        updatePromises.push(redis.set(slug, newUrl));
+      }
+    }
+
+    await Promise.all(updatePromises);
+
+    revalidatePath("/");
+    return { message: "Link edited successfully" };
   },
 );

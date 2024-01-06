@@ -25,6 +25,8 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { Icons, iconVariants } from "~/components/ui/icons";
 
+import { CustomLinkDialog } from "./custom-link-dialog";
+
 const LinkOptionsDropdown = React.forwardRef<
   React.ElementRef<typeof DropdownMenuTrigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuTrigger> & {
@@ -32,6 +34,7 @@ const LinkOptionsDropdown = React.forwardRef<
   }
 >(({ link, className, disabled, ...props }, ref) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+  const [isEditLinkDialogOpen, setIsEditLinkDialogOpen] = React.useState(false);
 
   const { execute: deleteLink, status: deleteLinkStatus } = useAction(
     deleteShortLink,
@@ -64,6 +67,13 @@ const LinkOptionsDropdown = React.forwardRef<
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          <DropdownMenuItem
+            onClick={() => setIsEditLinkDialogOpen(true)}
+            disabled={disabled}
+          >
+            <Icons.Pencil className={iconVariants({ className: "mr-2" })} />
+            Edit
+          </DropdownMenuItem>
           <DropdownMenuItem
             className="text-red-500 focus:text-red-500 focus:bg-red-500/10"
             onClick={() => setIsDeleteDialogOpen(true)}
@@ -100,6 +110,12 @@ const LinkOptionsDropdown = React.forwardRef<
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <CustomLinkDialog
+        open={isEditLinkDialogOpen}
+        onOpenChange={setIsEditLinkDialogOpen}
+        defaultValues={link}
+        isEditing
+      />
     </>
   );
 });

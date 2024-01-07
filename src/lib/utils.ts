@@ -2,6 +2,8 @@ import { clsx, type ClassValue } from "clsx";
 import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
 
+export const slugRegex = /^[a-zA-Z0-9-_]*$/;
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

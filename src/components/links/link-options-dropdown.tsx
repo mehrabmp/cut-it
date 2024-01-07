@@ -3,6 +3,7 @@
 import * as React from "react";
 import { deleteShortLink } from "~/server/actions/link";
 import { type ShortLink } from "~/server/db/schema";
+import { type Session } from "next-auth";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
@@ -31,8 +32,9 @@ const LinkOptionsDropdown = React.forwardRef<
   React.ElementRef<typeof DropdownMenuTrigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuTrigger> & {
     link: ShortLink;
+    session?: Session | null;
   }
->(({ link, className, disabled, ...props }, ref) => {
+>(({ link, session, className, disabled, ...props }, ref) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
   const [isEditLinkDialogOpen, setIsEditLinkDialogOpen] = React.useState(false);
 
@@ -67,13 +69,15 @@ const LinkOptionsDropdown = React.forwardRef<
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            onClick={() => setIsEditLinkDialogOpen(true)}
-            disabled={disabled}
-          >
-            <Icons.Pencil className={iconVariants({ className: "mr-2" })} />
-            Edit
-          </DropdownMenuItem>
+          {session && (
+            <DropdownMenuItem
+              onClick={() => setIsEditLinkDialogOpen(true)}
+              disabled={disabled}
+            >
+              <Icons.Pencil className={iconVariants({ className: "mr-2" })} />
+              Edit
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem
             className="text-red-500 focus:text-red-500 focus:bg-red-500/10"
             onClick={() => setIsDeleteDialogOpen(true)}

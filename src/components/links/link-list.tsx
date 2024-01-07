@@ -48,7 +48,7 @@ export const LinkList = async () => {
           <LinkCard link={defaultAppLink} disableOptions hideCreatedAtTime />
         )}
         {shortLinks.map((link) => (
-          <LinkCard key={link.slug} link={link} />
+          <LinkCard key={link.slug} link={link} session={session} />
         ))}
       </div>
       {!session && shortLinks.length > 0 && (

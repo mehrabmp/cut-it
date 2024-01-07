@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { type ShortLink } from "~/server/db/schema";
 import { formatDistanceToNowStrict } from "date-fns";
+import { type Session } from "next-auth";
 
 import { formatNumber, getBaseUrl } from "~/lib/utils";
 import { Card, CardContent } from "~/components/ui/card";
@@ -15,12 +16,14 @@ import { LinkOptionsDropdown } from "~/components/links/link-options-dropdown";
 
 type LinkCardProps = {
   link: ShortLink;
+  session?: Session | null;
   disableOptions?: boolean;
   hideCreatedAtTime?: boolean;
 };
 
 export const LinkCard = ({
   link,
+  session,
   disableOptions,
   hideCreatedAtTime,
 }: LinkCardProps) => {
@@ -105,6 +108,7 @@ export const LinkCard = ({
       <LinkOptionsDropdown
         className="absolute right-2 top-3"
         link={{ ...link, url: decodedURL }}
+        session={session}
         disabled={disableOptions}
       />
       {!hideCreatedAtTime && (

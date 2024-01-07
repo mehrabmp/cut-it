@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { slugRegex } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import {
   Form,
@@ -20,7 +21,10 @@ import { Textarea } from "~/components/ui/textarea";
 
 const formSchema = z.object({
   url: z.string().url(),
-  slug: z.string(),
+  slug: z.string().refine((value) => slugRegex.test(value), {
+    message:
+      "Slugs can only contain letters, numbers, hyphens, and underscores.",
+  }),
   description: z.string(),
 });
 

@@ -11,11 +11,15 @@ import { nanoid } from "~/lib/utils";
 
 export async function generateRandomSlug(): Promise<string> {
   const slug = nanoid();
-  const link = await getLinkBySlug(slug);
+  const link = await checkSlugExists(slug);
   if (link) {
     return generateRandomSlug();
   }
   return slug;
+}
+
+export async function checkSlugExists(slug: string): Promise<boolean> {
+  return Boolean(await redis.exists(slug.toLowerCase()));
 }
 
 export async function getLinkBySlug(
@@ -54,7 +58,7 @@ export async function generateShortLink({
   const encodedURL = encodeURIComponent(url);
 
   if (slug) {
-    const link = await getLinkBySlug(slug);
+    const link = await checkSlugExists(slug);
     if (link) {
       throw new MyCustomError("Slug already exists");
     }
@@ -71,7 +75,7 @@ export async function generateShortLink({
       .insert(links)
       .values({ slug, url: encodedURL, userLinkId, description })
       .run(),
-    redis.set(slug, encodedURL, redisOptions),
+    redis.set(slug.toLowerCase(), encodedURL, redisOptions),
   ]);
 }
 
@@ -90,7 +94,7 @@ export async function deleteLink(
 
   await Promise.all([
     db.delete(links).where(eq(links.slug, slug)).run(),
-    redis.del(slug),
+    redis.del(slug.toLowerCase()),
   ]);
 }
 

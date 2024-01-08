@@ -69,7 +69,9 @@ export const authOptions: NextAuthOptions = {
       if (existingUserLink) {
         const links = await getLinksByUserLinkId(userLinkIdCookie);
 
-        const promises = links.map((link) => redis.persist(link.slug));
+        const promises = links.map((link) =>
+          redis.persist(link.slug.toLowerCase()),
+        );
 
         await Promise.allSettled([
           ...promises,
@@ -82,7 +84,7 @@ export const authOptions: NextAuthOptions = {
 
         if (userLink) {
           const promises = userLink.links.map((link) =>
-            redis.persist(link.slug),
+            redis.persist(link.slug.toLowerCase()),
           );
 
           await Promise.allSettled([

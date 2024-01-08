@@ -16,7 +16,7 @@ export const linkMiddleware = async (req: NextRequest) => {
   const slug = pathname.split("/")[1] ?? "";
 
   const [url] = await Promise.all([
-    redis.get<string>(slug),
+    redis.get<string>(slug.toLowerCase()),
     db
       .update(links)
       .set({ views: sql`${links.views} + 1` })

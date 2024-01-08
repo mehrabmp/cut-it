@@ -3,7 +3,7 @@ import { type SetCommandOptions } from "@upstash/redis";
 import { db } from "~/server/db";
 import { links, type NewShortLink, type ShortLink } from "~/server/db/schema";
 import { redis } from "~/server/redis";
-import { and, desc, eq, gte, lte } from "drizzle-orm";
+import { and, desc, eq, gte, lte, sql } from "drizzle-orm";
 
 import { GUEST_LINK_EXPIRE_TIME } from "~/lib/config";
 import { MyCustomError } from "~/lib/safe-action";
@@ -22,7 +22,7 @@ export async function getLinkBySlug(
   slug: string,
 ): Promise<ShortLink | undefined> {
   const link = await db.query.links.findFirst({
-    where: eq(links.slug, slug),
+    where: eq(links.slug, slug).append(sql`COLLATE NOCASE`),
   });
   return link;
 }

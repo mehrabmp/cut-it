@@ -3,9 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import {
+  checkSlugExists,
   deleteLinkAndRevalidate,
   generateShortLink,
-  getLinkBySlug,
   updateLinkBySlug,
 } from "~/server/api/link";
 import {
@@ -114,15 +114,15 @@ export const editShortLink = authAction(
     const updatePromises: Promise<any>[] = [];
 
     if (newSlug !== slug) {
-      const slugExists = await getLinkBySlug(newSlug);
+      const slugExists = await checkSlugExists(newSlug);
       if (slugExists) {
         throw new MyCustomError("Slug already exists");
       }
 
       updatePromises.push(
         updateLinkBySlug(slug, newLink),
-        redis.del(slug),
-        redis.set(newSlug, newUrl),
+        redis.del(slug.toLowerCase()),
+        redis.set(newSlug.toLowerCase(), newUrl),
       );
     } else {
       updatePromises.push(
@@ -133,7 +133,7 @@ export const editShortLink = authAction(
       );
 
       if (newUrl !== link.url) {
-        updatePromises.push(redis.set(slug, newUrl));
+        updatePromises.push(redis.set(slug.toLowerCase(), newUrl));
       }
     }
 

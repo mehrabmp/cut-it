@@ -1,7 +1,26 @@
-import type { NextRequest } from "next/server";
+import {
+  NextResponse,
+  type NextFetchEvent,
+  type NextRequest,
+} from "next/server";
 import { linkMiddleware } from "~/server/middlewares";
+import { ratelimit } from "~/server/redis";
 
-export function middleware(request: NextRequest) {
+export async function middleware(
+  request: NextRequest,
+  event: NextFetchEvent,
+): Promise<Response | undefined> {
+  const ip = request.ip ?? "127.0.0.1";
+
+  const { success, pending } = await ratelimit.limit(
+    `ratelimit_middleware_${ip}`,
+  );
+  event.waitUntil(pending);
+
+  if (!success) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
   return linkMiddleware(request);
 }
 

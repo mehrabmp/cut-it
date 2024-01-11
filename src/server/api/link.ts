@@ -128,3 +128,9 @@ export async function updateLinksByUserLinkId(
     .where(eq(links.userLinkId, userLinkId))
     .run();
 }
+
+export async function deleteExpiredLinks() {
+  await db.run(
+    sql`DELETE FROM link WHERE userLinkId IN (SELECT id FROM userLink WHERE userId IS NULL) AND created_at < strftime('%s', 'now', '-1 day');`,
+  );
+}

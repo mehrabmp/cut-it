@@ -6,7 +6,7 @@ import {
   type ShortLink,
   type UserLink,
 } from "~/server/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 
 import { GUEST_LINK_COOKIE_EXPIRATION_TIME } from "~/lib/config";
 import { MyCustomError } from "~/lib/safe-action";
@@ -97,4 +97,10 @@ export function setUserLinkIdCookie(id: string) {
     sameSite: "lax",
     httpOnly: true,
   });
+}
+
+export async function deleteExpiredUserLinks() {
+  await db.run(
+    sql`DELETE FROM userLink WHERE userId IS NULL AND created_at < strftime('%s', 'now', '-30 day');`,
+  );
 }

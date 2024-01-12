@@ -99,6 +99,7 @@ export const authOptions: NextAuthOptions = {
       cookies().delete("user-link-id");
     },
   },
+  // @ts-expect-error // TODO: find a fix
   adapter: DrizzleAdapter(db),
   providers: [
     GithubProvider({

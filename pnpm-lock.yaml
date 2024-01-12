@@ -6,13 +6,13 @@ settings:
 
 dependencies:
   '@auth/drizzle-adapter':
-    specifier: ^0.3.11
+    specifier: 0.3.14
     version: 0.3.14
   '@hookform/resolvers':
     specifier: ^3.3.4
     version: 3.3.4(react-hook-form@7.49.3)
   '@libsql/client':
-    specifier: 0.4.0-pre.7
+    specifier: ^0.4.0-pre.7
     version: 0.4.0-pre.7
   '@paralleldrive/cuid2':
     specifier: ^2.2.2
@@ -84,8 +84,8 @@ dependencies:
     specifier: ^4.24.5
     version: 4.24.5(next@14.0.5-canary.51)(react-dom@18.2.0)(react@18.2.0)
   next-safe-action:
-    specifier: ^6.0.0
-    version: 6.0.0(next@14.0.5-canary.51)(react@18.2.0)(zod@3.22.4)
+    specifier: ^6.0.1
+    version: 6.0.1(next@14.0.5-canary.51)(react@18.2.0)
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@14.0.5-canary.51)(react-dom@18.2.0)(react@18.2.0)
@@ -96,7 +96,7 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   react-hook-form:
-    specifier: 7.49.3
+    specifier: ^7.49.3
     version: 7.49.3(react@18.2.0)
   server-only:
     specifier: ^0.0.1
@@ -3499,8 +3499,8 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /next-safe-action@6.0.0(next@14.0.5-canary.51)(react@18.2.0)(zod@3.22.4):
-    resolution: {integrity: sha512-7pQJ4iQpnxVVYFOHid6ztOjbkKmznur8k5iTfAqBJZ/5enPiuiKCCb8wj9izJDx/XYgaOA0KlxpswJBzuPzp2A==}
+  /next-safe-action@6.0.1(next@14.0.5-canary.51)(react@18.2.0):
+    resolution: {integrity: sha512-iXkjorrUrz3sHMo1MVdBx5WzcCGktrBe+XqMfBav++eegXMdOkZB2+LqUTPXmaidv0lo+/fSRLOcNmr/S9IqTw==}
     engines: {node: '>=18.17'}
     peerDependencies:
       next: '>= 14.0.0'
@@ -3509,6 +3509,8 @@ packages:
       '@decs/typeschema': 0.12.1(zod@3.22.4)
       next: 14.0.5-canary.51(@babel/core@7.23.6)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
+    optionalDependencies:
+      zod: 3.22.4
     transitivePeerDependencies:
       - '@deepkit/type'
       - '@effect/data'
@@ -3525,7 +3527,6 @@ packages:
       - valibot
       - vite
       - yup
-      - zod
     dev: false
 
   /next-themes@0.2.1(next@14.0.5-canary.51)(react-dom@18.2.0)(react@18.2.0):

@@ -2,13 +2,18 @@ import { cva, type VariantProps } from "class-variance-authority";
 import {
   Copy,
   Eye,
+  HelpCircle,
+  Layers,
+  LogOut,
   Moon,
   MoreVertical,
   Pencil,
   Scissors,
+  Settings,
   Settings2,
   Sun,
   Trash2,
+  User,
 } from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 
@@ -61,8 +66,13 @@ const Icons = {
   github,
   Trash2,
   google,
+  Settings,
   Settings2,
   Pencil,
+  LogOut,
+  User,
+  HelpCircle,
+  Layers,
 };
 
 const iconVariants = cva("", {

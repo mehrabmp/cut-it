@@ -9,11 +9,12 @@ import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { Icons, iconVariants } from "~/components/ui/icons";
 import { Loader } from "~/components/ui/loader";
 
 type UserProfileDropdownProps = {
@@ -45,19 +46,58 @@ export const UserProfileDropdown = ({ user }: UserProfileDropdownProps) => {
           <span className="sr-only">Toggle user menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-36">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+      <DropdownMenuContent align="end" className="min-w-52">
+        <div className="flex p-1">
+          <div className="relative">
+            <Avatar className="h-9 w-9">
+              <AvatarImage src={user.image ?? ""} alt="user profile image" />
+              <AvatarFallback>{nameInitials}</AvatarFallback>
+            </Avatar>
+            <div className="absolute bottom-[-1px] end-[-1px] bg-background p-0.5 rounded-full">
+              <div className="bg-blue-500 rounded-full p-1"></div>
+            </div>
+          </div>
+          <div className="ms-2 max-w-40">
+            <div className="text-sm truncate font-medium">{user.name}</div>
+            <div className="text-xs truncate text-muted-foreground">
+              {user.email}
+            </div>
+          </div>
+        </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <Icons.User className={iconVariants({ className: "me-2" })} />
+            View profile
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Icons.Settings className={iconVariants({ className: "me-2" })} />
+            Account settings
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <Icons.Layers className={iconVariants({ className: "me-2" })} />
+            Changelog
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Icons.HelpCircle className={iconVariants({ className: "me-2" })} />
+            Support
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={handleSignOut} disabled={isSignoutLoading}>
           {isSignoutLoading ? (
             <>
               <Loader className="me-2" />
-              Signing out...
+              Logging out...
             </>
           ) : (
-            "Sign out"
+            <>
+              <Icons.LogOut className={iconVariants({ className: "me-2" })} />
+              Logout
+            </>
           )}
         </DropdownMenuItem>
       </DropdownMenuContent>

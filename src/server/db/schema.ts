@@ -21,6 +21,8 @@ export const users = sqliteTable("user", {
     .notNull(),
 });
 
+export type User = typeof users.$inferSelect;
+
 export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
   sessions: many(sessions),

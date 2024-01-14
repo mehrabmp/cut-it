@@ -16,6 +16,9 @@ export const users = sqliteTable("user", {
   email: text("email").notNull(),
   emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
   image: text("image"),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .default(sql`(strftime('%s', 'now'))`)
+    .notNull(),
 });
 
 export const usersRelations = relations(users, ({ many, one }) => ({
@@ -43,6 +46,9 @@ export const accounts = sqliteTable(
     scope: text("scope"),
     id_token: text("id_token"),
     session_state: text("session_state"),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .default(sql`(strftime('%s', 'now'))`)
+      .notNull(),
   },
   (account) => ({
     compoundKey: primaryKey(account.provider, account.providerAccountId),
@@ -62,6 +68,9 @@ export const sessions = sqliteTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .default(sql`(strftime('%s', 'now'))`)
+      .notNull(),
   },
   (session) => ({
     userIdIdx: index("sessions_userId_idx").on(session.userId),
@@ -78,6 +87,9 @@ export const verificationTokens = sqliteTable(
     identifier: text("identifier").notNull(),
     token: text("token").notNull(),
     expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .default(sql`(strftime('%s', 'now'))`)
+      .notNull(),
   },
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),

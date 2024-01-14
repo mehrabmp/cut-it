@@ -50,6 +50,13 @@
       "when": 1704273344001,
       "tag": "0006_melodic_electro",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1705241576435,
+      "tag": "0007_broken_firebird",
+      "breakpoints": true
     }
   ]
 }

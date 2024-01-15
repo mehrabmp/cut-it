@@ -80,19 +80,6 @@ export const UserProfileDropdown = ({ user }: UserProfileDropdownProps) => {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Icons.Layers className={iconVariants({ className: "me-2" })} />
-              Changelog
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Icons.HelpCircle
-                className={iconVariants({ className: "me-2" })}
-              />
-              Support
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
           <DropdownMenuItem
             onSelect={handleSignOut}
             disabled={isSignoutLoading}

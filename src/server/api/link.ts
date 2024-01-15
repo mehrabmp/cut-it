@@ -1,7 +1,12 @@
 import { revalidatePath } from "next/cache";
 import { type SetCommandOptions } from "@upstash/redis";
 import { db } from "~/server/db";
-import { links, type NewShortLink, type ShortLink } from "~/server/db/schema";
+import {
+  links,
+  userLinks,
+  type NewShortLink,
+  type ShortLink,
+} from "~/server/db/schema";
 import { redis } from "~/server/redis";
 import { and, desc, eq, gte, lte, sql } from "drizzle-orm";
 
@@ -74,6 +79,11 @@ export async function generateShortLink({
     db
       .insert(links)
       .values({ slug, url: encodedURL, userLinkId, description })
+      .run(),
+    db
+      .update(userLinks)
+      .set({ totalLinks: sql`${userLinks.totalLinks} + 1` })
+      .where(eq(userLinks.id, userLinkId))
       .run(),
     redis.set(slug.toLowerCase(), encodedURL, redisOptions),
   ]);

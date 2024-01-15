@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { type User } from "~/server/db/schema";
+import { type UserWithLink } from "~/types";
 import { signOut } from "next-auth/react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
@@ -20,7 +20,7 @@ import { Loader } from "~/components/ui/loader";
 import { UserProfileDialog } from "./user-profile-dialog";
 
 type UserProfileDropdownProps = {
-  user: User;
+  user: UserWithLink;
 };
 
 export const UserProfileDropdown = ({ user }: UserProfileDropdownProps) => {
@@ -72,11 +72,11 @@ export const UserProfileDropdown = ({ user }: UserProfileDropdownProps) => {
           <DropdownMenuGroup>
             <DropdownMenuItem onClick={() => setIsUserProfileDialogOpen(true)}>
               <Icons.User className={iconVariants({ className: "me-2" })} />
-              View profile
+              Profile
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Icons.Settings className={iconVariants({ className: "me-2" })} />
-              Account settings
+              Settings
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />

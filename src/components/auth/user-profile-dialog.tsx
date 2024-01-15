@@ -1,4 +1,4 @@
-import { type User } from "~/server/db/schema";
+import { type UserWithLink } from "~/types";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Icons, iconVariants } from "~/components/ui/icons";
@@ -9,9 +9,10 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
 } from "~/components/ui/responsive-dialog";
+import { Separator } from "~/components/ui/separator";
 
 type UserProfileDialogProps = {
-  user: User;
+  user: UserWithLink;
   isOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
 };
@@ -41,16 +42,28 @@ export const UserProfileDialog = ({
             <div className="text-medium">{user.name}</div>
             <div className="text-muted-foreground text-sm">{user.email}</div>
           </div>
-          <div className="flex flex-col gap-2 p-4 text-sm w-full">
-            <div className="flex justify-between items-center">
-              <div className="flex justify-between items-center text-muted-foreground gap-2">
-                <Icons.Calendar className={iconVariants({ size: "sm" })} />
-                Joined
+          <div className="flex flex-col gap-3 p-4 text-sm w-full">
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center text-muted-foreground gap-2">
+                  <Icons.Link className={iconVariants({ size: "sm" })} />
+                  Total created links
+                </div>
+                <div>{user?.userLink?.totalLinks ?? 0}</div>
               </div>
-              <div>
-                {new Intl.DateTimeFormat("en-US", {
-                  dateStyle: "full",
-                }).format(new Date(user.createdAt))}
+            </div>
+            <Separator />
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center text-muted-foreground gap-2">
+                  <Icons.Calendar className={iconVariants({ size: "sm" })} />
+                  Joined
+                </div>
+                <div>
+                  {new Intl.DateTimeFormat("en-US", {
+                    dateStyle: "full",
+                  }).format(new Date(user.createdAt))}
+                </div>
               </div>
             </div>
           </div>

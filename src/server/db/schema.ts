@@ -107,6 +107,7 @@ export const userLinks = sqliteTable(
     userId: text("userId").references(() => users.id, {
       onDelete: "cascade",
     }),
+    totalLinks: integer("total_links").default(0).notNull(),
     createdAt: integer("created_at", { mode: "timestamp" })
       .default(sql`(strftime('%s', 'now'))`)
       .notNull(),

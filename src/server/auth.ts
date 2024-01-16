@@ -18,6 +18,7 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
+import { type Adapter } from "next-auth/adapters";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -99,8 +100,7 @@ export const authOptions: NextAuthOptions = {
       cookies().delete("user-link-id");
     },
   },
-  // @ts-expect-error // TODO: find a fix
-  adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db) as Adapter,
   providers: [
     GithubProvider({
       clientId: env.GITHUB_ID,

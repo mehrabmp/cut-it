@@ -64,6 +64,13 @@
       "when": 1705350499781,
       "tag": "0008_exotic_omega_flight",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1705513622436,
+      "tag": "0009_outstanding_loki",
+      "breakpoints": true
     }
   ]
 }

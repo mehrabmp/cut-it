@@ -136,7 +136,7 @@ export const links = sqliteTable(
       .notNull(),
     description: text("description"),
     url: text("url").notNull(),
-    views: integer("views").default(0).notNull(),
+    clicks: integer("clicks").default(0).notNull(),
     createdAt: integer("created_at", { mode: "timestamp" })
       .default(sql`(strftime('%s', 'now'))`)
       .notNull(),

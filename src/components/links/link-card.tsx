@@ -27,7 +27,7 @@ export const LinkCard = ({
   disableOptions,
   hideCreatedAtTime,
 }: LinkCardProps) => {
-  const { slug, url, views } = link;
+  const { slug, url, clicks } = link;
   const decodedURL = decodeURIComponent(url);
   const shortenedURL = `${getBaseUrl()}/${slug}`;
 
@@ -66,16 +66,17 @@ export const LinkCard = ({
                   >
                     <Icons.Eye
                       className={iconVariants({ size: "sm" })}
-                      aria-label="Total views"
+                      aria-label="Total clicks"
                     />
                     <span className="text-xs">
-                      {formatNumber(views, { notation: "compact" })}
+                      {formatNumber(clicks, { notation: "compact" })}
                     </span>
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>
-                    {formatNumber(views, { notation: "standard" })} Total views
+                    {formatNumber(clicks, { notation: "standard" })} Total
+                    clicks
                   </p>
                 </TooltipContent>
               </Tooltip>

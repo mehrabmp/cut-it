@@ -19,7 +19,7 @@ export const linkMiddleware = async (req: NextRequest) => {
     redis.get<string>(slug.toLowerCase()),
     db
       .update(links)
-      .set({ views: sql`${links.views} + 1` })
+      .set({ clicks: sql`${links.clicks} + 1` })
       .where(eq(links.slug, slug))
       .run(),
   ]);

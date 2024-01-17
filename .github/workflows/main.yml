@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         name: Setup pnpm cache
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -43,7 +43,7 @@ jobs:
         run: pnpm install
 
       - name: Next.js cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
           path: |

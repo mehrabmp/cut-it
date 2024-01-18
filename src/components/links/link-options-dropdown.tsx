@@ -4,7 +4,6 @@ import * as React from "react";
 import { type ShortLink } from "~/server/db/schema";
 import { type Session } from "next-auth";
 
-import { cn } from "~/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,40 +15,36 @@ import { CustomLinkDialog } from "~/components/links/custom-link-dialog";
 import { DeleteLinkDialog } from "~/components/links/delete-link-dialog";
 import { LinkQRCodeDialog } from "~/components/links/link-qrcode-dialog";
 
-const LinkOptionsDropdown = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuTrigger>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuTrigger> & {
-    link: ShortLink;
-    session?: Session | null;
-  }
->(({ link, session, className, disabled, ...props }, ref) => {
+type LinkOptionsDropdownProps = {
+  link: ShortLink;
+  session?: Session | null;
+  disabled?: boolean;
+};
+
+export const LinkOptionsDropdown = ({
+  link,
+  session,
+  disabled = false,
+}: LinkOptionsDropdownProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
   const [isEditLinkDialogOpen, setIsEditLinkDialogOpen] = React.useState(false);
-  const [isLinkQRCodeDialogOpen, setIsLinkQRCodeDialogOpen] =
-    React.useState(false);
-
-  const decodedURL = decodeURIComponent(link.url);
+  const [isQRCodeDialogOpen, setIsQRCodeDialogOpen] = React.useState(false);
 
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button
-            className={cn(
-              "cursor-pointer transition-opacity opacity-50 hover:opacity-100",
-              className,
-            )}
-            aria-label="link actions menu"
+            className="cursor-pointer transition-opacity absolute right-2 top-3 opacity-50 hover:opacity-100"
             type="button"
-            ref={ref}
-            {...props}
           >
             <Icons.MoreVertical className={iconVariants()} />
+            <span className="sr-only">Link actions menu</span>
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem
-            onClick={() => setIsLinkQRCodeDialogOpen(true)}
+            onClick={() => setIsQRCodeDialogOpen(true)}
             disabled={disabled}
           >
             <Icons.QrCode className={iconVariants({ className: "mr-2" })} />
@@ -86,14 +81,11 @@ const LinkOptionsDropdown = React.forwardRef<
         isEditing
       />
       <LinkQRCodeDialog
-        isOpen={isLinkQRCodeDialogOpen}
-        onOpenChange={setIsLinkQRCodeDialogOpen}
-        url={decodedURL}
+        isOpen={isQRCodeDialogOpen}
+        onOpenChange={setIsQRCodeDialogOpen}
+        url={link.url}
         slug={link.slug}
       />
     </>
   );
-});
-LinkOptionsDropdown.displayName = "LinkOptionsDropdown";
-
-export { LinkOptionsDropdown };
+};

@@ -107,7 +107,6 @@ export const LinkCard = ({
         </div>
       </CardContent>
       <LinkOptionsDropdown
-        className="absolute right-2 top-3"
         link={{ ...link, url: decodedURL }}
         session={session}
         disabled={disableOptions}

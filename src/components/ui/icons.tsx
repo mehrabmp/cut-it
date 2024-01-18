@@ -1,15 +1,21 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import {
   Calendar,
+  Clipboard,
   Copy,
+  Download,
   Eye,
+  FileCode2,
+  FileImage,
   HelpCircle,
+  Image,
   Layers,
   Link,
   LogOut,
   Moon,
   MoreVertical,
   Pencil,
+  QrCode,
   Scissors,
   Settings,
   Settings2,
@@ -77,6 +83,12 @@ const Icons = {
   Layers,
   Calendar,
   Link,
+  QrCode,
+  Clipboard,
+  Download,
+  Image,
+  FileImage,
+  FileCode2,
 };
 
 const iconVariants = cva("", {

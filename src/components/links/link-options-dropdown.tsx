@@ -27,6 +27,7 @@ import {
 import { Icons, iconVariants } from "~/components/ui/icons";
 
 import { CustomLinkDialog } from "./custom-link-dialog";
+import { LinkQRCodeDialog } from "./link-qrcode-dialog";
 
 const LinkOptionsDropdown = React.forwardRef<
   React.ElementRef<typeof DropdownMenuTrigger>,
@@ -37,6 +38,10 @@ const LinkOptionsDropdown = React.forwardRef<
 >(({ link, session, className, disabled, ...props }, ref) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
   const [isEditLinkDialogOpen, setIsEditLinkDialogOpen] = React.useState(false);
+  const [isLinkQRCodeDialogOpen, setIsLinkQRCodeDialogOpen] =
+    React.useState(false);
+
+  const decodedURL = decodeURIComponent(link.url);
 
   const { execute: deleteLink, status: deleteLinkStatus } = useAction(
     deleteShortLink,
@@ -69,6 +74,13 @@ const LinkOptionsDropdown = React.forwardRef<
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          <DropdownMenuItem
+            onClick={() => setIsLinkQRCodeDialogOpen(true)}
+            disabled={disabled}
+          >
+            <Icons.QrCode className={iconVariants({ className: "mr-2" })} />
+            QR Code
+          </DropdownMenuItem>
           {session && (
             <DropdownMenuItem
               onClick={() => setIsEditLinkDialogOpen(true)}
@@ -119,6 +131,12 @@ const LinkOptionsDropdown = React.forwardRef<
         onOpenChange={setIsEditLinkDialogOpen}
         defaultValues={link}
         isEditing
+      />
+      <LinkQRCodeDialog
+        isOpen={isLinkQRCodeDialogOpen}
+        onOpenChange={setIsLinkQRCodeDialogOpen}
+        url={decodedURL}
+        slug={link.slug}
       />
     </>
   );

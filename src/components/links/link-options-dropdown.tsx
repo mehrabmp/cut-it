@@ -43,10 +43,7 @@ export const LinkOptionsDropdown = ({
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            onClick={() => setIsQRCodeDialogOpen(true)}
-            disabled={disabled}
-          >
+          <DropdownMenuItem onClick={() => setIsQRCodeDialogOpen(true)}>
             <Icons.QrCode className={iconVariants({ className: "mr-2" })} />
             QR Code
           </DropdownMenuItem>

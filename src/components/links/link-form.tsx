@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { setFormErrors } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import {
   Form,
@@ -45,7 +46,10 @@ export const LinkForm = ({ renderCustomLink }: LinkFormProps) => {
         form.reset();
       },
       onError(error) {
-        toast.error(error.serverError);
+        if (error.validationErrors) {
+          return setFormErrors(form, error.validationErrors);
+        }
+        toast.error(error.serverError ?? error.fetchError);
       },
     },
   );

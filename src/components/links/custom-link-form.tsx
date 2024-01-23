@@ -1,12 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createShortLink, editShortLink } from "~/server/actions/link";
 import { type ShortLink } from "~/server/db/schema";
+import { type SafeActionError } from "~/types";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import { type z } from "zod";
 
-import { slugRegex } from "~/lib/utils";
+import { setFormErrors } from "~/lib/utils";
+import { insertLinkSchema } from "~/lib/validations/link";
 import { Button } from "~/components/ui/button";
 import {
   Form,
@@ -19,14 +21,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 
-const formSchema = z.object({
-  url: z.string().url(),
-  slug: z.string().refine((value) => slugRegex.test(value), {
-    message:
-      "Slugs can only contain letters, numbers, hyphens, and underscores.",
-  }),
-  description: z.string(),
-});
+const formSchema = insertLinkSchema;
 
 type FormSchema = z.infer<typeof formSchema>;
 
@@ -65,23 +60,20 @@ export const CustomLinkForm = ({
     form.reset();
   };
 
+  const handleError = (error: SafeActionError) => {
+    if (error.validationErrors) {
+      return setFormErrors(form, error.validationErrors);
+    }
+    toast.error(error.serverError ?? error.fetchError);
+  };
+
   const { execute: createLink, status: createLinkStatus } = useAction(
     createShortLink,
-    {
-      onSuccess: handleSuccess,
-      onError: (error) => {
-        toast.error(error.serverError ?? error.fetchError);
-      },
-    },
+    { onSuccess: handleSuccess, onError: handleError },
   );
   const { execute: editLink, status: editLinkStatus } = useAction(
     editShortLink,
-    {
-      onSuccess: handleSuccess,
-      onError: (error) => {
-        toast.error(error.serverError ?? error.fetchError);
-      },
-    },
+    { onSuccess: handleSuccess, onError: handleError },
   );
 
   const onSubmit = (values: FormSchema) => {

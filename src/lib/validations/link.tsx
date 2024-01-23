@@ -10,9 +10,19 @@ export const insertLinkSchema = createInsertSchema(links)
     url: true,
     description: true,
   })
-  .refine((values) => slugRegex.test(values.slug), {
-    message:
-      "Slugs can only contain letters, numbers, hyphens, and underscores.",
+  .extend({
+    url: z.string().url(),
+    slug: z
+      .string()
+      .max(30, "Maximum 30 characters allowed.")
+      .refine((value) => slugRegex.test(value), {
+        message:
+          "Slugs can only contain letters, numbers, hyphens, and underscores.",
+      }),
+    description: z
+      .string()
+      .max(255, "Maximum 255 characters allowed.")
+      .optional(),
   });
 
 export const editLinkSchema = z.object({

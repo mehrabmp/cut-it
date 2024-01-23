@@ -32,7 +32,7 @@ export const DeleteLinkDialog = ({
         onOpenChange?.(false);
       },
       onError(error) {
-        toast.error(error.serverError);
+        toast.error(error.serverError ?? error.fetchError);
       },
     },
   );

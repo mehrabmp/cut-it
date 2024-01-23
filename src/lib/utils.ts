@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { customAlphabet } from "nanoid";
+import { type UseFormReturn } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 
 export const slugRegex = /^[a-zA-Z0-9-_]*$/;
@@ -34,4 +35,14 @@ export function formatNumber(
     notation,
     maximumFractionDigits: decimals,
   }).format(Number(number));
+}
+
+export function setFormErrors(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  form: UseFormReturn<any>,
+  errors: Record<string, string[]>,
+) {
+  for (const [field, messages] of Object.entries(errors)) {
+    form.setError(field, { message: messages.join(" ") });
+  }
 }

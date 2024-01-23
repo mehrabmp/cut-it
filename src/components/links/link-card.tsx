@@ -47,10 +47,10 @@ export const LinkCard = ({
           />
         </div>
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-x-3 gap-y-2 pe-8 flex-wrap">
+          <div className="flex items-center gap-2 pe-8 flex-wrap">
             <a
               href={shortenedURL}
-              className="font-medium font-mono"
+              className="font-medium w-56 truncate font-mono"
               target="_blank"
               rel="noopener noreferrer"
             >

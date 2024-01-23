@@ -128,13 +128,13 @@ export const userLinksRelations = relations(userLinks, ({ many, one }) => ({
 export const links = sqliteTable(
   "link",
   {
-    slug: text("slug", { length: 256 }).primaryKey(),
+    slug: text("slug", { length: 30 }).primaryKey(),
     userLinkId: text("userLinkId")
       .references(() => userLinks.id, {
         onDelete: "cascade",
       })
       .notNull(),
-    description: text("description"),
+    description: text("description", { length: 255 }),
     url: text("url").notNull(),
     clicks: integer("clicks").default(0).notNull(),
     createdAt: integer("created_at", { mode: "timestamp" })

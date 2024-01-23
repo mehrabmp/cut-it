@@ -71,6 +71,20 @@
       "when": 1705513622436,
       "tag": "0009_outstanding_loki",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1706000748280,
+      "tag": "0010_hard_odin",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1706003587638,
+      "tag": "0011_foamy_shiver_man",
+      "breakpoints": true
     }
   ]
 }

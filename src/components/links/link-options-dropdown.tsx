@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Icons, iconVariants } from "~/components/ui/icons";
+import { ProtectedElement } from "~/components/ui/protected-element";
 import { CustomLinkDialog } from "~/components/links/custom-link-dialog";
 import { DeleteLinkDialog } from "~/components/links/delete-link-dialog";
 import { LinkQRCodeDialog } from "~/components/links/link-qrcode-dialog";
@@ -18,13 +19,11 @@ import { LinkQRCodeDialog } from "~/components/links/link-qrcode-dialog";
 type LinkOptionsDropdownProps = {
   link: ShortLink;
   session?: Session | null;
-  disabled?: boolean;
 };
 
 export const LinkOptionsDropdown = ({
   link,
   session,
-  disabled = false,
 }: LinkOptionsDropdownProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
   const [isEditLinkDialogOpen, setIsEditLinkDialogOpen] = React.useState(false);
@@ -47,19 +46,23 @@ export const LinkOptionsDropdown = ({
             <Icons.QrCode className={iconVariants({ className: "mr-2" })} />
             QR Code
           </DropdownMenuItem>
-          {session && (
-            <DropdownMenuItem
-              onClick={() => setIsEditLinkDialogOpen(true)}
-              disabled={disabled}
-            >
-              <Icons.Pencil className={iconVariants({ className: "mr-2" })} />
-              Edit
-            </DropdownMenuItem>
-          )}
+          <ProtectedElement
+            session={session}
+            tooltipMessage="Sign in to edit links"
+            renderElement={(disabled) => (
+              <DropdownMenuItem
+                onClick={() => setIsEditLinkDialogOpen(true)}
+                disabled={disabled}
+              >
+                <Icons.Pencil className={iconVariants({ className: "mr-2" })} />
+                Edit
+              </DropdownMenuItem>
+            )}
+          />
           <DropdownMenuItem
             className="text-red-500 focus:text-red-500 focus:bg-red-500/10"
             onClick={() => setIsDeleteDialogOpen(true)}
-            disabled={disabled}
+            disabled={link.slug === "github"}
           >
             <Icons.Trash2 className={iconVariants({ className: "mr-2" })} />
             Delete

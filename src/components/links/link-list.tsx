@@ -44,9 +44,7 @@ export const LinkList = async () => {
   return (
     <>
       <div className="flex w-full flex-col gap-2">
-        {defaultAppLink && (
-          <LinkCard link={defaultAppLink} disableOptions hideCreatedAtTime />
-        )}
+        {defaultAppLink && <LinkCard link={defaultAppLink} />}
         {shortLinks.map((link) => (
           <LinkCard key={link.slug} link={link} session={session} />
         ))}

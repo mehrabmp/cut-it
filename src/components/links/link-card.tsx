@@ -17,16 +17,9 @@ import { LinkOptionsDropdown } from "~/components/links/link-options-dropdown";
 type LinkCardProps = {
   link: ShortLink;
   session?: Session | null;
-  disableOptions?: boolean;
-  hideCreatedAtTime?: boolean;
 };
 
-export const LinkCard = ({
-  link,
-  session,
-  disableOptions,
-  hideCreatedAtTime,
-}: LinkCardProps) => {
+export const LinkCard = ({ link, session }: LinkCardProps) => {
   const { slug, url, clicks } = link;
   const decodedURL = decodeURIComponent(url);
   const shortenedURL = `${getBaseUrl()}/${slug}`;
@@ -109,9 +102,8 @@ export const LinkCard = ({
       <LinkOptionsDropdown
         link={{ ...link, url: decodedURL }}
         session={session}
-        disabled={disableOptions}
       />
-      {!hideCreatedAtTime && (
+      {slug !== "github" && (
         <span className="absolute right-3 bottom-3 text-[10px] text-muted-foreground font-medium">
           <Tooltip>
             <TooltipTrigger>

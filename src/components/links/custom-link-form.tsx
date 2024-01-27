@@ -1,5 +1,10 @@
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createShortLink, editShortLink } from "~/server/actions/link";
+import {
+  checkSlug,
+  createShortLink,
+  editShortLink,
+} from "~/server/actions/link";
 import { type ShortLink } from "~/server/db/schema";
 import { type SafeActionError } from "~/types";
 import { useAction } from "next-safe-action/hooks";
@@ -7,8 +12,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
 
-import { setFormErrors } from "~/lib/utils";
+import { nanoid, setFormErrors } from "~/lib/utils";
 import { insertLinkSchema } from "~/lib/validations/link";
+import { useDebounce } from "~/hooks/use-debounce";
 import { Button } from "~/components/ui/button";
 import {
   Form,
@@ -18,7 +24,9 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
+import { Icons, iconVariants } from "~/components/ui/icons";
 import { Input } from "~/components/ui/input";
+import { Loader } from "~/components/ui/loader";
 import { Textarea } from "~/components/ui/textarea";
 
 const formSchema = insertLinkSchema;
@@ -43,6 +51,10 @@ export const CustomLinkForm = ({
   isEditing = false,
   defaultValues,
 }: CustomLinkFormProps) => {
+  const [slug, setSlug] = useState("");
+  const [isSlugExist, setIsSlugExist] = useState(false);
+  const debouncedSlug = useDebounce(slug, 500);
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,12 +83,43 @@ export const CustomLinkForm = ({
     createShortLink,
     { onSuccess: handleSuccess, onError: handleError },
   );
+
   const { execute: editLink, status: editLinkStatus } = useAction(
     editShortLink,
     { onSuccess: handleSuccess, onError: handleError },
   );
 
+  const { execute: checkSlugExists, status: checkSlugExistsStatus } = useAction(
+    checkSlug,
+    {
+      onError: handleError,
+      onSuccess: (slugExist) => {
+        if (slugExist) {
+          setIsSlugExist(true);
+          form.setError("slug", { message: "Slug already exist" });
+        } else {
+          setIsSlugExist(false);
+          form.clearErrors("slug");
+        }
+      },
+    },
+  );
+
+  useEffect(() => {
+    setIsSlugExist(false);
+
+    if (!debouncedSlug) {
+      return form.clearErrors("slug");
+    }
+
+    checkSlugExists({ slug: debouncedSlug });
+  }, [debouncedSlug]);
+
   const onSubmit = (values: FormSchema) => {
+    if (isSlugExist) {
+      return form.setError("slug", { message: "Slug already exist" });
+    }
+
     if (isEditing) {
       editLink({ slug: defaultValues?.slug ?? "", newLink: values });
     } else {
@@ -86,6 +129,7 @@ export const CustomLinkForm = ({
 
   const isExecuting =
     createLinkStatus === "executing" || editLinkStatus === "executing";
+  const isCheckingSlug = checkSlugExistsStatus === "executing";
 
   return (
     <Form {...form}>
@@ -114,9 +158,44 @@ export const CustomLinkForm = ({
           name="slug"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Short Link (optional)</FormLabel>
+              <FormLabel className="flex w-full items-center justify-between">
+                <div>Short Link (optional)</div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="text-muted-foreground hover:text-foreground transition-colors flex items-center text-xs py-0 px-0 hover:bg-background h-auto"
+                  onClick={() => {
+                    const newSlug = nanoid();
+                    form.setValue("slug", newSlug);
+                    setSlug(newSlug);
+                  }}
+                >
+                  <Icons.Shuffle
+                    className={iconVariants({
+                      size: "xs",
+                      className: "mr-1",
+                    })}
+                  />
+                  Randomize
+                </Button>
+              </FormLabel>
               <FormControl>
-                <Input placeholder="github" {...field} />
+                <div className="relative">
+                  <Input
+                    placeholder="github"
+                    className="pe-8"
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setSlug(e.target.value);
+                    }}
+                  />
+                  {isCheckingSlug && (
+                    <div className="absolute end-3 top-1/2 -translate-y-1/2 transform text-muted-foreground">
+                      <Loader />
+                    </div>
+                  )}
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>

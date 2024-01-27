@@ -143,3 +143,10 @@ export const editShortLink = authAction(
     return { message: "Link edited successfully" };
   },
 );
+
+export const checkSlug = authAction(
+  insertLinkSchema.pick({ slug: true }),
+  async ({ slug }) => {
+    return await checkSlugExists(slug);
+  },
+);

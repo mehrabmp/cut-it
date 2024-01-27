@@ -19,6 +19,7 @@ import {
   Scissors,
   Settings,
   Settings2,
+  Shuffle,
   Sun,
   Trash2,
   User,
@@ -89,6 +90,7 @@ const Icons = {
   Image,
   FileImage,
   FileCode2,
+  Shuffle,
 };
 
 const iconVariants = cva("", {

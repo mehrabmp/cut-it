@@ -40,7 +40,7 @@
     "html-escaper": "^3.0.3",
     "lucide-react": "^0.325.0",
     "nanoid": "^5.0.5",
-    "next": "14.1.1-canary.48",
+    "next": "14.1.1-canary.52",
     "next-auth": "^4.24.5",
     "next-safe-action": "^6.1.0",
     "next-themes": "^0.2.1",

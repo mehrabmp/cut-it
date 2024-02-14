@@ -14,7 +14,7 @@
     "db:studio": "dotenv drizzle-kit studio"
   },
   "dependencies": {
-    "@auth/drizzle-adapter": "0.6.3",
+    "@auth/drizzle-adapter": "0.7.0",
     "@hookform/resolvers": "^3.3.4",
     "@libsql/client": "^0.4.3",
     "@paralleldrive/cuid2": "^2.2.2",

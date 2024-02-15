@@ -16,7 +16,7 @@
   "dependencies": {
     "@auth/drizzle-adapter": "0.6.3",
     "@hookform/resolvers": "^3.3.4",
-    "@libsql/client": "^0.4.3",
+    "@libsql/client": "^0.5.0",
     "@paralleldrive/cuid2": "^2.2.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",

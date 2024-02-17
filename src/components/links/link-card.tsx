@@ -43,7 +43,7 @@ export const LinkCard = ({ link, session }: LinkCardProps) => {
           <div className="flex items-center gap-2 pe-8 flex-wrap">
             <a
               href={shortenedURL}
-              className="font-medium w-56 truncate font-mono"
+              className="font-medium w-[168px] truncate font-mono"
               target="_blank"
               rel="noopener noreferrer"
             >

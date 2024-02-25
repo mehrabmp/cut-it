@@ -52,7 +52,7 @@ dependencies:
     version: 1.28.4
   '@vercel/analytics':
     specifier: ^1.1.4
-    version: 1.2.0(next@14.1.1-canary.66)(react@18.2.0)
+    version: 1.2.2(next@14.1.1-canary.66)(react@18.2.0)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -2171,8 +2171,8 @@ packages:
       crypto-js: 4.2.0
     dev: false
 
-  /@vercel/analytics@1.2.0(next@14.1.1-canary.66)(react@18.2.0):
-    resolution: {integrity: sha512-Q9hduY6+i73Is1m57Y3OlawleeYVi4cvuh/0j6IwmSndMOE4+BKkMwjnwz+7xnqfZCanipIG6+q+zHalH9X0Zg==}
+  /@vercel/analytics@1.2.2(next@14.1.1-canary.66)(react@18.2.0):
+    resolution: {integrity: sha512-X0rctVWkQV1e5Y300ehVNqpOfSOufo7ieA5PIdna8yX/U7Vjz0GFsGf4qvAhxV02uQ2CVt7GYcrFfddXXK2Y4A==}
     peerDependencies:
       next: '>= 13'
       react: ^18 || ^19

@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@auth/drizzle-adapter':
-    specifier: 0.7.0
-    version: 0.7.0
+    specifier: 0.8.0
+    version: 0.8.0
   '@hookform/resolvers':
     specifier: ^3.3.4
     version: 3.3.4(react-hook-form@7.50.1)
@@ -197,8 +197,8 @@ packages:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.22
 
-  /@auth/core@0.27.0:
-    resolution: {integrity: sha512-3bydnRJIM/Al6mkYmb53MsC+6G8ojw3lLPzwgVnX4dCo6N2lrib6Wq6r0vxZIhuHGjLObqqtUfpeaEj5aeTHFg==}
+  /@auth/core@0.28.0:
+    resolution: {integrity: sha512-/fh/tb/L4NMSYcyPoo4Imn8vN6MskcVfgESF8/ndgtI4fhD/7u7i5fTVzWgNRZ4ebIEGHNDbWFRxaTu1NtQgvA==}
     peerDependencies:
       '@simplewebauthn/browser': ^9.0.1
       '@simplewebauthn/server': ^9.0.2
@@ -220,10 +220,10 @@ packages:
       preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
 
-  /@auth/drizzle-adapter@0.7.0:
-    resolution: {integrity: sha512-p/8cjrREiPPns78CT/a7VGl2TD78BNXtJ9TAXrw80bUInHd2xkEtk4CzXajWS/5r7qXE9n3r4BV9sISrf6Yqnw==}
+  /@auth/drizzle-adapter@0.8.0:
+    resolution: {integrity: sha512-cwLMOJHf+R8VeHYFzdA5DReKelidWSx8bz9kJ6hydPjUugHate2F7u9XHoCOu7zXIA5azSPb3b2WR9C0Fjq7eA==}
     dependencies:
-      '@auth/core': 0.27.0
+      '@auth/core': 0.28.0
     transitivePeerDependencies:
       - '@simplewebauthn/browser'
       - '@simplewebauthn/server'

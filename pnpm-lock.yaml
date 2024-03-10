@@ -67,10 +67,10 @@ dependencies:
     version: 16.4.5
   drizzle-orm:
     specifier: ^0.30.0
-    version: 0.30.0(@libsql/client@0.5.3)(@types/react@18.2.64)(react@18.2.0)
+    version: 0.30.1(@libsql/client@0.5.3)(@types/react@18.2.64)(react@18.2.0)
   drizzle-zod:
     specifier: ^0.5.1
-    version: 0.5.1(drizzle-orm@0.30.0)(zod@3.22.4)
+    version: 0.5.1(drizzle-orm@0.30.1)(zod@3.22.4)
   geist:
     specifier: ^1.2.2
     version: 1.2.2(next@14.2.0-canary.12)
@@ -2615,13 +2615,14 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.30.0(@libsql/client@0.5.3)(@types/react@18.2.64)(react@18.2.0):
-    resolution: {integrity: sha512-SupNouCdvosjzQpLinqnyIu7bBfsUKiaWXfUZ0IyDtwK8rWa2zQ4AOWCda86VJVxgb8xZ1l8vKvlLHyTBalB/g==}
+  /drizzle-orm@0.30.1(@libsql/client@0.5.3)(@types/react@18.2.64)(react@18.2.0):
+    resolution: {integrity: sha512-5P6CXl4XyWtDDiYOX/jYOJp1HTUmBlXRAwaq+muUOgaSykMEy5sJesCxceMT0oCGvxeWkKfSXo5owLnfKwCIdw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
       '@libsql/client': '*'
       '@neondatabase/serverless': '>=0.1'
+      '@op-engineering/op-sqlite': '>=2'
       '@opentelemetry/api': ^1.4.1
       '@planetscale/database': '>=1'
       '@types/better-sqlite3': '*'
@@ -2648,6 +2649,8 @@ packages:
       '@libsql/client':
         optional: true
       '@neondatabase/serverless':
+        optional: true
+      '@op-engineering/op-sqlite':
         optional: true
       '@opentelemetry/api':
         optional: true
@@ -2691,13 +2694,13 @@ packages:
       react: 18.2.0
     dev: false
 
-  /drizzle-zod@0.5.1(drizzle-orm@0.30.0)(zod@3.22.4):
+  /drizzle-zod@0.5.1(drizzle-orm@0.30.1)(zod@3.22.4):
     resolution: {integrity: sha512-C/8bvzUH/zSnVfwdSibOgFjLhtDtbKYmkbPbUCq46QZyZCH6kODIMSOgZ8R7rVjoI+tCj3k06MRJMDqsIeoS4A==}
     peerDependencies:
       drizzle-orm: '>=0.23.13'
       zod: '*'
     dependencies:
-      drizzle-orm: 0.30.0(@libsql/client@0.5.3)(@types/react@18.2.64)(react@18.2.0)
+      drizzle-orm: 0.30.1(@libsql/client@0.5.3)(@types/react@18.2.64)(react@18.2.0)
       zod: 3.22.4
     dev: false
 

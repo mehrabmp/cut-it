@@ -61,7 +61,7 @@ dependencies:
     version: 2.1.0
   date-fns:
     specifier: ^3.3.1
-    version: 3.3.1
+    version: 3.4.0
   dotenv:
     specifier: ^16.4.5
     version: 16.4.5
@@ -2508,8 +2508,8 @@ packages:
     engines: {node: '>= 12'}
     dev: false
 
-  /date-fns@3.3.1:
-    resolution: {integrity: sha512-y8e109LYGgoQDveiEBD3DYXKba1jWf5BA8YU1FL5Tvm0BTdEfy54WLCwnuYWZNnzzvALy/QQ4Hov+Q9RVRv+Zw==}
+  /date-fns@3.4.0:
+    resolution: {integrity: sha512-Akz4R8J9MXBsOgF1QeWeCsbv6pntT5KCPjU0Q9prBxVmWJYPLhwAIsNg3b0QAdr0ttiozYLD3L/af7Ra0jqYXw==}
     dev: false
 
   /debug@4.3.4:

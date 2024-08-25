@@ -38,7 +38,7 @@
     "drizzle-zod": "^0.5.1",
     "geist": "^1.2.2",
     "html-escaper": "^3.0.3",
-    "lucide-react": "^0.350.0",
+    "lucide-react": "^0.436.0",
     "nanoid": "^5.0.6",
     "next": "14.2.0-canary.12",
     "next-auth": "^4.24.7",

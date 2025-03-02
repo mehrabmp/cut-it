@@ -22,7 +22,7 @@ This project inspired by [Dub](https://dub.co).
 - **Authentication**: [NextAuth.js](https://next-auth.js.org/)
 - **Redis**: [Upstash](https://upstash.com/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
-- **UI Components**: [Shadcn-ui](https://tailwindcss.com/)
+- **UI Components**: [Shadcn-ui](https://ui.shadcn.com/)
 - **Deployment**: [Vercel](https://vercel.com)
 
 ## Running Locally

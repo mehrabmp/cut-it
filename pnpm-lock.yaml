@@ -153,7 +153,7 @@ devDependencies:
     version: 10.4.18(postcss@8.4.35)
   dotenv-cli:
     specifier: ^7.4.0
-    version: 7.4.0
+    version: 7.4.4
   drizzle-kit:
     specifier: ^0.20.14
     version: 0.20.14
@@ -2484,6 +2484,15 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
 
+  /cross-spawn@7.0.6:
+    resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
+    engines: {node: '>= 8'}
+    dependencies:
+      path-key: 3.1.1
+      shebang-command: 2.0.0
+      which: 2.0.2
+    dev: true
+
   /crypto-js@4.2.0:
     resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
@@ -2567,11 +2576,11 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /dotenv-cli@7.4.0:
-    resolution: {integrity: sha512-fZGFOGCC5rEz1OJ0Pp+1LN8y78ClMcyXDmBEmjvJwqCqZVsPHcQ85bLCh5hZ4Bqotw4dptXOLvvw0vxm2MD30g==}
+  /dotenv-cli@7.4.4:
+    resolution: {integrity: sha512-XkBYCG0tPIes+YZr4SpfFv76SQrV/LeCE8CI7JSEMi3VR9MvTihCGTOtbIexD6i2mXF+6px7trb1imVCXSNMDw==}
     hasBin: true
     dependencies:
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       dotenv: 16.4.5
       dotenv-expand: 10.0.0
       minimist: 1.2.8
